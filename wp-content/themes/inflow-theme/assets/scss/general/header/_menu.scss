@@ -1,5 +1,6 @@
 
-.logo-menu-wrapper{
+
+.logo-menu-wrapper {
 	@include max-mq($sm) {
 		padding: 10px 15px;
 	}
@@ -84,15 +85,32 @@
 					@include min-mq($lg) {
 						display: inline-block;
 					}
-
 					@include max-mq($responsive-toggle-breakpoint) {
 						border-bottom: 1px solid $gray;
 						&:after{
 							content: none;
 						}
 					}
-					&.current-menu-item, &.current_page_parent{
-						color: $primary-color;
+					&.current-menu-item, 
+					&.current_page_parent {
+						> a {
+							color: $secondary-color;
+						}
+					}
+
+					&:last-of-type {
+						> a {
+							border: 2px solid $primary-color;
+							border-radius: 30px;
+							font-weight: $font-weight-sb;
+							font-size: $font-size-small;
+							text-transform: none;
+							@include transition-all;
+							&:hover {
+								background-color: $primary-color;
+								color: $white;
+							}
+						}
 					}
 
 					&:hover{
@@ -103,12 +121,16 @@
 						padding: 10px 20px;
 						display: block;
 						position: relative;
-						color: inherit;
+						color: $primary-color;
 						width: 100%;
-
+						font-weight: $font-weight-m;
+						text-decoration: none;
+						text-transform: uppercase;
 						@include max-mq($mac) {
-							padding: 15px;
-							// font-size: $font-size-small;
+							padding: 10px 15px;
+						}
+						&:hover {
+							color: $secondary-color;
 						}
 					}
 

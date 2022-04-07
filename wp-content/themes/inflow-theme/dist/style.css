@@ -3219,6 +3219,49 @@ h6 {
   content: "";
 }
 
+.site-header {
+  background-color: #ffffff;
+  left: 0;
+  padding-bottom: 25px;
+  padding-top: 25px;
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 100%;
+  z-index: 999;
+  -webkit-transition: all 0.5s ease 0s;
+  -o-transition: all 0.5s ease 0s;
+  transition: all 0.5s ease 0s;
+}
+
+.logged-in .site-header {
+  top: 32px;
+}
+
+.site-header.fixed-site-header {
+  padding-bottom: 7px;
+  padding-top: 7px;
+}
+
+.site-branding-main-logo a {
+  display: block;
+  max-width: 350px;
+  width: 100%;
+  -webkit-transition: all 0.5s ease 0s;
+  -o-transition: all 0.5s ease 0s;
+  transition: all 0.5s ease 0s;
+}
+
+.fixed-site-header .site-branding-main-logo a {
+  max-width: 290px;
+  width: 100%;
+}
+
+.site-branding-main-logo a:hover svg {
+  display: block;
+  width: 100%;
+}
+
 .site-branding-main-logo a:hover svg path {
   fill: #FFB958 !important;
 }
@@ -3352,8 +3395,24 @@ h6 {
   }
 }
 
-.logo-menu-wrapper .main-navigation .main-menu-container ul li.current-menu-item, .logo-menu-wrapper .main-navigation .main-menu-container ul li.current_page_parent {
-  color: #262727;
+.logo-menu-wrapper .main-navigation .main-menu-container ul li.current-menu-item > a, .logo-menu-wrapper .main-navigation .main-menu-container ul li.current_page_parent > a {
+  color: #FFB958;
+}
+
+.logo-menu-wrapper .main-navigation .main-menu-container ul li:last-of-type > a {
+  border: 2px solid #262727;
+  border-radius: 30px;
+  font-weight: 600;
+  font-size: 0.9em;
+  text-transform: none;
+  -webkit-transition: all 0.5s ease 0s;
+  -o-transition: all 0.5s ease 0s;
+  transition: all 0.5s ease 0s;
+}
+
+.logo-menu-wrapper .main-navigation .main-menu-container ul li:last-of-type > a:hover {
+  background-color: #262727;
+  color: #ffffff;
 }
 
 .logo-menu-wrapper .main-navigation .main-menu-container ul li:hover {
@@ -3364,14 +3423,21 @@ h6 {
   padding: 10px 20px;
   display: block;
   position: relative;
-  color: inherit;
+  color: #262727;
   width: 100%;
+  font-weight: 500;
+  text-decoration: none;
+  text-transform: uppercase;
 }
 
 @media (max-width: 1440px) {
   .logo-menu-wrapper .main-navigation .main-menu-container ul li a {
-    padding: 15px;
+    padding: 10px 15px;
   }
+}
+
+.logo-menu-wrapper .main-navigation .main-menu-container ul li a:hover {
+  color: #FFB958;
 }
 
 @media (max-width: 1199px) {
@@ -3532,6 +3598,20 @@ h6 {
   -webkit-transform: rotate(45deg);
       -ms-transform: rotate(45deg);
           transform: rotate(45deg);
+}
+
+.relative {
+  position: relative;
+}
+
+.section-background-image {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  height: 100%;
+  right: 0;
+  width: 100%;
 }
 
 .button {

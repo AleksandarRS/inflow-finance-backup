@@ -1,7 +1,39 @@
+.site-header {
+    background-color: $white;
+    left: 0;
+    padding-bottom: 25px;
+    padding-top: 25px;
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 100%;
+    z-index: 999;
+    @include transition-all;
+    .logged-in & {
+        top: 32px;
+    }
+    &.fixed-site-header {
+        padding-bottom: 7px;
+        padding-top: 7px;
+    }
+    
+}
+
+
 .site-branding-main-logo {
     a {
+        display: block;
+        max-width: 350px;
+        width: 100%;
+        @include transition-all;
+        .fixed-site-header & {
+            max-width: 290px;
+            width: 100%;
+        }
         &:hover {
             svg {
+                display: block;
+                width: 100%;
                 path {
                     fill: $secondary-color !important;
                 }
@@ -15,3 +47,4 @@
         }
     }
 }
+

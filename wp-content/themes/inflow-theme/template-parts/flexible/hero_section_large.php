@@ -9,7 +9,9 @@ $section_main_image = get_sub_field('section_main_image');
 ?>
 <section class="hero-section hero-section-large">
     <div class="hero-section-wrapper">
-    <div class="hero-section-background-image" style="background-image: url(<?php echo esc_url($section_background_image['url']); ?>);" role="img" aria-label="<?php echo esc_attr($section_background_image['alt']); ?>"></div>
+        <?php  if ( $section_background_image ) : ?>
+            <div class="hero-section-background-image" style="background-image: url(<?php echo esc_url($section_background_image['url']); ?>);" role="img" aria-label="<?php echo esc_attr($section_background_image['alt']); ?>"></div>
+        <?php endif; ?>
         <div class="container-fluid">
             <div class="row hero-row">
                 <div class="hero-text-description-content col-md-6">
@@ -54,36 +56,3 @@ $section_main_image = get_sub_field('section_main_image');
         </div>
     </div>
 </section>
-
-<h1>ssss</h1>
-<h1>ssss</h1>
-<h1>ssss</h1>
-<h1>ssss</h1>
-<h1>ssss</h1>
-<h1>ssss</h1>
-<h1>ssss</h1>
-<h1>ssss</h1>
-<h1>ssss</h1>
-<h1>ssss</h1>
-<h1>ssss</h1>
-<h1>ssss</h1>
-<h1>ssss</h1>
-<h1>ssss</h1>
-<h1>ssss</h1>
-<h1>ssss</h1>
-<h1>ssss</h1>
-<h1>ssss</h1>
-<h1>ssss</h1>
-<h1>ssss</h1>
-<h1>ssss</h1>
-<h1>ssss</h1>
-<h1>ssss</h1>
-<h1>ssss</h1>
-<h1>ssss</h1>
-<h1>ssss</h1>
-<h1>ssss</h1>
-<h1>ssss</h1>
-<h1>ssss</h1>
-<h1>ssss</h1>
-<h1>ssss</h1>
-<h1>ssss</h1>
