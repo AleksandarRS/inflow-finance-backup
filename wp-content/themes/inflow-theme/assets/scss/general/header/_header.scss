@@ -1,0 +1,17 @@
+.site-branding-main-logo {
+    a {
+        &:hover {
+            svg {
+                path {
+                    fill: $secondary-color !important;
+                }
+            }
+        }
+        
+    }
+    svg {
+        path {
+            @include transition-all;
+        }
+    }
+}

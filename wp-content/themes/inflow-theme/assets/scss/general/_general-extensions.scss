@@ -1,0 +1,68 @@
+%left-calc {
+    padding-left: calc(50vw - ( #{$container-width} / 2 ) + 10px);
+    width: 100%;
+    @include max-mq ($ls + 10) {
+        padding-left: 15px;
+    }
+}
+
+%left-calc-wide {
+    padding-left: calc(50vw - ( #{$container-width-wide} / 2 ) + 10px);
+    width: 100%;
+    @include max-mq ($ls + 10) {
+        padding-left: 15px;
+    }
+}
+
+%right-calc {
+    padding-right: calc(50vw - ( #{$container-width} / 2 ) + 5px);
+    width: 100%;
+    @include max-mq ($ls + 10) {
+        padding-right: 15px;
+    }
+}
+
+%absolute-full {
+    bottom: 0;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 100%;
+    z-index: 0;
+}
+
+%after-full {
+    background-color: red;
+    bottom: 0;
+    content: '';
+    height: 100%;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 100%;
+    z-index: 0;
+}
+
+// %left-calc-absolute {
+//     left: calc(50vw - ( #{$container-wide-width} / 2 ) + 30px);
+//     @include max-mq ($llt - 100) {
+//         left: 15px;
+//     }
+//     @include max-mq ($mb_l) {
+//         left: 0;
+//     }
+// }
+
+// %right-calc-absolute {
+//     right: calc(50vw - ( #{$container-wide-width} / 2 ) + 30px);
+//     @include max-mq ($llt - 100) {
+//         right: 15px;
+//     }
+//     @include max-mq ($mb_l) {
+//         right: 0;
+//     }
+// }
+

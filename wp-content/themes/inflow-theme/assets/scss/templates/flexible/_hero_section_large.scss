@@ -1,0 +1,15 @@
+.hero-section {
+    position: relative;
+    .hero-section-background-image {
+        @extend %absolute-full;
+    }
+    .hero-section-wrapper {
+        > div:not(.hero-section-background-image) {
+            position: relative;
+            z-index: 1;
+        }
+    }
+    .hero-row {
+        align-items: center;
+    }
+}
