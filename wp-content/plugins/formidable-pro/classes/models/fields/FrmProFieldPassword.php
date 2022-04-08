@@ -1,5 +1,9 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	die( 'You are not allowed to call this page directly.' );
+}
+
 /**
  * @since 3.0
  */
@@ -20,6 +24,7 @@ class FrmProFieldPassword extends FrmFieldType {
 			'invalid'       => true,
 			'read_only'     => true,
 			'conf_field'    => true,
+			'prefix'        => true,
 		);
 
 		FrmProFieldsHelper::fill_default_field_display( $settings );
@@ -36,14 +41,49 @@ class FrmProFieldPassword extends FrmFieldType {
 		);
 	}
 
+	/**
+	 * @since 4.05
+	 */
+	protected function builder_text_field( $name = '' ) {
+		$html  = FrmProFieldsHelper::builder_page_prepend( $this->field );
+		$field = parent::builder_text_field( $name );
+		return str_replace( '[input]', $field, $html );
+	}
+
+	/**
+	 * @since 3.06.01
+	 */
+	public function translatable_strings() {
+		$strings   = parent::translatable_strings();
+		$strings[] = 'conf_desc';
+		$strings[] = 'conf_msg';
+		return $strings;
+	}
+
 	protected function html5_input_type() {
 		return 'password';
 	}
 
-	public function show_options( $field, $display, $values ) {
+	/**
+	 * @since 4.0
+	 * @param array $args - Includes 'field', 'display', and 'values'.
+	 */
+	public function show_primary_options( $args ) {
+		$field = $args['field'];
 		include( FrmProAppHelper::plugin_path() . '/classes/views/frmpro-fields/back-end/password-options.php' );
 
-		parent::show_options( $field, $display, $values );
+		include( FrmProAppHelper::plugin_path() . '/classes/views/frmpro-fields/back-end/confirmation.php' );
+
+		parent::show_primary_options( $args );
+	}
+
+	/**
+	 * @since 4.0
+	 * @param array $args - Includes 'field', 'display'.
+	 */
+	public function show_after_default( $args ) {
+		$field = $args['field'];
+		include( FrmProAppHelper::plugin_path() . '/classes/views/frmpro-fields/back-end/confirmation-placeholder.php' );
 	}
 
 	/**
@@ -89,14 +129,11 @@ class FrmProFieldPassword extends FrmFieldType {
 		return $errors;
 	}
 
-	function front_field_input( $args, $shortcode_atts ) {
-		$input_html = parent::front_field_input( $args, $shortcode_atts );
-
+	public function front_field_input( $args, $shortcode_atts ) {
+		$input_html            = parent::front_field_input( $args, $shortcode_atts );
 		$strength_meter_option = FrmField::get_option( $this->field, 'strength_meter' );
 
-		$parent_form = isset( $args['parent_form_id'] ) ? $args['parent_form_id'] : 0;
-
-		if ( ! $strength_meter_option || ! empty( $parent_form ) ) {
+		if ( ! $strength_meter_option ) {
 			return $input_html;
 		}
 
@@ -135,10 +172,11 @@ class FrmProFieldPassword extends FrmFieldType {
 
 	/**
 	 * @since 3.03
+	 * @since 5.2.04 This method is public.
 	 *
 	 * @return array
 	 */
-	private function password_checks() {
+	public function password_checks() {
 		$checks = array(
 			'eight-char'   => array(
 				'label'    => __( 'Eight characters minimum', 'formidable-pro' ),
@@ -170,16 +208,21 @@ class FrmProFieldPassword extends FrmFieldType {
 		/**
 		 * @since 3.03
 		 */
-		return apply_filters( 'frm_password_checks', $checks, array(
-			'field' => $this->field,
-		) );
+		return apply_filters(
+			'frm_password_checks',
+			$checks,
+			array(
+				'field' => $this->field,
+			)
+		);
 	}
 
 	/**
 	 * @since 3.03
+	 * @since 5.2.04 This method is public.
 	 * @return boolean
 	 */
-	private function check_regex( $regex, $password ) {
+	public function check_regex( $regex, $password ) {
 		return preg_match( $regex, $password );
 	}
 }

@@ -1,3 +1,8 @@
+<?php
+if ( ! defined( 'ABSPATH' ) ) {
+	die( 'You are not allowed to call this page directly.' );
+}
+?>
 <div class="frm-star-group">
 <?php
 
@@ -10,7 +15,7 @@ for ( $i = 1; $i <= $max; $i++ ) {
 		$class .= ' frm_half_star';
 	}
 
-	?><i class="<?php echo esc_attr( $class ) ?>"></i><?php
+	?><i class="<?php echo esc_attr( $class ); ?>"></i><?php
 }
 ?>
 </div>

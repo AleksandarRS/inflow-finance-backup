@@ -14,6 +14,13 @@ $section_main_image = get_sub_field('section_main_image');
         <?php endif; ?>
         <div class="container-fluid">
             <div class="row hero-row">
+                <div class="hero-image-content col-md-6">
+                    <?php  if ( $section_main_image ) : ?>
+                        <div class="hero-image-wrap">
+                            <img src="<?php echo esc_url($section_main_image['url']); ?>" alt="<?php echo esc_attr($section_main_image['alt']); ?>">
+                        </div>
+                    <?php endif; ?>
+                </div>
                 <div class="hero-text-description-content col-md-6">
                     <div class="hero-text-description-content-inner left-calc-wide">
                         <header class="entry-header main-header">
@@ -45,13 +52,7 @@ $section_main_image = get_sub_field('section_main_image');
                         
                     </div>
                 </div>
-                <div class="hero-image-content col-md-6">
-                    <?php  if ( $section_main_image ) : ?>
-                        <div class="hero-image-wrap">
-                            <img src="<?php echo esc_url($section_main_image['url']); ?>" alt="<?php echo esc_attr($section_main_image['alt']); ?>">
-                        </div>
-                    <?php endif; ?>
-                </div>
+                
             </div>
         </div>
     </div>

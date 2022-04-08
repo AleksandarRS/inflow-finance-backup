@@ -1,8 +1,8 @@
 .site-header {
     background-color: $white;
     left: 0;
-    padding-bottom: 25px;
-    padding-top: 25px;
+    padding-bottom: 40px;
+    padding-top: 40px;
     position: fixed;
     right: 0;
     top: 0;
@@ -32,8 +32,6 @@
         }
         &:hover {
             svg {
-                display: block;
-                width: 100%;
                 path {
                     fill: $secondary-color !important;
                 }
@@ -42,6 +40,8 @@
         
     }
     svg {
+        display: block;
+        width: 100%;
         path {
             @include transition-all;
         }

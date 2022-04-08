@@ -1,5 +1,9 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	die( 'You are not allowed to call this page directly.' );
+}
+
 /**
  * @since 2.03.05
  */
@@ -18,7 +22,7 @@ class FrmProFieldUserIDValueSelector extends FrmProFieldValueSelector {
 		echo '<select name="' . esc_attr( $this->html_name ) . '">';
 		echo '<option value=""></option>';
 		echo '<option value="current_user" ' . selected( $this->value, 'current_user', false ) . '>';
-		echo __( 'Current User', 'formidable-pro' );
+		echo esc_html__( 'Current User', 'formidable-pro' );
 		echo '</option>';
 
 		if ( $this->has_options() ) {

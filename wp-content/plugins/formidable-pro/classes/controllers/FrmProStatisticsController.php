@@ -1,5 +1,9 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	die( 'You are not allowed to call this page directly.' );
+}
+
 class FrmProStatisticsController {
 
 	/**
@@ -52,7 +56,7 @@ class FrmProStatisticsController {
 		$cleaned_values = array();
 
 		foreach ( $field_values as $k => $i ) {
-			$i = maybe_unserialize( $i );
+			FrmProAppHelper::unserialize_or_decode( $i );
 
 			if ( ! is_array( $i ) ) {
 				$cleaned_values[] = $i;
@@ -288,7 +292,7 @@ class FrmProStatisticsController {
 	 *
 	 * @since 2.02.06
 	 * @param object $field
-	 * @param int $stat
+	 * @param int    $value
 	 * @return string
 	 */
 	private static function get_stars( $field, $value ) {
@@ -330,7 +334,7 @@ class FrmProStatisticsController {
 				$mean = ( $total / $count );
 				$stat = 0.0;
 				foreach ( $meta_values as $i ) {
-					$stat += pow( $i - $mean, 2 );
+					$stat += pow( floatval( $i ) - $mean, 2 );
 				}
 
 				if ( $count > 1 ) {
@@ -359,6 +363,18 @@ class FrmProStatisticsController {
 				$stat = $total;
 		}
 
+		$atts['meta_values'] = $meta_values;
+
+		/**
+		 * Allows changing stat value from meta values.
+		 *
+		 * @since 5.0
+		 *
+		 * @param float $stat Stat value.
+		 * @param array $atts Processed shortcode attributes. `meta_values` is added.
+		 */
+		$stat = apply_filters( 'frm_pro_stat_from_meta_values', $stat, $atts );
+
 		return self::get_formatted_statistic( $atts, $stat );
 	}
 
@@ -373,7 +389,18 @@ class FrmProStatisticsController {
 	 */
 	public static function calculate_median( $meta_values ) {
 		$count = count( $meta_values );
-		rsort( $meta_values );
+		usort(
+			$meta_values,
+			function( $a, $b ) {
+				if ( ! is_numeric( $a ) ) {
+					$a = 0;
+				}
+				if ( ! is_numeric( $b ) ) {
+					$b = 0;
+				}
+				return strnatcmp( $b, $a );
+			}
+		);
 
 		$middle_index = (int) floor( $count / 2 );
 
@@ -384,7 +411,7 @@ class FrmProStatisticsController {
 			// Even number of values, calculate avg of 2 medians
 			$low_middle  = $meta_values[ $middle_index - 1 ];
 			$high_middle = $meta_values[ $middle_index ];
-			$median      = (float) ( $low_middle + $high_middle ) / 2;
+			$median      = ( (float) $low_middle + (float) $high_middle ) / 2;
 		}
 
 		return $median;
@@ -404,7 +431,11 @@ class FrmProStatisticsController {
 			$thousands_sep = isset( $atts['thousands_sep'] ) ? $atts['thousands_sep'] : ',';
 			$statistic = number_format( $stat, $atts['decimal'], $dec_point, $thousands_sep );
 		} else {
-			$statistic = round( $stat, $atts['decimal'] );
+			if ( is_numeric( $stat ) ) {
+				$statistic = round( $stat, $atts['decimal'] );
+			} else {
+				$statistic = $stat;
+			}
 		}
 
 		return $statistic;
@@ -734,7 +765,7 @@ class FrmProStatisticsController {
 
 		if ( in_array( $filter_args['field'], array( 'created_at', 'updated_at' ) ) ) {
 			$filter_args['value'] = str_replace( array( '"', "'" ), '', $filter_args['value'] );
-			$filter_args['value'] = date( 'Y-m-d H:i:s', strtotime( $filter_args['value'] ) );
+			$filter_args['value'] = gmdate( 'Y-m-d H:i:s', strtotime( $filter_args['value'] ) );
 			$filter_args['value'] = get_gmt_from_date( $filter_args['value'] );
 		} else {
 			$filter_args['value'] = trim( trim( $filter_args['value'], "'" ), '"' );
@@ -880,6 +911,6 @@ class FrmProStatisticsController {
 			self::flatten_multi_dimensional_arrays_for_stats( $field, false, $field_values );
 		}
 
-		$field_values = stripslashes_deep( $field_values );
+		$field_values = wp_unslash( $field_values );
 	}
 }

@@ -1,27 +1,34 @@
 
-input[type='text'],
-input[type='email'],
-input[type='url'],
-input[type='password'],
-input[type='search'],
-input[type='number'],
-input[type='tel'],
-input[type='range'],
-input[type='date'],
-input[type='month'],
-input[type='week'],
-input[type='time'],
-input[type='datetime'],
-input[type='datetime-local'],
-input[type='color'],
-textarea {
-  border: 1px solid;
-  border-radius: 0;
-  font-size: $font-size-base;
-  line-height: 1em;
-  padding: 10px;
-  vertical-align: middle;
+.hfeed.site {
+  input[type='text'],
+  input[type='email'],
+  input[type='url'],
+  input[type='password'],
+  input[type='search'],
+  input[type='number'],
+  input[type='tel'],
+  input[type='range'],
+  input[type='date'],
+  input[type='month'],
+  input[type='week'],
+  input[type='time'],
+  input[type='datetime'],
+  input[type='datetime-local'],
+  input[type='color'],
+  textarea {
+    border: 1px solid $gray-300;
+    border-radius: 30px;
+    font-size: $font-size-base;
+    line-height: 1em;
+    padding: 10px 15px;
+    vertical-align: middle;
+    height: auto;
+  }
+  textarea {
+    height: 272px;
+  }
 }
+
 
 textarea {
   resize: none;
@@ -35,7 +42,7 @@ input[type='reset'],
 input[type='submit'] {
   border: 1px solid;
   border-radius: 0;
-  font-family: $secondary-font;
+  font-family: $primary-font !important;
   font-size: $font-size-base;
   line-height: 1.15em;
   padding: 10px;
@@ -46,24 +53,38 @@ input[type='submit'] {
 /*---- Placeholder ----*/
 ::-webkit-input-placeholder {
   opacity: 1;
+  color: $gray-300 !important;
+  font-family: $primary-font !important;
 }
 \:-moz-placeholder {
   opacity: 1;
+  color: $gray-300 !important;
+  font-family: $primary-font !important;
 }
 ::-moz-placeholder {
   opacity: 1;
+  color: $gray-300 !important;
+  font-family: $primary-font !important;
 }
 \:-ms-input-placeholder {
   opacity: 1;
+  color: $gray-300 !important;
+  font-family: $primary-font !important;
 }
 *::-webkit-input-placeholder {
   opacity: 1;
+  color: $gray-300 !important;
+  font-family: $primary-font !important;
 }
 *:-moz-placeholder {
   opacity: 1;
+  color: $gray-300 !important;
+  font-family: $primary-font !important;
 }
 *:-ms-input-placeholder {
   opacity: 1;
+  color: $gray-300 !important;
+  font-family: $primary-font !important;
 }
 
 fieldset {

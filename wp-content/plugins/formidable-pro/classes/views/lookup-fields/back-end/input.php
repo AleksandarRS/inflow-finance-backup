@@ -1,13 +1,28 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) {
+	die( 'You are not allowed to call this page directly.' );
+}
+
+if ( empty( $field['get_values_field'] ) ) {
+	?>
+	<span class="frm-with-left-icon frm-not-set" id="setup-message-<?php echo esc_attr( $field['id'] ); ?>">
+		<?php FrmProAppHelper::icon_by_class( 'frmfont frm_report_problem_solid_icon' ); ?>
+		<input type="text" value="<?php esc_attr_e( 'This field is not set up yet.', 'formidable-pro' ); ?>" disabled />
+	</span>
+	<input type="hidden" name="<?php echo esc_attr( $field_name ); ?>" value="" />
+	<?php
+	return;
+}
 
 // Lookup Field Dropdown
 if ( 'select' == $field['data_type'] ) {
 ?>
-<select name="<?php echo esc_attr( $field_name ) ?>" id="<?php echo esc_attr( $html_id ) ?>" >
+<select name="<?php echo esc_attr( $field_name ); ?>" id="<?php echo esc_attr( $html_id ); ?>"
+	<?php echo FrmField::is_multiple_select( $field ) ? 'multiple="multiple" ' : ''; ?>>
 <?php
 	foreach ( $field['options'] as $opt ) {
-		$opt_value = ( $opt == $field['lookup_placeholder_text'] ) ? '' : $opt;
-		$selected = ( in_array( $opt_value, $saved_value_array ) ) ? ' selected="selected"' : '';
+		$opt_value = ( $opt == $field['placeholder'] ) ? '' : $opt;
+		$selected = ( in_array( $opt_value, $saved_value_array ) && $opt_value !== '' ) ? ' selected="selected"' : '';
 ?><option value="<?php echo esc_attr( $opt_value ); ?>"<?php echo $selected; ?>><?php
 	echo ( $opt == '' ) ? ' ' : esc_html( $opt );
 ?></option>
@@ -15,10 +30,6 @@ if ( 'select' == $field['data_type'] ) {
 	}
 ?>
 </select>
-<span id="frm_clear_on_focus_<?php echo esc_attr( $field['id'] ) ?>" class="frm_clear_on_focus frm-show-click">
-<?php FrmFieldsHelper::show_default_blank_js( $field['default_blank'] ); ?>
-<input type="hidden" name="field_options[default_blank_<?php echo esc_attr( $field['id'] ) ?>]" value="<?php echo esc_attr( $field['default_blank'] ) ?>" />
-</span>
 
 <?php
 
@@ -26,9 +37,17 @@ if ( 'select' == $field['data_type'] ) {
 	// Checkbox and Radio Lookup Fields
 
 	if ( empty( $field['options'] ) ) {
-		?><span><?php _e( 'No options found', 'formidable-pro' ); ?></span><?php
+		?>
+		<span id="setup-message-<?php echo esc_attr( $field['id'] ); ?>">
+			<input type="text" value="<?php esc_attr_e( 'No options found', 'formidable-pro' ); ?>" disabled />
+		</span>
+		<?php
 	} else if ( count( $field['options'] ) == 1 && reset( $field['options'] ) == '' ) {
-		?><span><?php _e( 'Options will populate dynamically in form', 'formidable-pro' ); ?></span><?php
+		?>
+		<span id="setup-message-<?php echo esc_attr( $field['id'] ); ?>">
+			<input type="text" value="<?php esc_attr_e( 'This field content is dynamic', 'formidable-pro' ); ?>" disabled />
+		</span>
+		<?php
 	} else {
 		?>
 		<ul id="frm_field_<?php echo esc_attr( $field['id'] ); ?>_opts"
@@ -41,7 +60,7 @@ if ( 'select' == $field['data_type'] ) {
 			<input type="<?php echo esc_attr( $field['data_type'] ); ?>" name="<?php echo esc_attr( $field_name ) ?>"
 				   value="<?php echo esc_attr( $opt_value ) ?>"<?php echo $checked ?>/>
 			<label class="frm_ipe_field_option field_<?php echo esc_attr( $field['id'] ) ?>_option"
-				   id="<?php echo esc_attr( $html_id . '-' . $opt_key ) ?>"><?php echo esc_attr( $opt_value ) ?></label>
+				   id="<?php echo esc_attr( $html_id . '-' . $opt_key ) ?>"><?php echo FrmAppHelper::kses( $opt_value, 'all' ); // WPCS: XSS ok. ?></label>
 			</li><?php
 		}
 		unset( $opt_key, $checked, $opt_value );
@@ -52,5 +71,10 @@ if ( 'select' == $field['data_type'] ) {
 	// Text Lookup Field
 
 	?><input type="text" id="<?php echo esc_attr( $html_id ) ?>" name="<?php echo esc_attr( $field_name ) ?>" value="<?php echo esc_attr( $field['default_value'] ) ?>"<?php echo $width_string ?> class="dyn_default_value" /><?php
-	FrmFieldsHelper::clear_on_focus_html( $field, $display );
+} elseif ( 'data' === $field['data_type'] ) {
+	?>
+	<span id="setup-message-<?php echo esc_attr( $field['id'] ); ?>">
+		<input type="text" value="<?php esc_attr_e( 'This field content is dynamic', 'formidable-pro' ); ?>" disabled />
+	</span>
+	<?php
 }

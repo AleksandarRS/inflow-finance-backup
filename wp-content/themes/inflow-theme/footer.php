@@ -8,6 +8,35 @@
  */
 
 ?>
+
+				<?php 
+					$section_descriptin = get_field('section_descriptin', 'option');
+					$after_form_section = get_field('after_form_section', 'option');
+				?>
+				<section class="contact-details-section custom-form-elements-position">
+					<div class="contact-details-section-wrapper section-wrapper">
+						<div class="container-wide">
+							<div class="row contact-details-row">
+								<?php if($section_descriptin || $section_form_shortcode): ?>
+									<div class="col-md-12 contact-details-content">
+										<div class="contact-details-content-inner">
+											<?php  if ( $section_descriptin ) : ?>
+												<div class="entry-content section-description">
+													<?php echo $section_descriptin; ?>
+												</div>
+											<?php endif; ?>
+											<?php  if ( $after_form_section ) : ?>
+												<div class="contact-details-after-form">
+													<?php echo $after_form_section; ?>
+												</div>
+											<?php endif; ?>
+										</div>
+									</div>
+								<?php endif ?>
+							</div>
+						</div>
+					</div>
+				</section>
 			</div><!-- #content -->
 
 			<footer id="colophon" class="site-footer" role="contentinfo">

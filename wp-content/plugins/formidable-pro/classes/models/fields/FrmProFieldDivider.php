@@ -1,5 +1,9 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	die( 'You are not allowed to call this page directly.' );
+}
+
 /**
  * @since 3.0
  */
@@ -10,6 +14,17 @@ class FrmProFieldDivider extends FrmFieldType {
 	 * @since 3.0
 	 */
 	protected $type = 'divider';
+
+	protected function get_new_field_name() {
+		$name = parent::get_new_field_name();
+
+		$posted_type = FrmAppHelper::get_param( 'field_type', '', 'post', 'sanitize_text_field' );
+		if ( ! empty( $posted_type ) && $posted_type === 'divider|repeat' ) {
+			$name = __( 'Repeater', 'formidable' );
+		}
+
+		return $name;
+	}
 
 	public function default_html() {
 		$default_html = <<<DEFAULT_HTML
@@ -28,8 +43,8 @@ DEFAULT_HTML;
 
 	protected function field_settings_for_type() {
 		$settings = array(
-			'default_blank' => false,
 			'required'      => false,
+			'default'       => false,
 		);
 
 		FrmProFieldsHelper::fill_default_field_display( $settings );
@@ -43,6 +58,28 @@ DEFAULT_HTML;
 			'repeat_limit' => '',
 			'label'  => 'top',
 		);
+	}
+
+	/**
+	 * @since 4.0
+	 * @param array $args - Includes 'field', 'display', and 'values'
+	 */
+	public function show_primary_options( $args ) {
+		$field = $args['field'];
+		if ( FrmField::get_option( $field, 'repeat' ) ) {
+			include( FrmProAppHelper::plugin_path() . '/classes/views/frmpro-fields/back-end/repeat-options-top.php' );
+		}
+
+		require( FrmProAppHelper::plugin_path() . '/classes/views/frmpro-fields/options-form-top.php' );
+
+		parent::show_primary_options( $args );
+	}
+
+	/**
+	 * @since 3.06.01
+	 */
+	public function translatable_strings() {
+		return array( 'name', 'description' );
 	}
 
 	protected function alter_builder_classes( $classes ) {
@@ -126,14 +163,16 @@ DEFAULT_HTML;
 		}
 
 		if ( FrmField::is_option_true( $this->field, 'slide' ) ) {
-			$trigger = ' frm_trigger';
+			$trigger      = ' frm_trigger';
 			$collapse_div = '<div class="frm_toggle_container frm_grid_container" style="display:none;">';
 		} else {
-			$trigger = $collapse_div = '';
+			$trigger      = '';
+			$collapse_div = '';
 		}
 
 		if ( FrmField::is_option_true( $this->field, 'repeat' ) ) {
 			$errors = isset( $args['errors'] ) ? $args['errors'] : array();
+			$form   = isset( $args['form'] ) ? $args['form'] : array();
 
 			$input = $this->front_field_input( compact( 'errors', 'form' ), array() );
 
@@ -227,16 +266,13 @@ DEFAULT_HTML;
 		$classes = '';
 
 		// If the top margin needs to be removed from a section heading
-		if ( $this->field['label'] == 'none' ) {
+		if ( $this->field['label'] === 'none' ) {
 			$classes .= ' frm_hide_section';
 		}
 
 		// If this is a repeating section that should be hidden with exclude_fields or fields shortcode, hide it
-		if ( $this->field['repeat'] ) {
-			global $frm_vars;
-			if ( isset( $frm_vars['show_fields'] ) && ! empty( $frm_vars['show_fields'] ) && ! in_array( $this->field['id'], $frm_vars['show_fields'] ) && ! in_array( $this->field['field_key'], $frm_vars['show_fields'] ) ) {
-				$classes .= ' frm_hidden';
-			}
+		if ( $this->field['repeat'] && ! FrmProGlobalVarsHelper::get_instance()->field_is_visible( $this->field ) ) {
+			$classes .= ' frm_hidden';
 		}
 
 		return $classes;

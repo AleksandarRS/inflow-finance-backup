@@ -1,5 +1,9 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	die( 'You are not allowed to call this page directly.' );
+}
+
 /**
  * @since 3.0
  */
@@ -16,14 +20,12 @@ class FrmProFieldScale extends FrmFieldType {
 	}
 
 	protected function include_form_builder_file() {
-		return FrmProAppHelper::plugin_path() . '/classes/views/frmpro-fields/back-end/field-' . $this->type . '.php';
+		return FrmProAppHelper::plugin_path() . '/classes/views/frmpro-fields/10radio.php';
 	}
 
 	protected function field_settings_for_type() {
 		$settings = array(
-			'default_value' => true,
 			'unique'        => true,
-			'default_blank' => false,
 		);
 
 		FrmProFieldsHelper::fill_default_field_display( $settings );
@@ -38,7 +40,8 @@ class FrmProFieldScale extends FrmFieldType {
 
 		$options = $this->get_field_column('options');
 		if ( ! empty( $options ) ) {
-			$range = maybe_unserialize( $options );
+			$range = $options;
+			FrmProAppHelper::unserialize_or_decode( $range );
 
 			$opts['minnum'] = reset( $range );
 			$opts['maxnum'] = end( $range );
@@ -53,6 +56,17 @@ class FrmProFieldScale extends FrmFieldType {
 		);
 	}
 
+	/**
+	 * @since 4.0
+	 * @param array $args - Includes 'field', 'display', and 'values'
+	 */
+	public function show_primary_options( $args ) {
+		$field = $args['field'];
+		include( FrmProAppHelper::plugin_path() . '/classes/views/frmpro-fields/back-end/scale-options.php' );
+
+		parent::show_primary_options( $args );
+	}
+
 	public function get_container_class() {
 		// Add class to inline Scale field
 		$class = '';
@@ -64,5 +78,12 @@ class FrmProFieldScale extends FrmFieldType {
 
 	protected function include_front_form_file() {
 		return FrmProAppHelper::plugin_path() . '/classes/views/frmpro-fields/10radio.php';
+	}
+
+	/**
+	 * @since 4.0.04
+	 */
+	public function sanitize_value( &$value ) {
+		FrmAppHelper::sanitize_value( 'sanitize_text_field', $value );
 	}
 }

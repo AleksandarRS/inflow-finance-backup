@@ -33,7 +33,7 @@
 	.main-navigation {
 		min-width: 270px;
 		top: 0;
-		margin: auto;
+		margin-left: auto;
 		@include max-mq($responsive-toggle-breakpoint) {
 			background-color: $white;
 			position: fixed;
@@ -99,12 +99,19 @@
 					}
 
 					&:last-of-type {
+						margin-left: 15px;
+						@include min-mq ($mac) {
+							margin-left: 27px;
+						}
 						> a {
 							border: 2px solid $primary-color;
 							border-radius: 30px;
 							font-weight: $font-weight-sb;
 							font-size: $font-size-small;
 							text-transform: none;
+							padding-left: 33px;
+							padding-right: 33px;
+							letter-spacing: 0;
 							@include transition-all;
 							&:hover {
 								background-color: $primary-color;
@@ -120,12 +127,18 @@
 					a {
 						padding: 10px 20px;
 						display: block;
+						letter-spacing: 2px;
 						position: relative;
 						color: $primary-color;
 						width: 100%;
+						font-family: $tertiary-font;
 						font-weight: $font-weight-m;
 						text-decoration: none;
 						text-transform: uppercase;
+						@include min-mq ($mac) {
+							letter-spacing: 4px;
+							padding: 10px 25px;
+						}
 						@include max-mq($mac) {
 							padding: 10px 15px;
 						}

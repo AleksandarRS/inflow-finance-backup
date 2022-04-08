@@ -1,5 +1,9 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	die( 'You are not allowed to call this page directly.' );
+}
+
 class FrmProNestedFormsController {
 
 	/**
@@ -12,10 +16,11 @@ class FrmProNestedFormsController {
 	 * @param array $errors
 	 */
 	public static function display_front_end_embedded_form( $field, $field_name, $errors ) {
-		self::display_front_end_nested_form( $field_name, $field, array(
+		$args = array(
 			'errors' => $errors,
 			'repeat' => 0,
-		) );
+		);
+		self::display_front_end_nested_form( $field_name, $field, $args );
 	}
 
 	/**
@@ -28,17 +33,18 @@ class FrmProNestedFormsController {
 	 * @param array $errors
 	 */
 	public static function display_front_end_repeating_section( $field, $field_name, $errors ) {
-		self::display_front_end_nested_form( $field_name, $field, array(
+		$args = array(
 			'errors' => $errors,
 			'repeat' => 5,
-		) );
+		);
+		self::display_front_end_nested_form( $field_name, $field, $args );
 	}
 
 	/**
 	 * Display an embedded form/repeating section on the current page
 	 *
-	 * @param array $field
 	 * @param string $field_name
+	 * @param array $field
 	 * @param array $args
 	 */
 	public static function display_front_end_nested_form( $field_name, $field, $args = array() ) {
@@ -60,7 +66,7 @@ class FrmProNestedFormsController {
 
 		$subfields = FrmField::get_all_for_form( $field['form_select'] );
 
-		self::insert_basic_hidden_field( $field_name . '[form]', $field['form_select'], '' );
+		self::insert_basic_hidden_field( $field_name . '[form]', $field['form_select'], '', compact( 'field' ) );
 
 		if ( empty( $subfields ) ) {
 			return;
@@ -82,14 +88,16 @@ class FrmProNestedFormsController {
 
 			for ( $i = 0, $j = $start_rows; $i < $j; $i ++ ) {
 				// add an empty sub entry
-				$repeat_atts['row_count'] = $repeat_atts['i'] = $i;
+				$repeat_atts['row_count'] = $i;
+				$repeat_atts['i']         = $i;
 				self::display_single_iteration_of_nested_form( $field_name, $repeat_atts );
 			}
 
 			return;
 		}
 
-		$row_count = 0;
+		$row_count          = 0;
+		$processed_item_ids = array();
 		foreach ( (array) $field['value'] as $k => $checked ) {
 			$repeat_atts['i']     = $k;
 			$repeat_atts['value'] = '';
@@ -104,11 +112,23 @@ class FrmProNestedFormsController {
 				$repeat_atts['i']        = 'i' . $checked;
 				$repeat_atts['entry_id'] = $checked;
 				$repeat_atts['value']    = $checked;
-			} else if ( $k === 'form' || $k === 'row_ids' ) {
+			} elseif ( $k === 'form' || $k === 'row_ids' ) {
 				continue;
-			} else if ( strpos( $k, 'i' ) === 0 ) {
+			} elseif ( strpos( $k, 'i' ) === 0 ) {
 				// include the entry id when values are posted
 				$repeat_atts['entry_id'] = absint( str_replace( 'i', '', $k ) );
+			} elseif ( self::new_entries_have_been_submitted() ) {
+				$entry_id = self::get_new_inserted_repeater_item_id( $checked, $processed_item_ids );
+
+				if ( $entry_id ) {
+					$repeat_atts['i']        = 'i' . $entry_id;
+					$repeat_atts['entry_id'] = $entry_id;
+					$repeat_atts['value']    = $entry_id;
+				}
+			}
+
+			if ( ! empty( $repeat_atts['entry_id'] ) ) {
+				$processed_item_ids[] = (int) $repeat_atts['entry_id'];
 			}
 
 			// Keep track of row count
@@ -123,6 +143,72 @@ class FrmProNestedFormsController {
 		unset( $subform, $subfields );
 	}
 
+	private static function new_entries_have_been_submitted() {
+		global $frm_vars;
+		return ! empty( $frm_vars['saved_entries'] );
+	}
+
+	/**
+	 * Get the entry id for a repeater field that was just processed
+	 * If data has just been posted, the new entry ids for repeaters are not passed, so we need to get them from the database
+	 *
+	 * @param array $values
+	 * @param array $processed_item_ids
+	 * @return int $entry_id 0 if no entry matches or if the entry has already been processed
+	 */
+	private static function get_new_inserted_repeater_item_id( $values, &$processed_item_ids ) {
+		global $frm_vars;
+
+		if ( empty( $frm_vars['saved_entries'] ) ) {
+			return 0;
+		}
+
+		$values = array_filter(
+			$values,
+			function( $value ) {
+				return '' !== $value;
+			}
+		);
+
+		if ( 0 === count( $values ) ) {
+			return 0;
+		}
+
+		// Name or Address field value is array and needs to be converted to string.
+		self::convert_array_values_to_string( $values );
+
+		$child_field_ids = array_keys( $values );
+		$value           = array_values( $values );
+		$where           = array(
+			'item_id'    => $frm_vars['saved_entries'],
+			'field_id'   => $child_field_ids,
+			'meta_value' => $value,
+		);
+		$entry_id        = (int) FrmDb::get_var( 'frm_item_metas', $where, 'item_id' );
+
+		if ( ! $entry_id || in_array( $entry_id, $processed_item_ids, true ) ) {
+			return 0;
+		}
+
+		$processed_item_ids[] = $entry_id;
+		return $entry_id;
+	}
+
+	/**
+	 * Converts array values to string.
+	 *
+	 * @since 5.0.07
+	 *
+	 * @param array $arr The array.
+	 */
+	private static function convert_array_values_to_string( &$arr ) {
+		foreach ( $arr as &$value ) {
+			if ( is_array( $value ) ) {
+				$value = serialize( $value );
+			}
+		}
+	}
+
 	/**
 	 * Check if repeat limit is reached for a section field
 	 *
@@ -133,44 +219,42 @@ class FrmProNestedFormsController {
 	 * @return bool
 	 */
 	private static function is_repeat_limit_reached_for_field( $field ) {
-		$is_repeat_limit_reached = false;
-
-		if ( isset( $field['repeat_limit'] ) && ( $field['repeat_limit'] !== '' ) ) {
-
-			if ( empty( $field['value'] ) ) {
-				$row_count = 1;
-			} else if ( isset( $field['value']['row_ids'] ) ) {
-				if ( is_array( $field['value']['row_ids'] ) ) {
-					$row_count = count( $field['value']['row_ids'] );
-				} else {
-					$row_count = 1;
-				}
-			} else {
-				// When editing an entry, the value will be an array of child IDs on initial load
-				$row_count = count( $field['value'] );
-			}
-
-			$is_repeat_limit_reached = self::is_repeat_limit_reached( $field['repeat_limit'], $row_count );
+		if ( ! isset( $field['repeat_limit'] ) || $field['repeat_limit'] !== '' ) {
+			return false;
 		}
 
-		return $is_repeat_limit_reached;
+		if ( empty( $field['value'] ) ) {
+			$row_count = 1;
+		} else if ( isset( $field['value']['row_ids'] ) ) {
+			if ( is_array( $field['value']['row_ids'] ) ) {
+				$row_count = count( $field['value']['row_ids'] );
+			} else {
+				$row_count = 1;
+			}
+		} else {
+			// When editing an entry, the value will be an array of child IDs on initial load
+			$row_count = count( $field['value'] );
+		}
+
+		return self::is_repeat_limit_reached( $field['repeat_limit'], $row_count );
 	}
 
 	/**
 	 * Add a repeating section row with ajax
 	 */
 	public static function ajax_add_repeat_row() {
-		$field_id = absint( $_POST['field_id'] );
+		$field_id = FrmAppHelper::get_post_param( 'field_id', '', 'absint' );
+
 		if ( ! $field_id ) {
 			wp_die();
 		}
 
-		$row_count    = absint( $_POST['numberOfSections'] );
+		$row_count    = FrmAppHelper::get_post_param( 'numberOfSections', 0, 'absint' );
 		$field        = FrmField::getOne( $field_id );
 		$repeat_limit = absint( FrmField::get_option_in_object( $field, 'repeat_limit' ) );
 
 		$args = array(
-			'i'            => absint( $_POST['i'] ),
+			'i'            => FrmAppHelper::get_post_param( 'i', 0, 'absint' ),
 			'parent_field' => $field->id,
 			'form'         => ( isset( $field->field_options['form_select'] ) ? $field->field_options['form_select'] : 0 ),
 			'repeat'       => 1,
@@ -183,13 +267,18 @@ class FrmProNestedFormsController {
 			wp_die();
 		}
 
-		// let's show a textarea since the ajax with multiple rte doesn't work well in WP right now
-		global $frm_vars;
-		$frm_vars['skip_rte'] = true;
-
 		$response = array(
 			'is_repeat_limit_reached' => self::is_repeat_limit_reached( $repeat_limit, $row_count + 1 ),
 		);
+
+		if ( is_callable( 'FrmFormsController::add_js_validate_form_to_global_vars' ) ) {
+			$form = FrmForm::getOne( $field->form_id );
+			if ( ! empty( $form->options['js_validate'] ) ) {
+				FrmFormsController::add_js_validate_form_to_global_vars( $form );
+			}
+		}
+
+		FrmProEntriesController::maybe_include_exclude_fields( $form->id );
 
 		ob_start();
 		self::display_single_iteration_of_nested_form( $field_name, $args );
@@ -335,7 +424,7 @@ class FrmProNestedFormsController {
 	 */
 	private static function insert_hidden_nested_form_fields( $field, $field_name, $value_array ) {
 		if ( ! is_array( $value_array ) ) {
-			self::insert_basic_hidden_field( $field_name, '', $field['html_id'] );
+			self::insert_basic_hidden_field( $field_name, '', $field['html_id'], compact( 'field' ) );
 
 			return;
 		}
@@ -343,7 +432,7 @@ class FrmProNestedFormsController {
 		foreach ( $value_array as $key => $value ) {
 
 			if ( $key === 'form' ) {
-				self::insert_basic_hidden_field( $field_name . '[' . $key . ']', $value, '' );
+				self::insert_basic_hidden_field( $field_name . '[' . $key . ']', $value, '', compact( 'field' ) );
 			} else if ( $key === 'row_ids' ) {
 				self::insert_hidden_row_id_inputs( $field, $value );
 			} else {
@@ -367,7 +456,7 @@ class FrmProNestedFormsController {
 
 		$name = 'item_meta[' . $field['id'] . '][row_ids][]';
 		foreach ( $value as $row_id ) {
-			self::insert_basic_hidden_field( $name, $row_id, '' );
+			self::insert_basic_hidden_field( $name, $row_id, '', compact( 'field' ) );
 		}
 	}
 
@@ -394,7 +483,7 @@ class FrmProNestedFormsController {
 		} else {
 
 			$html_id = self::get_html_id_for_hidden_sub_fields( $field_name, $value_key, $field['html_id'] );
-			self::insert_basic_hidden_field( $field_name, $value, $html_id );
+			self::insert_basic_hidden_field( $field_name, $value, $html_id, compact( 'field' ) );
 		}
 	}
 
@@ -407,7 +496,7 @@ class FrmProNestedFormsController {
 	 * @param string $value
 	 * @param string $id
 	 */
-	private static function insert_basic_hidden_field( $name, $value, $id ) {
+	private static function insert_basic_hidden_field( $name, $value, $id, $args = array() ) {
 		if ( strpos( $name, '[form]' ) !== false ) {
 			$class = 'frm_dnc';
 		} else {
@@ -415,12 +504,48 @@ class FrmProNestedFormsController {
 		}
 
 		if ( $id ) {
-			?><input type="hidden" name="<?php echo esc_attr( $name ) ?>" id="<?php echo esc_attr( $id ) ?>" value="<?php echo esc_attr( $value ) ?>" />
+			$html        = '';
+			$subfield_id = self::get_sub_field_id( $name );
+			if ( isset( $args['field'] ) && $args['field']['id'] == $subfield_id ) {
+				$field = $args['field'];
+			} else {
+				$field = $subfield_id ? FrmField::getOne( $subfield_id ) : null;
+			}
+
+			if ( $field ) {
+				$field = (array) $field;
+				$field['original_type'] = isset( $field['original_type'] ) ? $field['original_type'] : $field['type'];
+				$field['type']          = 'hidden';
+				$field['value']         = $value;
+				FrmProFieldsController::add_currency_field_attributes( $field, $html, $args['field'] );
+
+				if ( isset( $args['field'] ) && isset( $args['field']['parent_form_id'] ) ) {
+					// Pass the parent ID on as needed.
+					$field['form_id'] = $args['field']['parent_form_id'];
+				}
+			}
+
+			?><input type="hidden" name="<?php echo esc_attr( $name ); ?>" id="<?php echo esc_attr( $id ); ?>" value="<?php echo esc_attr( $value ); ?>" <?php echo $html; ?>/>
 			<?php
+			if ( isset( $field ) && isset( $field['original_type'] ) && ( $field['original_type'] === 'product' || $field['original_type'] === 'total' ) ) {
+				FrmProCurrencyHelper::add_currency_to_global( $field['form_id'] );
+			}
 		} else {
 			?><input type="hidden" name="<?php echo esc_attr( $name ); ?>" value="<?php echo esc_attr( $value ); ?>" class="<?php echo esc_attr( $class ); ?>" />
 			<?php
 		}
+	}
+
+	private static function get_sub_field_id( $field_name ) {
+		$matches = array();
+		// .+ is safer than d+ because field keys might be used at times.
+		preg_match( '/item_meta(\[.+?\]){3}/i', $field_name, $matches, PREG_OFFSET_CAPTURE );
+		if ( ! count( $matches ) ) {
+			return 0;
+		}
+		$name = $matches[0][0];
+		$parts = explode( '][', $name . '[' );
+		return $parts[ count( $parts ) - 2 ];
 	}
 
 	/**
@@ -601,10 +726,20 @@ class FrmProNestedFormsController {
 		$field_class = self::grid_field_class( $count, $format );
 		$section_classes = self::repeat_container_classes( $format, $args );
 
-		echo '<div id="frm_section_' . $args['parent_field']['id'] . '-' . $args['i'] . '" class="' . esc_attr( $section_classes ) . '">' . "\n";
+		echo '<div id="frm_section_' . esc_attr( $args['parent_field']['id'] . '-' . $args['i'] ) . '" class="' . esc_attr( $section_classes ) . '">' . "\n";
 
 		self::add_hidden_repeat_row_id( $args );
 		self::add_default_item_meta_field( $args );
+
+		/**
+		 * Allows changing subfields in the repeater field.
+		 *
+		 * @since 5.0
+		 *
+		 * @param array $subfields Subfields.
+		 * @param array $args      Custom arguments.
+		 */
+		$values['fields'] = apply_filters( 'frm_subfields_in_repeater', $values['fields'], $args );
 
 		$label_pos = 'top';
 		$field_num = 1;
@@ -627,7 +762,7 @@ class FrmProNestedFormsController {
 
 			$field_num ++;
 
-			if ( 'top' == $label_pos && in_array( $subfield['label'], array( 'top', 'hidden', '' ) ) ) {
+			if ( 'top' == $label_pos && in_array( $subfield['label'], array( 'top', 'hidden', '', 'inside' ) ) ) {
 				// add placeholder label if repeating
 				$label_pos = 'hidden';
 			}
@@ -679,28 +814,14 @@ class FrmProNestedFormsController {
 			return '';
 		}
 
-		$frm_settings = FrmAppHelper::get_settings();
-		if ( $frm_settings->old_css ) {
-			$classes = array(
-				2 => '_half',
-				3 => '_third',
-				4 => '_fourth',
-				5 => '_fifth',
-				6 => '_sixth',
-				7 => '_seventh',
-				8 => '_eighth',
-			);
-			$class = ( isset( $classes[ $count ] ) ) ? $classes[ $count ] : '';
+		if ( 2 == $count ) {
+			$class = array( 10, 2 );
+		} elseif ( $count < 13 ) {
+			$field_width  = floor( 12 / ( $count ) );
+			$submit_width = 12 - ( $field_width * ( $count - 1 ) );
+			$class        = array( $field_width, $submit_width );
 		} else {
-			if ( 2 == $count ) {
-				$class = array( 10, 2 );
-			} elseif ( $count < 13 ) {
-				$field_width = floor( 12 / ( $count ) );
-				$submit_width = 12 - ( $field_width * ( $count - 1 ) );
-				$class = array( $field_width, $submit_width );
-			} else {
-				$class = '';
-			}
+			$class = '';
 		}
 
 		return $class;
@@ -710,7 +831,7 @@ class FrmProNestedFormsController {
 		if ( is_array( $add_class ) ) {
 			$position = 'button' === $type ? 1 : 0;
 			$classes .= ' frm' . $add_class[ $position ];
-		} else {
+		} elseif ( $add_class ) {
 			$classes .= ' frm' . $add_class;
 		}
 	}
@@ -748,7 +869,7 @@ class FrmProNestedFormsController {
 	 * @param array $args
 	 */
 	private static function add_default_item_meta_field( $args ) {
-		echo '<input type="hidden" name="item_meta[' . $args['parent_field']['id'] . '][' . $args['i'] . '][0]" value="" />';
+		echo '<input type="hidden" name="item_meta[' . esc_attr( $args['parent_field']['id'] ) . '][' . esc_attr( $args['i'] ) . '][0]" value="" />';
 	}
 
 	/**
@@ -791,7 +912,7 @@ class FrmProNestedFormsController {
 		$query       = array(
 			'fi.form_id'    => $args['parent_field']['form_id'],
 			'type'          => 'end_divider',
-			'field_order >' => $args['parent_field']['field_order'] + 1
+			'field_order >' => $args['parent_field']['field_order'] + 1,
 		);
 		$end_field   = FrmField::getAll( $query, 'field_order', 1 );
 		$field_array = FrmProFieldsHelper::initialize_array_field( $end_field );
@@ -837,14 +958,10 @@ class FrmProNestedFormsController {
 			$args['remove_icon'] = '<i class="frm_icon_font frm_minus_icon"> </i> ';
 			$args['add_icon'] = '<i class="frm_icon_font frm_plus_icon"> </i> ';
 		} else if ( 'text' != $args['end_format'] ) {
-			$args['add_label'] = $args['remove_label'] = '';
-			$args['add_classes'] = ' frm_icon_font frm_plus_icon';
+			$args['add_label']      = '';
+			$args['remove_label']   = '';
+			$args['add_classes']    = ' frm_icon_font frm_plus_icon';
 			$args['remove_classes'] = ' frm_icon_font frm_minus_icon';
-		}
-
-		// Hide Remove button on first row
-		if ( $args['row_count'] === 0 ) {
-			$args['remove_classes'] .= ' frm_hidden';
 		}
 
 		if ( $args['is_repeat_limit_reached'] ) {

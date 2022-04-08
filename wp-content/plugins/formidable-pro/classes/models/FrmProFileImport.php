@@ -1,5 +1,9 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	die( 'You are not allowed to call this page directly.' );
+}
+
 class FrmProFileImport {
 
 	public static function import_attachment( $val, $field ) {
@@ -14,6 +18,9 @@ class FrmProFileImport {
 
 		// Set up global vars to track uploaded files
 		self::setup_global_media_import_vars( $field );
+
+		// set the form id for the upload path
+		$_POST['form_id'] = $field->form_id;
 
 		global $wpdb, $frm_vars;
 
@@ -80,13 +87,18 @@ class FrmProFileImport {
 
 	private static function curl_image( $img_url ) {
 		$ch = curl_init( str_replace( array( ' ' ), array( '%20' ), $img_url ) );
-		$uploads = wp_upload_dir();
+		$uploads = self::get_upload_dir();
 		$filename = wp_unique_filename( $uploads['path'], basename( $img_url ) );
-		$path = trailingslashit( $uploads['path'] ); // dirname(__FILE__) . '/screenshots/';
+		$path = trailingslashit( $uploads['path'] );
+
 		$fp = fopen( $path . $filename, 'wb' );
 		curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
 		curl_setopt( $ch, CURLOPT_FILE, $fp );
 		curl_setopt( $ch, CURLOPT_HEADER, 0 );
+		$user_agent = apply_filters( 'http_headers_useragent', 'WordPress/' . get_bloginfo( 'version' ) . '; ' . get_bloginfo( 'url' ) );
+		curl_setopt( $ch, CURLOPT_USERAGENT, $user_agent );
+		curl_setopt( $ch, CURLOPT_REFERER, FrmAppHelper::site_url() );
+		curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, true );
 		$result = curl_exec( $ch );
 		curl_close( $ch );
 		fclose( $fp );
@@ -99,11 +111,23 @@ class FrmProFileImport {
 		return $img_url;
 	}
 
+	/**
+	 * Get the upload directory for the current form
+	 *
+	 * @since 3.04.03
+	 */
+	private static function get_upload_dir() {
+		add_filter( 'upload_dir', array( 'FrmProFileField', 'upload_dir' ) );
+		$uploads = wp_upload_dir();
+		remove_filter( 'upload_dir', array( 'FrmProFileField', 'upload_dir' ) );
+		return $uploads;
+	}
+
 	private static function attach_existing_image( $filename ) {
 		$attachment = array();
 		self::prepare_attachment( $filename, $attachment );
 
-		$uploads = wp_upload_dir();
+		$uploads = self::get_upload_dir();
 		$file = $uploads['path'] . '/' . $filename;
 
 		$id = wp_insert_attachment( $attachment, $file );
@@ -121,7 +145,7 @@ class FrmProFileImport {
 	 * Construct the attachment array
 	 */
 	private static function prepare_attachment( $filename, &$attachment ) {
-		$uploads = wp_upload_dir();
+		$uploads = self::get_upload_dir();
 		$attachment = array(
 			'guid'           => $uploads['url'] . '/' . $filename,
 			'post_content'   => '',

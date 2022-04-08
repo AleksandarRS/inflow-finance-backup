@@ -1,5 +1,9 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	die( 'You are not allowed to call this page directly.' );
+}
+
 /**
  * @since 3.0
  */
@@ -16,10 +20,20 @@ class FrmProFieldTag extends FrmFieldType {
 		$settings = array(
 			'size'           => true,
 			'clear_on_focus' => true,
+			'prefix'         => true,
 		);
 
 		FrmProFieldsHelper::fill_default_field_display( $settings );
 		return $settings;
+	}
+
+	/**
+	 * @since 4.05
+	 */
+	protected function builder_text_field( $name = '' ) {
+		$html  = FrmProFieldsHelper::builder_page_prepend( $this->field );
+		$field = parent::builder_text_field( $name );
+		return str_replace( '[input]', $field, $html );
 	}
 
 	public function front_field_input( $args, $shortcode_atts ) {
@@ -53,7 +67,7 @@ class FrmProFieldTag extends FrmFieldType {
 		$tax_type = FrmField::get_option( $this->field, 'taxonomy' );
 		$tax_type = empty( $tax_type ) ? 'frm_tag' : $tax_type;
 
-		$tags = explode( ',', stripslashes( $value ) );
+		$tags = explode( ',', wp_unslash( $value ) );
 		$terms = array();
 
 		if ( isset( $_POST['frm_wp_post'] ) ) {
@@ -76,5 +90,12 @@ class FrmProFieldTag extends FrmFieldType {
 		}
 
 		wp_set_object_terms( $atts['entry_id'], $terms, $tax_type );
+	}
+
+	/**
+	 * @since 4.0.04
+	 */
+	public function sanitize_value( &$value ) {
+		FrmAppHelper::sanitize_value( 'sanitize_text_field', $value );
 	}
 }

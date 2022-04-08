@@ -1,5 +1,9 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	die( 'You are not allowed to call this page directly.' );
+}
+
 /**
  * @since 2.02.13
  */
@@ -24,7 +28,7 @@ class FrmProConditionalLogicController {
 			$present = false;
 		} elseif ( FrmField::is_no_save_field( $logic_field->type ) ) {
 			$present = false;
-		} elseif ( in_array( $logic_field->type, array( 'file', 'rte', 'date', 'address', 'credit_card' ) ) ) {
+		} elseif ( in_array( $logic_field->type, array( 'file', 'date', 'address', 'credit_card' ) ) ) {
 			$present = false;
 		} elseif ( FrmProField::is_list_field( $logic_field ) ) {
 			$present = false;
@@ -34,6 +38,14 @@ class FrmProConditionalLogicController {
 			$present = false;
 		}
 
-		return $present;
+		/**
+		 * Allows excluding fields in the conditional logic options.
+		 *
+		 * @since 5.0
+		 *
+		 * @param bool  $present Is `true` if field is present in the conditional logic options.
+		 * @param array $args    The arguments. Contains `$current_field` and `$logic_field`.
+		 */
+		return apply_filters( 'frm_is_field_present_in_logic_options', $present, compact( 'current_field', 'logic_field' ) );
 	}
 }

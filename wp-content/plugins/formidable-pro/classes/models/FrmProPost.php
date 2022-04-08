@@ -1,5 +1,9 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	die( 'You are not allowed to call this page directly.' );
+}
+
 class FrmProPost {
 	public static function save_post( $action, $entry, $form ) {
 		if ( $entry->post_id ) {
@@ -16,7 +20,7 @@ class FrmProPost {
 		global $wpdb;
 
 		$entry_id = is_object($entry) ? $entry->id : $entry;
-		$form_id = is_object($form) ? $form->id : $form;
+		$form_id  = is_object($form) ? $form->id : $form;
 
 		if ( ! $action ) {
 			$action = FrmFormAction::get_action_for_form( $form_id, 'wppost', 1 );
@@ -26,22 +30,20 @@ class FrmProPost {
 			}
 		}
 
-		$post = self::setup_post($action, $entry, $form);
+		$post              = self::setup_post($action, $entry, $form);
 		$post['post_type'] = $action->post_content['post_type'];
+		$status            = ! empty( $post['post_status'] );
 
-		$status = ( isset($post['post_status']) && ! empty($post['post_status']) ) ? true : false;
-
-		if ( ! $status && $action && in_array( $action->post_content['post_status'], array( 'pending', 'publish' ) ) ) {
+		if ( ! $status && $action && in_array( $action->post_content['post_status'], array( 'pending', 'publish' ), true ) ) {
 			$post['post_status'] = $action->post_content['post_status'];
 		}
 
-		if ( isset( $action->post_content['display_id'] ) && $action->post_content['display_id'] ) {
+		if ( ! empty( $action->post_content['display_id'] ) ) {
 			$post['post_custom']['frm_display_id'] = $action->post_content['display_id'];
-		} else if ( ! is_numeric( $action->post_content['post_content'] ) ) {
+		} elseif ( ! is_numeric( $action->post_content['post_content'] ) ) {
 			// Do not set frm_display_id if the content is mapped to a single field
-
-			//check for auto view and set frm_display_id - for reverse compatibility
-			$display = FrmProDisplay::get_auto_custom_display( compact('form_id', 'entry_id') );
+			// check for auto view and set frm_display_id - for reverse compatibility
+			$display = FrmProDisplay::get_auto_custom_display( compact( 'form_id', 'entry_id' ) );
 			if ( $display ) {
 				$post['post_custom']['frm_display_id'] = $display->ID;
 			}
@@ -128,6 +130,7 @@ class FrmProPost {
 
 	/**
 	 * Insert all post variables into the post array
+	 *
 	 * @return array
 	 */
 	public static function setup_post( $action, $entry, $form ) {
@@ -170,7 +173,19 @@ class FrmProPost {
 				continue;
 			}
 
-			$new_post[ $setting_name ] = isset( $entry->metas[ $action->post_content[ $setting_name ] ] ) ? $entry->metas[ $action->post_content[ $setting_name ] ] : '';
+			if ( 'post_parent' === $setting_name ) {
+				/**
+				 * Filter the post parent of post created from Create Post action.
+				 *
+				 * @since 4.10.01
+				 *
+				 * @param int|string $post_parent Post parent ID.
+				 * @param array      $args        Argument contains the action and entry objects.
+				 */
+				$new_post[ $setting_name ] = apply_filters( 'frm_post_parent', $action->post_content[ $setting_name ], compact( 'action', 'entry' ) );
+			} else {
+				$new_post[ $setting_name ] = isset( $entry->metas[ $action->post_content[ $setting_name ] ] ) ? $entry->metas[ $action->post_content[ $setting_name ] ] : '';
+			}
 
 			if ( 'post_date' == $setting_name ) {
 				$new_post[ $setting_name ] = FrmProAppHelper::maybe_convert_to_db_date( $new_post[ $setting_name ], 'Y-m-d H:i:s' );
@@ -191,10 +206,12 @@ class FrmProPost {
 			'post_content', 'post_excerpt', 'post_title',
 			'post_name', 'post_date', 'post_status',
 			'post_password',
+			'post_parent',
+			'menu_order',
 		);
 
 		if ( $function == 'insert_post' ) {
-			$post_fields = array_merge( $post_fields, array( 'post_author', 'post_type', 'post_category', 'post_parent' ) );
+			$post_fields = array_merge( $post_fields, array( 'post_author', 'post_type', 'post_category' ) );
 			$extra_fields = array_keys( $new_post );
 			$exclude_fields = array( 'post_custom', 'taxonomies', 'post_category' );
 			$extra_fields = array_diff( $extra_fields, $exclude_fields, $post_fields );
@@ -345,43 +362,49 @@ class FrmProPost {
 		}
 	}
 
-    /**
-     * Override the post content and date format
-     */
-    private static function post_value_overrides( &$post, $new_post, $editing, $form, $entry, &$dyn_content ) {
-        //if empty post content and auto display, then save compiled post content
+	/**
+	 * Override the post content and date format
+	 */
+	private static function post_value_overrides( &$post, $new_post, $editing, $form, $entry, &$dyn_content ) {
+		//if empty post content and auto display, then save compiled post content
 		$default_display = isset( $new_post['post_custom']['frm_display_id'] ) ? $new_post['post_custom']['frm_display_id'] : 0;
-		$display_id = ( $editing ) ? get_post_meta( $post['ID'], 'frm_display_id', true ) : $default_display;
+		$display_id      = $editing ? get_post_meta( $post['ID'], 'frm_display_id', true ) : $default_display;
 
-        if ( ! isset($post['post_content']) && $display_id ) {
-            $display = FrmProDisplay::getOne( $display_id, false, true);
-			if ( $display ) {
-				$dyn_content = ( 'one' == $display->frm_show_count ) ? $display->post_content : $display->frm_dyncontent;
-				$post['post_content'] = apply_filters( 'frm_content', $dyn_content, $form, $entry );
-			}
-        }
+		if ( ! isset($post['post_content']) && $display_id ) {
+			self::update_post_content_if_view_exists( $post, $display_id, $form, $entry, $dyn_content );
+		}
 
-		if ( isset( $post['post_date'] ) && ! empty( $post['post_date'] ) ) {
+		if ( ! empty( $post['post_date'] ) ) {
 			// set post date gmt if post date is set
 			$post['post_date_gmt'] = get_gmt_from_date( $post['post_date'] );
 		}
-    }
+	}
 
-    /**
-     * Add taxonomies after save in case user doesn't have permissions
-     */
-    private static function save_taxonomies( $new_post, $post_ID ) {
-    	foreach ( $new_post['taxonomies'] as $taxonomy => $tags ) {
+	private static function update_post_content_if_view_exists( &$post, $display_id, $form, $entry, &$dyn_content ) {
+		if ( is_callable( 'FrmViewsDisplaysHelper::update_post_content_if_view_exists' ) ) {
+			FrmViewsDisplaysHelper::update_post_content_if_view_exists( $post, $display_id, $form, $entry, $dyn_content );
+		}
+	}
+
+	/**
+	 * Add taxonomies after save in case user doesn't have permissions
+	 */
+	private static function save_taxonomies( $new_post, $post_ID ) {
+		if ( ! isset( $new_post['taxonomies'] ) || ! is_array( $new_post['taxonomies'] ) ) {
+			return;
+		}
+
+		foreach ( $new_post['taxonomies'] as $taxonomy => $tags ) {
 			// If setting hierarchical taxonomy or post_format, use IDs
 			if ( is_taxonomy_hierarchical($taxonomy) || $taxonomy == 'post_format' ) {
-    			$tags = array_keys($tags);
-    		}
+				$tags = array_keys($tags);
+			}
 
-            wp_set_post_terms( $post_ID, $tags, $taxonomy );
+			wp_set_post_terms( $post_ID, $tags, $taxonomy );
 
-    		unset($taxonomy, $tags);
-        }
-    }
+			unset($taxonomy, $tags);
+		}
+	}
 
 	private static function link_post_attachments( $post_ID, $editing ) {
 		global $frm_vars, $wpdb;
@@ -443,7 +466,10 @@ class FrmProPost {
 			if ( $value == '' ) {
 				delete_post_meta($post_ID, $post_data);
 			} else {
-				update_post_meta($post_ID, $post_data, $value);
+				$is_acf_field = self::maybe_save_acf_field( $post_data, $value, $post_ID );
+				if ( ! $is_acf_field ) {
+					update_post_meta($post_ID, $post_data, $value);
+				}
 			}
 
 			unset($post_data, $value);
@@ -454,7 +480,63 @@ class FrmProPost {
 	}
 
 	/**
-	 * save post_id with the entry
+	 * @return bool true if an acf field was saved.
+	 */
+	private static function maybe_save_acf_field( $key, $value, $post_ID ) {
+		$is_acf_field = false;
+
+		if ( ! self::is_acf_field( $post_ID, $key ) ) {
+			return $is_acf_field;
+		}
+
+		$acf_field_key = FrmDb::get_var(
+			'posts',
+			array(
+				'post_excerpt' => substr( $key, 1 ),
+				'post_type'    => 'acf-field',
+			),
+			'post_name'
+		);
+		if ( $acf_field_key ) {
+			$is_acf_field = true;
+			update_field( $acf_field_key, $value, $post_ID );
+		}
+
+		return $is_acf_field;
+	}
+
+	/**
+	 * @param int    $post_id
+	 * @param string $key
+	 * @return bool
+	 */
+	public static function is_acf_field( $post_id, $key ) {
+		if ( ! function_exists( 'get_field_objects' ) ) {
+			// never try to save an acf field if ACF is not active.
+			return false;
+		}
+
+		if ( ! $key || '_' !== $key[0] ) {
+			return false;
+		}
+
+		$field_objects = get_field_objects( $post_id );
+		if ( ! $field_objects ) {
+			// no ACF fields assigned to post type.
+			return false;
+		}
+
+		$acf_meta_key = substr( $key, 1 );
+		if ( ! isset( $field_objects[ $acf_meta_key ] ) ) {
+			// meta is not assigned to this post.
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
+	 * Save post_id with the entry
 	 * If entry was updated, get updated entry object
 	 */
 	private static function save_post_id_to_entry( $post_ID, &$entry, $editing ) {
@@ -473,7 +555,7 @@ class FrmProPost {
 	}
 
 	/**
-	 * update dynamic content after all post fields are updated
+	 * Update dynamic content after all post fields are updated
 	 */
 	private static function save_dynamic_content( $post, $post_ID, $dyn_content, $form, $entry ) {
 		if ( $dyn_content == '' ) {
@@ -598,7 +680,7 @@ class FrmProPost {
 		$dropdown = str_replace( " class='placeholder_class'", $add_html, $dropdown );
 
 		// Set up hidden fields for read-only dropdown
-		if ( FrmField::is_read_only( $field ) ) {
+		if ( FrmField::is_read_only( $field ) && ! FrmAppHelper::is_admin() ) {
 			$dropdown = str_replace( "name='" . $args['name'] . "'", '', $dropdown );
 			$dropdown = str_replace( "id='" . $args['id'] . "'", '', $dropdown );
 		}
@@ -714,5 +796,68 @@ class FrmProPost {
 		}
 
 		return $tax_atts;
+	}
+
+	/**
+	 * Duplicate post data when an entry is duplicated with a Post Action.
+	 *
+	 * @param int   $entry_id the id of the new duplicated entry.
+	 * @param int   $form_id the form associated with the duplicated entry.
+	 * @param array $args includes key "old_id" with the original entry id.
+	 */
+	public static function duplicate_post_data( $entry_id, $form_id, $args ) {
+		$action = FrmFormAction::get_action_for_form( $form_id, 'wppost', 1 );
+
+		if ( ! $action || empty( $args['old_id'] ) ) {
+			return;
+		}
+
+		$original_entry_id      = absint( $args['old_id'] );
+		$original_entry_post_id = FrmDb::get_var( 'frm_items', array( 'id' => $original_entry_id ), 'post_id' );
+
+		if ( ! $original_entry_post_id ) {
+			return;
+		}
+
+		self::create_duplicate_post( $entry_id, $original_entry_post_id );
+	}
+
+	/**
+	 * @param int $entry_id
+	 * @param int $original_post_id
+	 */
+	private static function create_duplicate_post( $entry_id, $original_post_id ) {
+		$post = get_post( $original_post_id, ARRAY_A );
+		unset( $post['ID'] );
+		$duplicate_post_id = wp_insert_post( $post );
+
+		self::update_associated_post_id_for_entry( $entry_id, $duplicate_post_id );
+		self::duplicate_post_meta( $original_post_id, $duplicate_post_id );
+	}
+
+	/**
+	 * @param int $original_post_id
+	 * @param int $duplicate_post_id
+	 */
+	private static function duplicate_post_meta( $original_post_id, $duplicate_post_id ) {
+		$post_meta = FrmDb::get_results( 'postmeta', array( 'post_id' => $original_post_id ), 'meta_key, meta_value' );
+		foreach ( $post_meta as $row ) {
+			add_post_meta( $duplicate_post_id, $row->meta_key, $row->meta_value );
+		}
+	}
+
+	/**
+	 * @param int $entry_id
+	 * @param int $post_id
+	 */
+	private static function update_associated_post_id_for_entry( $entry_id, $post_id ) {
+		global $wpdb;
+		$data  = array(
+			'post_id' => $post_id,
+		);
+		$where = array(
+			'id' => $entry_id,
+		);
+		$wpdb->update( $wpdb->prefix . 'frm_items', $data, $where );
 	}
 }

@@ -1,0 +1,47 @@
+.contact-details-section {
+    padding-bottom: 100px;
+    padding-top: 100px;
+    .contact-details-content-inner {
+        background-color: $tertiary-color;
+        border-radius: 40px;
+        padding: 45px 75px;
+        max-width: $container-width + 120;
+        margin-left: auto;
+        margin-right: auto;
+        @include min-mq ($lg) {
+            padding: 70px 125px;
+        }
+        h1, h2 {
+            font-size: $font-size-h2;
+            letter-spacing: 0;
+            margin-bottom: 0.9em;
+        }
+        .section-description {
+            p {
+                max-width: $container-narrow-width;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            p, li, span, strong, b {
+                font-size: $font-size-large;
+                line-height: 1.6;
+            }
+        }
+        
+    }
+    .contact-details-after-form {
+        padding-top: 30px;
+        font-size: $font-size-large - 0.2;
+        p {
+            text-transform: uppercase;
+            a {
+                text-transform: none;
+                text-decoration: none;
+            }
+        }
+        strong {
+            font-family: $secondary-font;
+        }
+    }
+    
+}

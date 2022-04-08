@@ -1,5 +1,9 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	die( 'You are not allowed to call this page directly.' );
+}
+
 class FrmProDynamicFieldsController {
 
 	/**
@@ -17,7 +21,7 @@ class FrmProDynamicFieldsController {
 			$values['options'] = array();
 			if ( $field->field_options['data_type'] == 'select' ) {
 				// add blank option for dropdown
-				$values['options'][''] = '';
+				$values['options'][''] = self::get_placeholder_option( $field );
 			}
 			$values['options'][ $values['value'] ] = FrmEntryMeta::get_entry_meta_by_field( $values['value'], $values['form_select'] );
 		}
@@ -81,7 +85,7 @@ class FrmProDynamicFieldsController {
 				$observed_field_val = '';
 			}
 
-			$observed_field_val = maybe_unserialize( $observed_field_val );
+			FrmProAppHelper::unserialize_or_decode( $observed_field_val );
 
 			$metas = array();
 			FrmProEntryMetaHelper::meta_through_join( $values['hide_field'], $selected_field, $observed_field_val, false, $metas );
@@ -103,12 +107,15 @@ class FrmProDynamicFieldsController {
 				$metas = FrmEntryMeta::getAll( array( 'it.item_id' => $entry_ids, 'field_id' => (int) $values['form_select'] ), ' ORDER BY meta_value', '' );
 			}
 		} else {
-			$limit = '';
+			$limit     = '';
+			$meta_args = array();
 			if ( FrmAppHelper::is_admin_page( 'formidable' ) ) {
-				$limit = 200;
+				$limit                 = 200;
+				$meta_args['limit']    = $limit;
+				$meta_args['order_by'] = 'meta_value';
 			}
 
-			$metas = FrmDb::get_results( 'frm_item_metas', array( 'field_id' => $values['form_select'] ), 'item_id, meta_value', array( 'order_by' => 'meta_value', 'limit' => $limit ) );
+			$metas    = FrmDb::get_results( 'frm_item_metas', array( 'field_id' => $values['form_select'] ), 'item_id, meta_value', $meta_args );
 			$post_ids = FrmDb::get_results( 'frm_items', array( 'form_id' => $selected_field->form_id ), 'id, post_id', array( 'limit' => $limit ) );
 		}
 
@@ -119,7 +126,8 @@ class FrmProDynamicFieldsController {
 			}
 		}
 
-		$options = array();
+		$options           = array();
+		$should_strip_tags = $field->field_options['data_type'] === 'select' || FrmAppHelper::is_admin_page('formidable');
 		foreach ( $metas as $meta ) {
 			$meta = (array) $meta;
 			if ( $meta['meta_value'] == '' ) {
@@ -127,7 +135,7 @@ class FrmProDynamicFieldsController {
 			}
 
 			$new_value = FrmEntriesHelper::display_value( $meta['meta_value'], $selected_field, array( 'type' => $selected_field->type, 'show_icon' => true, 'show_filename' => false ) );
-			if ( $field->field_options['data_type'] == 'select' || FrmAppHelper::is_admin_page('formidable') ) {
+			if ( $should_strip_tags ) {
 				$new_value = strip_tags( $new_value );
 			}
 
@@ -140,10 +148,23 @@ class FrmProDynamicFieldsController {
 		unset( $metas );
 
 		if ( self::include_blank_option( $options, $field ) ) {
-			$options = array( '' => '' ) + (array) $options;
+			$options = array( '' => self::get_placeholder_option( $field ) ) + (array) $options;
 		}
 
-		return stripslashes_deep( $options );
+		return wp_unslash( $options );
+	}
+
+	/**
+	 * If using autocomplete, don't include the placeholder as an option.
+	 *
+	 * @since 4.0
+	 */
+	private static function get_placeholder_option( $field ) {
+		$placeholder = FrmField::get_option( $field, 'placeholder' );
+		if ( FrmField::get_option( $field, 'autocom' ) ) {
+			$placeholder = '';
+		}
+		return $placeholder;
 	}
 
 	/**

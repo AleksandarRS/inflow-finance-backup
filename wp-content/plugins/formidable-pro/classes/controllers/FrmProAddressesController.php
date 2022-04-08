@@ -1,10 +1,14 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	die( 'You are not allowed to call this page directly.' );
+}
+
 class FrmProAddressesController extends FrmProComboFieldsController {
 
 	public static function show_in_form( $field, $field_name, $atts ) {
-        $errors = isset( $atts['errors'] ) ? $atts['errors'] : array();
-        $html_id = $atts['html_id'];
+		$errors = isset( $atts['errors'] ) ? $atts['errors'] : array();
+		$html_id = $atts['html_id'];
 
 		$defaults = self::empty_value_array();
 		self::fill_values( $field['value'], $defaults );
@@ -20,12 +24,6 @@ class FrmProAddressesController extends FrmProComboFieldsController {
 		return $class;
 	}
 
-	public static function show_in_form_builder( $field, $name = '', $null = null ) {
-		_deprecated_function( __METHOD__, '3.0', 'FrmFieldType::show_on_form_builder' );
-		$field_type = FrmFieldFactory::get_field_type( 'address', $field );
-		return $field_type->show_on_form_builder( $name );
-	}
-
 	public static function get_sub_fields( $field ) {
 		$fields = array(
 			'line1' => array(
@@ -33,8 +31,7 @@ class FrmProAddressesController extends FrmProComboFieldsController {
 				'classes' => '',
 				'label'   => 1,
 				'atts'    => array(
-					'x-autocompletetype' => 'address-line1',
-					'autocompletetype'   => 'address-line1',
+					'autocomplete'   => 'address-line1',
 				),
 			),
 			'line2' => array(
@@ -43,8 +40,7 @@ class FrmProAddressesController extends FrmProComboFieldsController {
 				'optional' => true,
 				'label' => 1,
 				'atts' => array(
-					'x-autocompletetype' => 'address-line2',
-					'autocompletetype'   => 'address-line2',
+					'autocomplete'   => 'address-line2',
 				),
 			),
 			'city'  => array(
@@ -52,8 +48,7 @@ class FrmProAddressesController extends FrmProComboFieldsController {
 				'classes' => 'frm_third frm_first',
 				'label'   => 1,
 				'atts'    => array(
-					'x-autocompletetype' => 'city',
-					'autocompletetype'   => 'city',
+					'autocomplete'   => 'address-level2',
 				),
 			),
 			'state' => array(
@@ -61,8 +56,7 @@ class FrmProAddressesController extends FrmProComboFieldsController {
 				'classes' => 'frm_third',
 				'label'   => 1,
 				'atts'    => array(
-					'x-autocompletetype' => 'state',
-					'autocompletetype'   => 'state',
+					'autocomplete'   => 'address-level1',
 				),
 			),
 			'zip'   => array(
@@ -70,8 +64,7 @@ class FrmProAddressesController extends FrmProComboFieldsController {
 				'classes' => 'frm_third',
 				'label'   => 1,
 				'atts'   => array(
-					'x-autocompletetype' => 'postal-zip',
-					'autocompletetype'   => 'postal-zip',
+					'autocomplete'   => 'postal-code',
 				),
 			),
 		);
@@ -94,23 +87,19 @@ class FrmProAddressesController extends FrmProComboFieldsController {
 				'label'   => 1,
 				'options' => FrmFieldsHelper::get_countries(),
 				'atts'    => array(
-					'x-autocompletetype' => 'country-name',
-					'autocompletetype'   => 'country-name',
+					'autocomplete'   => 'country-name',
 				),
 			);
 		}
 
+		// Include the placeholder with the sub field.
+		foreach ( $fields as $name => $f ) {
+			if ( isset( $field['placeholder'] ) && isset( $field['placeholder'][ $name ] ) ) {
+				$fields[ $name ]['placeholder'] = $field['placeholder'][ $name ];
+			}
+		}
+
 		return $fields;
-	}
-
-	public static function form_builder_options( $field, $display, $values ) {
-		include( FrmProAppHelper::plugin_path() . '/classes/views/combo-fields/addresses/back-end-field-opts.php' );
-	}
-
-	public static function display_value( $value ) {
-		_deprecated_function( __FUNCTION__, '3.0', 'FrmProFieldAddress->get_display_value' );
-		$field_obj = FrmFieldFactory::get_field_type( 'address' );
-		return $field_obj->get_display_value( $value );
 	}
 
 	public static function add_csv_columns( $headings, $atts ) {
@@ -132,6 +121,7 @@ class FrmProAddressesController extends FrmProComboFieldsController {
 
 	/**
 	 * Get the label for the CSV
+	 *
 	 * @since 2.0.23
 	 */
 	private static function get_field_label( $field, $field_name ) {
@@ -168,5 +158,32 @@ class FrmProAddressesController extends FrmProComboFieldsController {
 			'country' => __( 'Country', 'formidable-pro' ),
 		);
 		return $options;
+	}
+
+	/**
+	 * @deprecated 4.0
+	 */
+	public static function form_builder_options( $field, $display, $values ) {
+		_deprecated_function( __FUNCTION__, '4.0', 'FrmProFieldAddress->show_primary_options' );
+	}
+
+	/**
+	 * @deprecated 3.0
+	 * @codeCoverageIgnore
+	 */
+	public static function show_in_form_builder( $field, $name = '', $null = null ) {
+		_deprecated_function( __METHOD__, '3.0', 'FrmFieldType::show_on_form_builder' );
+		$field_type = FrmFieldFactory::get_field_type( 'address', $field );
+		return $field_type->show_on_form_builder( $name );
+	}
+
+	/**
+	 * @deprecated 3.0
+	 * @codeCoverageIgnore
+	 */
+	public static function display_value( $value ) {
+		_deprecated_function( __FUNCTION__, '3.0', 'FrmProFieldAddress->get_display_value' );
+		$field_obj = FrmFieldFactory::get_field_type( 'address' );
+		return $field_obj->get_display_value( $value );
 	}
 }

@@ -23,17 +23,17 @@
 <div id="page" class="hfeed site">
 	<a class="skip-link screen-reader-text" href="#content"><?php esc_html_e( 'Skip to content', 'inflow' ); ?></a>
 	<header id="masthead" class="site-header" role="banner">
-		<div class="site-header-inner">
+		<!-- <div class="site-header-inner">
 			<div class="container">
 				<div class="row justify-content-between">
 					<div class="justify-content-end social-icons-wrapper">
-						<?php the_social_links( true ); ?>
-					</div><!-- /.social-icons-wrapper -->
+						<?php //the_social_links( true ); ?>
+					</div>
 				</div>
-			</div> <!-- /.container -->
-		</div> <!-- /.site-header-inner -->
+			</div> 
+		</div>  -->
 		
-		<div class="container logo-menu-wrapper">
+		<div class="container-wide logo-menu-wrapper">
 			<div class="justify-content-between row">
 				<div class="site-branding-main-logo site-branding">
 					<div class="site-title">

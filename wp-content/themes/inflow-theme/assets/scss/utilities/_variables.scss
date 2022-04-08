@@ -1,7 +1,7 @@
 // Container widths
-$container-width-wide: 1870px;
+$container-width-wide: 1800px;
 $container-width: 1170px;
-$container-narrow-width: 990px;
+$container-narrow-width: 880px;
 
 // Colors
 $primary-color:		#262727;
@@ -11,10 +11,13 @@ $tertiary-color:	#ECF5F9;
 $white:				#ffffff;
 $black:				#000000;
 $gray:				#aeaeae;
+$gray-100:				#F8F8F8;
+$gray-300:				#CCCCCC;
 
 // Fonts
-$primary-font: serif;
-$secondary-font: sans-serif;
+$primary-font: 'Agenda Light';
+$secondary-font: 'Agenda Bold';
+$tertiary-font: 'Agenda Medium';
 
 // Font Sizes
 $font-size-xsmall:	0.725px;

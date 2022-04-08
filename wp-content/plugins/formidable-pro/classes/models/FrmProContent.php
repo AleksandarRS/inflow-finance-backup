@@ -1,5 +1,9 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	die( 'You are not allowed to call this page directly.' );
+}
+
 /**
  * Class FrmProContent
  */
@@ -7,7 +11,7 @@ class FrmProContent {
 
 	public static function replace_shortcodes( $content, $entry, $shortcodes, $display = false, $show = 'one', $odd = '', $args = array() ) {
 
-		$args['odd'] = $odd;
+		$args['odd']  = $odd;
 		$args['show'] = $show;
 
 		foreach ( $shortcodes[0] as $short_key => $tag ) {
@@ -30,15 +34,15 @@ class FrmProContent {
 
 	public static function replace_single_shortcode( $shortcodes, $short_key, $tag, $entry, $display, $args, &$content ) {
 		$conditional = preg_match( '/^\[if/s', $shortcodes[0][ $short_key ] ) ? true : false;
-		$foreach = preg_match( '/^\[foreach/s', $shortcodes[0][ $short_key ] ) ? true : false;
-		$atts = FrmShortcodeHelper::get_shortcode_attribute_array( $shortcodes[3][ $short_key ] );
+		$foreach     = preg_match( '/^\[foreach/s', $shortcodes[0][ $short_key ] ) ? true : false;
+		$atts        = FrmShortcodeHelper::get_shortcode_attribute_array( $shortcodes[3][ $short_key ] );
 
-		$tag = FrmShortcodeHelper::get_shortcode_tag( $shortcodes, $short_key, compact('conditional', 'foreach') );
+		$tag = FrmShortcodeHelper::get_shortcode_tag( $shortcodes, $short_key, compact( 'conditional', 'foreach' ) );
 
 		self::maybe_replace_dash( $tag );
 
 		$no_field_id = array( 'key', 'ip', 'siteurl', 'sitename', 'admin_email' );
-		if ( in_array( $tag, $no_field_id ) ) {
+		if ( in_array( $tag, $no_field_id, true ) ) {
 			// don't check for a field for default values not covered below
 			return;
 		}
@@ -62,11 +66,11 @@ class FrmProContent {
 			'updated_by',
 		);
 
-		if ( in_array( $tag, $tags ) ) {
-			$args['entry'] = $entry;
-			$args['tag'] = $tag;
+		if ( in_array( $tag, $tags, true ) ) {
+			$args['entry']       = $entry;
+			$args['tag']         = $tag;
 			$args['conditional'] = $conditional;
-			$function = 'do_shortcode_' . $tag;
+			$function            = 'do_shortcode_' . $tag;
 			self::$function( $content, $atts, $shortcodes, $short_key, $args, $display );
 			return;
 		}
@@ -81,10 +85,11 @@ class FrmProContent {
 			return;
 		}
 
-		if ( ! $foreach && ! $conditional && isset( $atts['show'] ) && ( $atts['show'] == 'field_label' || $atts['show'] == 'description' ) ) {
+		if ( ! $foreach && ! $conditional && isset( $atts['show'] ) && ( $atts['show'] === 'field_label' || $atts['show'] === 'description' ) ) {
 			// get the field label or description and return before any other checking
-			$replace_with = ( $atts['show'] == 'field_label' ) ? $field->name : $field->description;
-			$content = str_replace( $shortcodes[0][ $short_key ], $replace_with, $content );
+			$field        = apply_filters( 'frm_field_object_for_shortcode', $field );
+			$replace_with = ( $atts['show'] === 'field_label' ) ? $field->name : $field->description;
+			$content      = str_replace( $shortcodes[0][ $short_key ], $replace_with, $content );
 			return;
 		}
 
@@ -95,49 +100,55 @@ class FrmProContent {
 		} else {
 			// get entry ids linked through repeat field or embeded form
 			$child_entries = FrmProEntry::get_sub_entries( $entry->id, true );
-			$replace_with = FrmProEntryMetaHelper::get_sub_meta_values( $child_entries, $field, $atts );
-			$replace_with = FrmAppHelper::array_flatten( $replace_with );
+			$replace_with  = FrmProEntryMetaHelper::get_sub_meta_values( $child_entries, $field, $atts );
+			$replace_with  = FrmAppHelper::array_flatten( $replace_with );
 		}
 
-		if ( $field->type == 'address' && ! isset( $atts['blank'] ) ) {
+		if ( $field->type === 'address' && ! isset( $atts['blank'] ) ) {
 			$atts['blank'] = 1;
 		}
 
-		$atts['entry_id'] = $entry->id;
+		$atts['entry_id']  = $entry->id;
 		$atts['entry_key'] = $entry->item_key;
-		$atts['post_id'] = $entry->post_id;
+		$atts['post_id']   = $entry->post_id;
 
 		self::maybe_get_show_from_array( $replace_with, $atts );
 
 		$replace_with = apply_filters('frmpro_fields_replace_shortcodes', $replace_with, $tag, $atts, $field);
 
-		if ( isset( $atts['show'] ) && $atts['show'] == 'count' ) {
+		if ( isset( $atts['show'] ) && $atts['show'] === 'count' ) {
 			$replace_with = is_array( $replace_with ) ? count( $replace_with ) : ! empty( $replace_with );
-		} else if ( is_array( $replace_with ) && ! $foreach ) {
+		} elseif ( is_array( $replace_with ) && ! $foreach ) {
 			$keep_array = apply_filters( 'frm_keep_value_array', false, compact( 'field', 'replace_with' ) );
 			$keep_array = apply_filters( 'frm_keep_' . $field->type . '_value_array', $keep_array, compact( 'field', 'replace_with' ) );
 
-			if ( ! $keep_array && $field->type != 'file' ) {
+			if ( ! $keep_array && $field->type !== 'file' ) {
 				$replace_with = FrmAppHelper::array_flatten( $replace_with );
 				$replace_with = array_filter( $replace_with, array( 'FrmProContent', 'is_not_empty' ) );
+
+				if ( ! isset( $atts['sep'] ) && FrmProImages::has_images_options_in_html( $replace_with ) ) {
+					$sep = '';
+				}
+
 				$replace_with = implode( $sep, $replace_with );
-			} else if ( empty( $replace_with ) ) {
+			} elseif ( ! $replace_with ) {
 				$replace_with = '';
 			}
 		}
 
 		if ( $foreach ) {
 			$atts['short_key'] = $shortcodes[0][ $short_key ];
-			$args['display'] = $display;
+			$args['display']   = $display;
 			self::check_conditional_shortcode( $content, $replace_with, $atts, $tag, 'foreach', $args );
-		} else if ( $conditional ) {
+		} elseif ( $conditional ) {
 			$atts['short_key'] = $shortcodes[0][ $short_key ];
 			self::check_conditional_shortcode( $content, $replace_with, $atts, $tag, 'if', array( 'field' => $field ) );
 		} else {
 			if ( empty( $replace_with ) && $replace_with != '0' ) {
-				$replace_with = '';
-				if ( $field->type == 'number' ) {
-					$replace_with = '0';
+				if ( isset( $atts['default'] ) ) {
+					$replace_with = $atts['default'];
+				} else {
+					$replace_with = '';
 				}
 			} else {
 				$replace_with = FrmFieldsHelper::get_display_value( $replace_with, $field, $atts );
@@ -180,6 +191,18 @@ class FrmProContent {
 	 */
 	public static function is_not_empty( $val ) {
 		return $val !== '';
+	}
+
+	/**
+	 * Filter out entry_number shortcode when we have the entry position in the view
+	 *
+	 * @since 4.03.01
+	 */
+	public static function replace_entry_position_shortcode( $entry_args, $args, &$content ) {
+		preg_match_all( "/\[(if )?(entry_position)\b(.*?)(?:(\/))?\](?:(.+?)\[\/\2\])?/s", $content, $shortcodes, PREG_PATTERN_ORDER );
+		foreach ( $shortcodes[0] as $short_key => $tag ) {
+			self::replace_single_shortcode( $shortcodes, $short_key, $tag, $entry_args['entry'], $entry_args['view'], $args, $content );
+		}
 	}
 
 	public static function replace_calendar_date_shortcode( $content, $date ) {
@@ -242,8 +265,8 @@ class FrmProContent {
 	 */
 	public static function get_pretty_url( $atts ) {
 		global $post;
-		$base_url = untrailingslashit( $post ? get_permalink( $post->ID ) : $_SERVER['REQUEST_URI'] );
-		if ( ! is_front_page() && self::rewriting_on() ) {
+		$base_url = untrailingslashit( $post ? get_permalink( $post->ID ) : FrmAppHelper::get_server_value( 'REQUEST_URI' ) );
+		if ( ! is_front_page() && self::rewriting_on() && strpos( $base_url, '?' ) === false ) {
 			$url = $base_url . '/' . $atts['param'] . '/' . $atts['param_value'];
 		} else {
 			$url = esc_url_raw( add_query_arg( $atts['param'], $atts['param_value'], $base_url ) );
@@ -271,6 +294,7 @@ class FrmProContent {
 	/**
 	 * This is a workaround for a bug in WordPress Core
 	 * https://core.trac.wordpress.org/ticket/23867
+	 *
 	 * @since 2.2.10
 	 */
 	public static function fix_home_page_query( $query ) {
@@ -293,7 +317,25 @@ class FrmProContent {
 	private static function get_rewrite_params() {
 		global $wpdb;
 		$params = FrmDb::get_col( $wpdb->postmeta, array( 'meta_key' => 'frm_param' ), 'meta_value' );
+		$params = self::remove_reserved_words( $params );
 		return array_filter( array_unique( $params ) );
+	}
+
+	/**
+	 * Removes reserved words from a list of params.
+	 *
+	 * @param array $params A list of params.
+	 *
+	 * @return array The list of params with reserved words removed.
+	 */
+	private static function remove_reserved_words( $params ) {
+		if ( ! is_callable( 'FrmFormsHelper::reserved_words' ) ) {
+			return $params;
+		}
+
+		$reserved_words = FrmFormsHelper::reserved_words();
+
+		return array_diff( $params, $reserved_words );
 	}
 
 	public static function do_shortcode_editlink( &$content, $atts, $shortcodes, $short_key, $args ) {
@@ -318,7 +360,7 @@ class FrmProContent {
 			if ( $args['entry']->post_id ) {
 				$replace_with = get_edit_post_link( $args['entry']->post_id );
 			} else if ( current_user_can('frm_edit_entries') ) {
-				$replace_with = admin_url( 'admin.php?page=formidable-entries&frm_action=edit&id=' . $args['entry']->id );
+				$replace_with = FrmProEntry::admin_edit_link( $args['entry']->id );
 			}
 
 			if ( ! empty( $replace_with ) ) {
@@ -375,7 +417,9 @@ class FrmProContent {
 			self::check_conditional_shortcode( $content, $args['entry']->{$args['tag']}, $atts, $args['tag'] );
 		} else {
 			if ( isset( $atts['time_ago'] ) ) {
-				$date = FrmAppHelper::human_time_diff( strtotime( $args['entry']->{$args['tag']} ), '', absint( $atts['time_ago'] ) );
+				// $time_ago values can include 1-7, as well as d,w,h,s and their extended day,week,hour,second names as well.
+				$time_ago = is_numeric( $atts['time_ago'] ) ? absint( $atts['time_ago'] ) : sanitize_key( $atts['time_ago'] );
+				$date     = FrmAppHelper::human_time_diff( strtotime( $args['entry']->{$args['tag']} ), '', $time_ago );
 			} else {
 				$date = FrmAppHelper::get_formatted_time( $args['entry']->{$args['tag']}, $atts['format'], $time_format );
 			}
@@ -465,17 +509,28 @@ class FrmProContent {
 		if ( is_array( $replace_with ) && isset( $atts['show'] ) ) {
 			if ( isset( $replace_with[ $atts['show'] ] ) ) {
 				$replace_with = $replace_with[ $atts['show'] ];
-			} else if ( isset( $atts['blank'] ) && $atts['blank'] ) {
+			} elseif ( ! empty( $atts['blank'] ) ) {
 				$replace_with = '';
 			}
 		}
 	}
 
+	/**
+	 * @param string $content
+	 * @param string $replace_with
+	 * @param array  $atts
+	 * @param string $tag
+	 * @param string $condition
+	 * @param array  $args
+	 * @return void
+	 */
 	public static function check_conditional_shortcode( &$content, $replace_with, $atts, $tag, $condition = 'if', $args = array() ) {
 		$defaults = array( 'field' => false );
-		$args = wp_parse_args( $args, $defaults );
+		$args     = wp_parse_args( $args, $defaults );
 
-		if ( 'if' == $condition ) {
+		$checking_if_condition = 'if' === $condition;
+
+		if ( $checking_if_condition ) {
 			$replace_with = self::conditional_replace_with_value( $replace_with, $atts, $args['field'], $tag );
 			$replace_with = apply_filters( 'frm_conditional_value', $replace_with, $atts, $args['field'], $tag );
 		}
@@ -486,11 +541,11 @@ class FrmProContent {
 		while ( $start_pos !== false ) {
 
 			$start_pos_len = strlen( $atts['short_key'] );
-			$end_pos = strpos( $content, '[/' . $condition . ' ' . $tag . ']', $start_pos );
-			$end_pos_len = strlen( '[/' . $condition . ' ' . $tag . ']' );
+			$end_pos       = strpos( $content, '[/' . $condition . ' ' . $tag . ']', $start_pos );
+			$end_pos_len   = strlen( '[/' . $condition . ' ' . $tag . ']' );
 
 			if ( $end_pos === false ) {
-				$end_pos = strpos( $content, '[/' . $condition . ']', $start_pos );
+				$end_pos     = strpos( $content, '[/' . $condition . ']', $start_pos );
 				$end_pos_len = strlen( '[/' . $condition . ']' );
 
 				if ( $end_pos === false ) {
@@ -498,23 +553,77 @@ class FrmProContent {
 				}
 			}
 
-			$total_len = ( $end_pos + $end_pos_len ) - $start_pos;
-			$is_empty = ( $replace_with === '' || is_null( $replace_with ) || false === $replace_with );
+			$total_len      = ( $end_pos + $end_pos_len ) - $start_pos;
+			$is_empty       = ( $replace_with === '' || is_null( $replace_with ) || false === $replace_with );
+			$substring_args = compact( 'content', 'start_pos', 'start_pos_len', 'end_pos' );
 
 			if ( $is_empty ) {
-				$content = substr_replace( $content, '', $start_pos, $total_len );
-			} else if ( 'foreach' == $condition ) {
-				$content_len = $end_pos - ( $start_pos + $start_pos_len );
+				$replacement = '';
+				if ( $checking_if_condition ) {
+					$substring = self::get_conditional_substring( $substring_args );
+					if ( self::conditional_substring_contains_else( $substring ) ) {
+						$replacement = self::get_conditional_substring_half( $substring, true );
+					}
+				}
+				$content = substr_replace( $content, $replacement, $start_pos, $total_len );
+			} elseif ( 'foreach' === $condition ) {
+				$content_len    = $end_pos - ( $start_pos + $start_pos_len );
 				$repeat_content = substr( $content, $start_pos + $start_pos_len, $content_len );
 				self::foreach_shortcode( $replace_with, $args, $repeat_content );
 				$content = substr_replace( $content, $repeat_content, $start_pos, $total_len );
 			} else {
-				$content = substr_replace( $content, '', $end_pos, $end_pos_len );
-				$content = substr_replace( $content, '', $start_pos, $start_pos_len );
+				$substring = self::get_conditional_substring( $substring_args );
+				if ( self::conditional_substring_contains_else( $substring ) ) {
+					$replacement = self::get_conditional_substring_half( $substring, false );
+					$content     = substr_replace( $content, $replacement, $start_pos, $total_len );
+				} else {
+					$content = substr_replace( $content, '', $end_pos, $end_pos_len );
+					$content = substr_replace( $content, '', $start_pos, $start_pos_len );
+				}
 			}
 
 			$start_pos = strpos( $content, $atts['short_key'] );
 		}
+	}
+
+	/**
+	 * Get either the left or the right substring for if conditions containing an [else] shortcode.
+	 *
+	 * @since 5.0.14
+	 *
+	 * @param string $substring
+	 * @param bool   $else if true, the second half of the explode will be returned. if false, the first half is returned.
+	 * @return string
+	 */
+	private static function get_conditional_substring_half( $substring, $else = false ) {
+		$split = explode( '[else]', $substring );
+		return $split[ $else ? 1 : 0 ];
+	}
+
+	/**
+	 * Get the text inside of an if condition shortcode.
+	 *
+	 * @since 5.0.14
+	 *
+	 * @param array $args expects keys 'content', 'start_pos', 'start_pos_len', 'end_pos'.
+	 * @return string
+	 */
+	private static function get_conditional_substring( $args ) {
+		$start  = $args['start_pos'] + $args['start_pos_len'];
+		$length = $args['end_pos'] - $start;
+		return substr( $args['content'], $start, $length );
+	}
+
+	/**
+	 * Check if content has an else shortcode.
+	 *
+	 * @since 5.0.14
+	 *
+	 * @param string $substring
+	 * @return bool
+	 */
+	private static function conditional_substring_contains_else( $substring ) {
+		return false !== strpos( $substring, '[else]' );
 	}
 
 	/**
@@ -568,7 +677,7 @@ class FrmProContent {
 	public static function conditional_replace_with_value( $replace_with, $atts, $field, $tag ) {
 		$conditions = self::get_conditions();
 
-		if ( $field && $field->type == 'data' ) {
+		if ( $field && $field->type === 'data' ) {
 			$old_replace_with = $replace_with;
 
 			// Only get the displayed value if it hasn't been set yet
@@ -578,13 +687,24 @@ class FrmProContent {
 					$replace_with = '';
 				}
 			}
-		} elseif ( ( $field && $field->type == 'user_id' ) || in_array( $tag, array( 'updated_by', 'created_by' ) ) ) {
+
+			// Get the linked field to properly evaluate conditions
+			if ( $replace_with !== '' && isset( $atts['show'] ) && ! empty( $atts['show'] ) ) {
+				$show_field = FrmField::getOne( $atts['show'] );
+				if ( $show_field && in_array( $show_field->type, array( 'time', 'date', 'user_id' ), true ) ) {
+					$field = $show_field;
+					unset( $atts['show'] );
+				}
+			}
+		}
+
+		if ( ( $field && $field->type === 'user_id' ) || in_array( $tag, array( 'updated_by', 'created_by' ), true ) ) {
 			// check if conditional is for current user
-			if ( isset( $atts['equals'] ) && $atts['equals'] == 'current' ) {
+			if ( isset( $atts['equals'] ) && $atts['equals'] === 'current' ) {
 				$atts['equals'] = get_current_user_id();
 			}
 
-			if ( isset( $atts['not_equal'] ) && $atts['not_equal'] == 'current' ) {
+			if ( isset( $atts['not_equal'] ) && $atts['not_equal'] === 'current' ) {
 				$atts['not_equal'] = get_current_user_id();
 			}
 
@@ -594,14 +714,14 @@ class FrmProContent {
 			}
 		} elseif ( self::is_timestamp_tag( $tag ) || ( $field && $field->type == 'date' ) ) {
 			self::prepare_date_for_eval( $conditions, $tag, $atts );
-		} elseif ( $field && $field->type == 'time' ) {
+		} elseif ( $field && $field->type === 'time' ) {
 			$formatted_time = false;
 			foreach ( $conditions as $att_name ) {
 				if ( isset( $atts[ $att_name ] ) && $atts[ $att_name ] != '' ) {
-					if ( strtolower( $atts[ $att_name ] ) == 'now' ) {
+					if ( strtolower( $atts[ $att_name ] ) === 'now' ) {
 						$atts[ $att_name ] = FrmProAppHelper::get_date( 'H:i' );
 					} else {
-						$atts[ $att_name ] = date( 'H:i', strtotime( $atts[ $att_name ] ) );
+						$atts[ $att_name ] = gmdate( 'H:i', strtotime( $atts[ $att_name ] ) );
 					}
 
 					if ( ! $formatted_time ) {
@@ -609,6 +729,11 @@ class FrmProContent {
 						$formatted_time = true;
 					}
 				}
+			}
+		} else {
+			// Compare properly with &.
+			if ( is_callable( 'FrmAppHelper::decode_specialchars' ) ) {
+				FrmAppHelper::decode_specialchars( $replace_with );
 			}
 		}
 
@@ -629,7 +754,7 @@ class FrmProContent {
 				} elseif ( $atts[ $att_name ] == 'NOW' ) {
 					$atts[ $att_name ] = FrmProAppHelper::get_date( 'Y-m-d' );
 				} else {
-					$atts[ $att_name ] = date( 'Y-m-d', strtotime( $atts[ $att_name ] ) );
+					$atts[ $att_name ] = gmdate( 'Y-m-d', strtotime( $atts[ $att_name ] ) );
 				}
 			}
 			unset( $att_name );
@@ -645,7 +770,7 @@ class FrmProContent {
 
 		$compare = strtolower( $compare );
 		if ( strpos( $compare, 'like' ) === false ) {
-			$where_val = date( 'Y-m-d H:i:s', strtotime( $where_val ) );
+			$where_val = gmdate( 'Y-m-d H:i:s', strtotime( $where_val ) );
 
 			// If using less than or equal to, set the time to the end of the day
 			if ( $compare == '<=' || $compare == 'less_than' ) {
@@ -674,15 +799,21 @@ class FrmProContent {
 		}
 	}
 
+	/**
+	 * @param array    $atts
+	 * @param string   $replace_with
+	 * @param stdClass $field
+	 * @return void
+	 */
 	private static function eval_equals_condition( $atts, &$replace_with, $field ) {
 		if ( $replace_with != $atts['equals'] ) {
-			if ( $field && $field->type == 'data' ) {
+			if ( $field && ( in_array( $field->type, array( 'data', 'quiz_score' ), true ) ) ) {
 				$replace_with = FrmFieldsHelper::get_display_value( $replace_with, $field, $atts );
 				if ( $replace_with != $atts['equals'] ) {
 					$replace_with = '';
 				}
-			} else if ( isset( $field->field_options['post_field'] ) && $field->field_options['post_field'] == 'post_category' ) {
-				$cats = explode( ', ', $replace_with );
+			} elseif ( isset( $field->field_options['post_field'] ) && $field->field_options['post_field'] === 'post_category' ) {
+				$cats         = explode( ', ', $replace_with );
 				$replace_with = '';
 				foreach ( $cats as $cat ) {
 					if ( $atts['equals'] == strip_tags( $cat ) ) {
@@ -693,18 +824,28 @@ class FrmProContent {
 			} else {
 				$replace_with = '';
 			}
-		} else if ( $atts['equals'] == '' && $replace_with == '' ) {
+		} elseif ( $atts['equals'] == '' && $replace_with == '' ) {
 			//if the field is blank, give it a value
 			$replace_with = true;
 		}
 	}
 
+	/**
+	 * @param array    $atts
+	 * @param string   $replace_with
+	 * @param stdClass $field
+	 * @return void
+	 */
 	private static function eval_not_equal_condition( $atts, &$replace_with, $field ) {
+		if ( $field && 'quiz_score' === $field->type ) {
+			$replace_with = FrmFieldsHelper::get_display_value( $replace_with, $field, $atts );
+		}
+
 		if ( $replace_with == $atts['not_equal'] ) {
 			$replace_with = '';
-		} else if ( $replace_with == '' && $atts['not_equal'] !== '' ) {
+		} elseif ( $replace_with == '' && $atts['not_equal'] !== '' ) {
 			$replace_with = true;
-		} else if ( ! empty( $replace_with ) && isset( $field->field_options['post_field'] ) && $field->field_options['post_field'] == 'post_category' ) {
+		} elseif ( ! empty( $replace_with ) && isset( $field->field_options['post_field'] ) && $field->field_options['post_field'] == 'post_category' ) {
 			$cats = explode( ', ', $replace_with );
 			foreach ( $cats as $cat ) {
 				if ( $atts['not_equal'] == strip_tags( $cat ) ) {
@@ -740,9 +881,7 @@ class FrmProContent {
 	}
 
 	private static function eval_less_than_condition( $atts, &$field_value ) {
-		if ( $field_value < $atts['less_than'] ) {
-			// Condition is true
-		} else {
+		if ( $field_value >= $atts['less_than'] ) {
 			// Condition is false
 			$field_value = '';
 		}
@@ -756,9 +895,7 @@ class FrmProContent {
 	}
 
 	private static function eval_greater_than_condition( $atts, &$field_value ) {
-		if ( $field_value > $atts['greater_than'] ) {
-			// Condition is true
-		} else {
+		if ( $field_value <= $atts['greater_than'] ) {
 			// Condition is false
 			$field_value = '';
 		}
@@ -804,15 +941,25 @@ class FrmProContent {
 		}
 
 		// If we're on the listing page of a Dynamic View, use detail link for truncate link
-		if ( $display && $display->frm_show_count == 'dynamic' && $args['show'] == 'all' ) {
-			$detail_link = self::get_detail_link( $atts, $display );
+		if ( $display && $display->frm_show_count === 'dynamic' && $args['show'] === 'all' ) {
+			$detail_link    = self::get_detail_link( $atts, $display );
 			$more_link_text = ' <a href="' . esc_url( $detail_link ) . '">' . $more_link_text . '</a>';
 			return FrmAppHelper::truncate( $replace_with, (int) $atts['truncate'], 3, $more_link_text );
 		}
 
-		$clean_text = wp_strip_all_tags( $replace_with );
+		if ( ! $replace_with ) {
+			return $replace_with;
+		}
+
+		$clean_text = trim( wp_strip_all_tags( $replace_with ) );
+		if ( ! $clean_text ) {
+			return '';
+		}
+
 		$part_one = FrmAppHelper::truncate( $clean_text, (int) $atts['truncate'], 3, '' );
-		$part_two = str_replace( $part_one, '', $clean_text );
+		$pos      = strpos( $clean_text, $part_one );
+		// Only replace the first occurance of the string.
+		$part_two = substr_replace( $clean_text, '', $pos, strlen( $part_one ) );
 
 		if ( ! empty( $part_two ) ) {
 			$replace_with = $part_one . '<a href="#" onclick="jQuery(this).next().css(\'display\', \'inline\');jQuery(this).css(\'display\', \'none\');return false;" class="frm_text_exposed_show"> ' . $more_link_text . '</a><span style="display:none;">' . $part_two . '</span>';

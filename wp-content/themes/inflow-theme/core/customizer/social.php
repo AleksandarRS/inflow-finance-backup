@@ -50,18 +50,18 @@ $wp_customize->add_setting( 'social_customizer_g_icon', array(
 	'sanitize_callback' => 'sanitize_image'
 ) );
 $wp_customize->add_setting( 'social_customizer_g_url', array(
-	'default'           => 'https://plus.google.com/',
+	'default'           => 'https://www.tiktok.com/',
 	'sanitize_callback' => 'text_sanitize',
 ) );
 
 $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'google_icon', array(
-	'label'    => __( 'Upload Google+ Icon', 'inflow' ),
+	'label'    => __( 'Upload TikTok', 'inflow' ),
 	'section'  => 'social_icons',
 	'settings' => 'social_customizer_g_icon',
 ) ) );
 
 $wp_customize->add_control( new WP_Customize_Control( $wp_customize, 'google_url', array(
-	'label'    => __( 'Google+ URL', 'inflow' ),
+	'label'    => __( 'TikTok', 'inflow' ),
 	'section'  => 'social_icons',
 	'settings' => 'social_customizer_g_url',
 ) ) );

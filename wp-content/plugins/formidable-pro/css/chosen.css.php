@@ -1,6 +1,11 @@
-/* Start Chosen */
+<?php
+if ( ! defined( 'ABSPATH' ) ) {
+	die( 'You are not allowed to call this page directly.' );
+}
+?>
 .with_frm_style .chosen-container{
     font-size:<?php echo esc_html( $defaults['field_font_size'] ) ?>;
+	font-size:var(--field-font-size)<?php echo esc_html( $important ) ?>;
     position:relative;
     display:inline-block;
     zoom:1;
@@ -23,14 +28,17 @@
     border-top:0;
     position:absolute;
     top:100%;
-    box-shadow:0 4px 5px rgba(0,0,0,.15);
     z-index:1010;
     width:100%;
-    display: none;
+	clip: rect(0, 0, 0, 0);
+	-webkit-clip-path: inset(100% 100%);
+	clip-path: inset(100% 100%);
 }
 
 .with_frm_style .chosen-container.chosen-with-drop .chosen-drop{
-    display: block;
+	clip: auto;
+	-webkit-clip-path: none;
+	clip-path: none;
 }
 
 .with_frm_style .chosen-container a{
@@ -63,12 +71,6 @@
     text-decoration:none;
     white-space:nowrap;
     line-height:24px;
-}
-
-.with_frm_style .chosen-container-single .chosen-single input[type="text"] {
-	cursor: pointer;
-	opacity: 0;
-	position: absolute;
 }
 
 .with_frm_style .chosen-container-single .chosen-default {
@@ -150,6 +152,8 @@
 .with_frm_style .chosen-container-single.chosen-container-single-nosearch .chosen-search{
     position:absolute;
     clip: rect(0, 0, 0, 0);
+	-webkit-clip-path: inset(100% 100%);
+	clip-path: inset(100% 100%);
 }
 
 .with_frm_style .chosen-container .chosen-results{
@@ -175,6 +179,12 @@
     line-height:15px;
     word-wrap:break-word;
     -webkit-touch-callout:none;
+}
+
+.with_frm_style .chosen-container .chosen-results li,
+.with_frm_style .chosen-container .chosen-results li span{
+	color:<?php echo esc_html( $defaults['text_color'] ); ?>;
+	color:var(--text-color)<?php echo esc_html( $important ); ?>;
 }
 
 .with_frm_style .chosen-container .chosen-results li.active-result{
@@ -224,8 +234,6 @@
     height:auto;
     border: 1px solid #aaa;
     background-color: #fff;
-    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(1%, #eee), color-stop(15%, #fff));
-    background-image: linear-gradient(#eee 1%, #fff 15%);
     cursor:text;
 }
 
@@ -440,7 +448,13 @@
 .with_frm_style .chosen-rtl.chosen-container-single.chosen-with-drop .chosen-single div b{
     background-position:-12px 2px;
 }
-/* End Chosen */
+
+/** Fix for overlapping options **/
+.with_frm_style .frm_repeat_sec,
+.with_frm_style .frm_repeat_inline,
+.with_frm_style .frm_repeat_grid {
+	position: relative;
+}
 
 @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-resolution: 144dpi){
     .with_frm_style .chosen-rtl .chosen-search input[type="text"],

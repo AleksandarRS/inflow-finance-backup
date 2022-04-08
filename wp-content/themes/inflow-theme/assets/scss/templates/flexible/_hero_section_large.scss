@@ -1,5 +1,6 @@
 .hero-section {
     position: relative;
+    padding-top: 135px;
     .hero-section-background-image {
         @extend %absolute-full;
     }
@@ -10,6 +11,46 @@
         }
     }
     .hero-row {
-        align-items: center;
+        // align-items: center;
+        > div {
+            padding-bottom: 49px;
+            padding-top: 69px;
+        }
+    }
+    .hero-text-description-content-inner {
+        padding-bottom: 30px;
+        @include min-mq ($ls) {
+            padding-bottom: 80px;
+        }
+        .main-hero-title {
+            margin-top: 0;
+            letter-spacing: 0;
+            margin-bottom: 0.7em;
+        }
+    }
+    .hero-text-description-content {
+        flex: 0 0 42%;
+        max-width: 42%;
+        @include min-mq ($mac_l) {
+            padding-left: 52px;
+        }
+        @include min-mq ($sm) {
+            order: 0;
+        }
+    }
+    .hero-image-content {
+        flex: 0 0 58%;
+        max-width: 58%;
+        @include min-mq ($sm) {
+            padding-right: 0;
+            order: 1;
+        }
+    }
+
+    .entry-content {
+        font-size: $font-size-large;
+    }
+    .button-wrapper {
+        padding-top: 12px;
     }
 }

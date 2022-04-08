@@ -1,17 +1,10 @@
 <?php
 
-class FrmProFormsController {
+if ( ! defined( 'ABSPATH' ) ) {
+	die( 'You are not allowed to call this page directly.' );
+}
 
-	/**
-	 * Stars need the formidablepro.js
-	 * @since 3.0
-	 */
-	public static function load_builder_scripts() {
-		$pro_js = FrmProAppController::get_pro_js_files();
-		$js_key = 'formidablepro';
-		$js = $pro_js[ $js_key ];
-		wp_enqueue_script( $js_key, FrmProAppHelper::plugin_url() . $js['file'], $js['requires'], $js['version'], true );
-	}
+class FrmProFormsController {
 
 	public static function admin_js() {
 		$frm_settings = FrmAppHelper::get_settings();
@@ -24,6 +17,12 @@ class FrmProFormsController {
 
 		if ( FrmAppHelper::is_admin_page() ) {
 			wp_enqueue_style( 'formidable-pro-fields' );
+		}
+
+		$action = FrmAppHelper::simple_get( 'frm_action', 'sanitize_title' );
+		if ( FrmAppHelper::is_admin_page('formidable' ) && $action === 'edit' ) {
+			// For image selector in form builder.
+			wp_enqueue_media();
 		}
 
 		$page = FrmAppHelper::simple_get( 'page', 'sanitize_title' );
@@ -41,7 +40,7 @@ class FrmProFormsController {
 			return;
 		}
 
-		wp_enqueue_style( $theme_css, FrmProStylesController::jquery_css_url( $theme_css ) );
+		wp_enqueue_style( $theme_css, FrmProStylesController::jquery_css_url( $theme_css ), array(), FrmAppHelper::plugin_version() );
 	}
 
 	public static function enqueue_footer_js() {
@@ -86,7 +85,7 @@ class FrmProFormsController {
 			wp_enqueue_script('jquery-chosen');
 		}
 
-		if ( isset( $frm_vars['dropzone_loaded'] ) && ! empty( $frm_vars['dropzone_loaded'] ) ) {
+		if ( ! empty( $frm_vars['dropzone_loaded'] ) ) {
 			wp_enqueue_script( 'dropzone' );
 		}
 
@@ -103,7 +102,7 @@ class FrmProFormsController {
 		}
 
 		if ( isset( $frm_vars['google_graphs'] ) && ! empty( $frm_vars['google_graphs'] ) ) {
-			wp_enqueue_script( 'google_jsapi', 'https://www.google.com/jsapi' );
+			wp_enqueue_script( 'google_jsapi', 'https://www.gstatic.com/charts/loader.js', array(), FrmAppHelper::plugin_version() );
 		}
 	}
 
@@ -119,9 +118,10 @@ class FrmProFormsController {
 		include( FrmProAppHelper::plugin_path() . '/classes/views/frmpro-entries/footer_js.php' );
 
 		/**
-		* Add custom scripts after the form scripts are done loading
-		* @since 2.0.6
-		*/
+		 * Add custom scripts after the form scripts are done loading
+		 *
+		 * @since 2.0.6
+		 */
 		do_action( 'frm_footer_scripts', $frm_vars['forms_loaded'] );
 	}
 
@@ -132,8 +132,9 @@ class FrmProFormsController {
 
 		$frm_settings = FrmAppHelper::get_settings();
 
-		global $frm_vars;
 		if ( $frm_settings->jquery_css ) {
+			global $frm_vars;
+			_deprecated_function( 'Loading jQuery CSS in the Formidable Global Settings', '4.0', 'wp_enqueue_style("jquery-ui-datepicker")' );
 			$frm_vars['datepicker_loaded'][] = true;
 		}
 
@@ -145,13 +146,21 @@ class FrmProFormsController {
 
 		if ( $keep !== 'all' ) {
 			if ( $keep === 'none' ) {
-				$keep_scripts = $keep_styles = array();
+				$keep_scripts = array();
+				$keep_styles  = array();
 			} else {
 				$keep_scripts = array(
-					'recaptcha-api', 'jquery-frm-rating', 'jquery-chosen',
-					'google_jsapi', 'dropzone', 'jquery-maskedinput',
+					'recaptcha-api',
+					'jquery-frm-rating',
+					'jquery-chosen',
+					'google_jsapi',
+					'dropzone',
+					'jquery-maskedinput',
 				);
-				$keep_styles = array( 'dashicons', 'jquery-theme' );
+				$keep_styles  = array(
+					'dashicons',
+					'jquery-theme',
+				);
 
 				if ( is_array( $keep ) ) {
 					$keep_scripts = array_merge( $keep_scripts, $keep );
@@ -159,12 +168,12 @@ class FrmProFormsController {
 			}
 
 			global $wp_scripts, $wp_styles;
-			$keep_scripts = apply_filters( 'frm_ajax_load_scripts', $keep_scripts );
+			$keep_scripts       = apply_filters( 'frm_ajax_load_scripts', $keep_scripts );
 			$registered_scripts = (array) $wp_scripts->registered;
 			$registered_scripts = array_diff( array_keys( $registered_scripts ), $keep_scripts );
 			self::mark_scripts_as_loaded( $registered_scripts );
 
-			$keep_styles = apply_filters( 'frm_ajax_load_styles', $keep_styles );
+			$keep_styles       = apply_filters( 'frm_ajax_load_styles', $keep_styles );
 			$registered_styles = (array) $wp_styles->registered;
 			$registered_styles = array_diff( array_keys( $registered_styles ), $keep_styles );
 			if ( ! empty( $registered_styles ) ) {
@@ -208,12 +217,14 @@ class FrmProFormsController {
 
 		self::enqueue_footer_js();
 
-		print_late_styles();
-		print_footer_scripts();
+		_wp_footer_scripts();
 
 		self::footer_js();
 	}
 
+	/**
+	 * @codeCoverageIgnore
+	 */
 	private static function maybe_load_accordion_scripts( $frm_settings ) {
 		if ( $frm_settings->accordion_js ) {
 			_deprecated_function( 'Load accordion script in the Formidable Global Settings', '3.0', 'wp_enqueue_script("jquery-ui-widget") and wp_enqueue_script("jquery-ui-accordion")' );
@@ -224,10 +235,32 @@ class FrmProFormsController {
 
 	/**
 	 * Used for hiding the form on page load
+	 *
 	 * @since 2.3
 	 */
 	public static function head() {
 		echo '<script type="text/javascript">document.documentElement.className += " js";</script>' . "\r\n";
+	}
+
+	/**
+	 * @since 4.0
+	 */
+	public static function form_settings_sections( $sections ) {
+		$sections['permissions'] = array(
+			'function' => array( __CLASS__, 'add_form_options' ),
+			'name'     => isset( $sections['permissions'] ) ? $sections['permissions']['name'] : __( 'Form Permissions', 'formidable' ),
+			'icon'     => isset( $sections['permissions'] ) ? $sections['permissions']['icon'] : 'frm_icon_font frm_lock_icon',
+			'anchor'   => 'permissions_settings',
+		);
+
+		$sections['scheduling'] = array(
+			'function' => array( __CLASS__, 'add_form_status_options' ),
+			'name'     => isset( $sections['scheduling'] ) ? $sections['scheduling']['name'] : __( 'Form Scheduling', 'formidable' ),
+			'icon'     => isset( $sections['scheduling'] ) ? $sections['scheduling']['icon'] : 'frm_icon_font frm_calendar_icon',
+			'anchor'   => 'scheduling_settings',
+		);
+
+		return $sections;
 	}
 
 	public static function add_form_options( $values ) {
@@ -259,23 +292,41 @@ class FrmProFormsController {
 
     /**
      * Remove the noallow class on pro fields
+	 *
      * @return string
      */
     public static function noallow_class() {
         return '';
     }
 
+	/**
+	 * Use a different name on the 'Field Label' setting for some field types.
+	 *
+	 * @since 4.0
+	 * @return string
+	 */
+	public static function builder_field_label( $label, $field ) {
+		if ( $field['type'] === 'break' ) {
+			$label = __( 'Button Label', 'formidable-pro' );
+		}
+		return $label;
+	}
+
 	public static function add_form_button_options( $values ) {
-        global $frm_vars;
-
-        $page_field = FrmProFormsHelper::has_field('break', $values['id'], true);
-
-        $post_types = FrmProAppHelper::get_custom_post_types();
-
-        $submit_conditions = $values['submit_conditions'];
-
-        require(FrmProAppHelper::plugin_path() . '/classes/views/frmpro-forms/add_form_button_options.php');
+		global $frm_vars;
+		$page_field        = FrmProFormsHelper::has_field( 'break', $values['id'], true );
+		$save_drafts       = ! empty( $values['save_draft'] );
+		$post_types        = FrmProAppHelper::get_custom_post_types();
+		$submit_conditions = $values['submit_conditions'];
+		require FrmProAppHelper::plugin_path() . '/classes/views/frmpro-forms/add_form_button_options.php';
     }
+
+	/**
+	 * @since 4.05
+	 */
+	public static function add_form_style_tab_options( $values ) {
+		include( FrmProAppHelper::plugin_path() . '/classes/views/frmpro-forms/add_form_style_options.php' );
+	}
 
 	public static function add_form_msg_options( $values ) {
         global $frm_vars;
@@ -285,9 +336,26 @@ class FrmProFormsController {
         require(FrmProAppHelper::plugin_path() . '/classes/views/frmpro-forms/add_form_msg_options.php');
     }
 
-	public static function instruction_tabs() {
-        include(FrmProAppHelper::plugin_path() . '/classes/views/frmpro-forms/instruction_tabs.php');
-    }
+	/**
+	 * @since 3.04
+	 */
+	public static function add_form_status_options( $values ) {
+		FrmProStylesController::enqueue_jquery_css();
+		wp_enqueue_script( 'jquery-ui-datepicker' );
+		$values['open_date']  = empty( $values['open_date'] ) ? '' : gmdate( 'Y-m-d H:i', strtotime( $values['open_date'] ) );
+		$values['close_date'] = empty( $values['close_date'] ) ? '' : gmdate( 'Y-m-d H:i', strtotime( $values['close_date'] ) );
+
+		require( FrmProAppHelper::plugin_path() . '/classes/views/frmpro-forms/add_form_status_options.php' );
+	}
+
+	/**
+	 * @since 4.0
+	 * @return false The lite version should not show an upsell.
+	 */
+	public static function smart_values_box() {
+		self::instructions();
+		return false;
+	}
 
 	public static function instructions() {
 		$tags = array(
@@ -312,7 +380,7 @@ class FrmProFormsController {
 				'title' => __( 'A variable from the URL or value posted from previous page.', 'formidable-pro' ) . ' ' . __( 'Replace \'whatever\' with the parameter name. In url.com?product=form, the variable is \'product\'. You would use [get param=product] in your field.', 'formidable-pro' ),
 			),
 			'server param=whatever' => array(
-				'label' => __( 'SERVER', 'formidable-pro' ),
+				'label' => 'SERVER',
 				'title' => __( 'A variable from the PHP SERVER array.', 'formidable-pro' ) . ' ' . __( 'Replace \'whatever\' with the parameter name. To get the url of the current page, use [server param="REQUEST_URI"] in your field.', 'formidable-pro' ),
 			),
 		);
@@ -332,6 +400,9 @@ class FrmProFormsController {
 		return '<a href="#" class="frm_add_field">' . $field_type . '</a>';
     }
 
+	/**
+	 * @codeCoverageIgnore
+	 */
 	public static function drag_field_class() {
 		_deprecated_function( __METHOD__, '3.0' );
         return ' class="field_type_list"';
@@ -345,30 +416,14 @@ class FrmProFormsController {
         $frm_vars['editing_entry'] = false;
         $frm_vars['show_fields'] = array();
 
-        if ( ! is_array($atts['fields']) ) {
-            $frm_vars['show_fields'] = explode(',', $atts['fields']);
-        }
+		self::set_included_fields( $atts );
 
-        if ( ! empty($atts['exclude_fields']) ) {
-            if ( ! is_array( $atts['exclude_fields'] ) ) {
-                $atts['exclude_fields'] = explode(',', $atts['exclude_fields']);
-            }
-
-            $query = array(
-                'form_id' => (int) $atts['id'],
-                'id NOT' => $atts['exclude_fields'],
-                'field_key NOT' => $atts['exclude_fields'],
-            );
-
-			$frm_vars['show_fields'] = FrmDb::get_col( $wpdb->prefix . 'frm_fields', $query );
-        }
-
-        if ( $atts['entry_id'] && $atts['entry_id'] == 'last' ) {
+        if ( $atts['entry_id'] && $atts['entry_id'] === 'last' ) {
             $user_ID = get_current_user_id();
             if ( $user_ID ) {
 				$frm_vars['editing_entry'] = FrmDb::get_var( $wpdb->prefix . 'frm_items', array( 'form_id' => $atts['id'], 'user_id' => $user_ID ), 'id', array( 'order_by' => 'created_at DESC' ) );
             }
-        } else if ( $atts['entry_id'] ) {
+        } elseif ( $atts['entry_id'] ) {
             $frm_vars['editing_entry'] = $atts['entry_id'];
         }
 
@@ -379,13 +434,26 @@ class FrmProFormsController {
             unset($unset, $val);
         }
 
-        if ( is_array($all_atts) ) {
+        if ( is_array( $all_atts ) ) {
             foreach ( $all_atts as $att => $val ) {
                 $_GET[ $att ] = $val;
-                unset($att, $val);
+                unset( $att, $val );
             }
         }
     }
+
+	/**
+	 * If fields are excluded in the form shortcode, set the list of all fields
+	 * that should be included.
+	 *
+	 * @since 4.03.03
+	 *
+	 * @param array $atts
+	 * @return void
+	 */
+	public static function set_included_fields( $atts ) {
+		FrmProGlobalVarsHelper::get_instance( true )->set_included_fields( $atts );
+	}
 
 	public static function add_form_classes( $form ) {
 		echo ' frm_pro_form ';
@@ -399,12 +467,35 @@ class FrmProFormsController {
 		if ( current_user_can( 'activate_plugins' ) && current_user_can( 'frm_edit_forms' ) ) {
 			echo ' frm-admin-viewing ';
 		}
+
+		$style = FrmStylesController::get_form_style( $form->id );
+		if ( is_object( $style ) && ! empty( $style->post_content['bg_image_id'] ) ) {
+			echo ' frm_with_bg_image ';
+		}
+
+		self::add_transitions( $form );
 	}
 
 	private static function maybe_add_hide_class( $form ) {
 		$frm_settings = FrmAppHelper::get_settings();
 		if ( $frm_settings->fade_form && FrmProForm::has_fields_with_conditional_logic( $form ) ) {
 			echo ' frm_logic_form ';
+		}
+	}
+
+	/**
+	 * @since 4.05
+	 */
+	private static function add_transitions( $form ) {
+		$transition = isset( $form->options['transition'] ) ? $form->options['transition'] : '';
+		if ( empty( $transition ) ) {
+			return;
+		}
+
+		echo ' frm_' . esc_attr( $transition ) . ' ';
+
+		if ( FrmProFormsHelper::going_to_prev( $form->id ) ) {
+			echo ' frm_going_back ';
 		}
 	}
 
@@ -418,10 +509,12 @@ class FrmProFormsController {
     }
 
 	public static function form_hidden_fields( $form ) {
-        if ( is_user_logged_in() && isset( $form->options['save_draft'] ) && $form->options['save_draft'] == 1 ) {
-            echo '<input type="hidden" name="frm_saving_draft" class="frm_saving_draft" value="" />';
-        }
-    }
+		if ( is_user_logged_in() && isset( $form->options['save_draft'] ) && $form->options['save_draft'] == 1 ) {
+			echo '<input type="hidden" name="frm_saving_draft" class="frm_saving_draft" value="" />';
+		}
+		FrmProFormState::maybe_render_state_field();
+		FrmProFieldCaptcha::render_checked_response();
+	}
 
 	public static function submit_button_label( $submit, $form ) {
         global $frm_vars;
@@ -469,7 +562,7 @@ class FrmProFormsController {
                     }
 					break;
                 case 'draft_label':
-                    $replace_with = __( 'Save Draft', 'formidable-pro' );
+                    $replace_with = esc_html( ! empty( $form->options['draft_label'] ) ? $form->options['draft_label'] : __( 'Save Draft', 'formidable-pro' ) );
 					break;
                 case 'save_draft':
                     if ( ! is_user_logged_in() || ! isset($form->options['save_draft']) || $form->options['save_draft'] != 1 || ( isset($values['is_draft']) && ! $values['is_draft'] ) ) {
@@ -498,16 +591,29 @@ class FrmProFormsController {
 		return FrmProContent::replace_shortcodes( $content, $entry, $shortcodes );
     }
 
+	/**
+	 * @since 5.0.17
+	 *
+	 * @param string $class
+	 * @param string $style
+	 * @param array  $args
+	 * @return string
+	 */
+	public static function add_form_style_class( $class, $style, $args = array() ) {
+		if ( empty( $args['form'] ) || empty( $args['form']['submit_align'] ) || 'full' !== $args['form']['submit_align'] ) {
+			return $class;
+		}
+		return $class . ' frm_full_submit';
+	}
+
 	public static function conditional_options( $options ) {
         $cond_opts = array(
-            'equals="something"' => __( 'Equals', 'formidable-pro' ),
-            'not_equal="something"' => __( 'Does Not Equal', 'formidable-pro' ),
-            'equals=""' => __( 'Is Blank', 'formidable-pro' ),
-            'not_equal=""' => __( 'Is Not Blank', 'formidable-pro' ),
-            'like="something"' => __( 'Is Like', 'formidable-pro' ),
-            'not_like="something"' => __( 'Is Not Like', 'formidable-pro' ),
-            'greater_than="3"' => __( 'Greater Than', 'formidable-pro' ),
-            'less_than="-1 month"' => __( 'Less Than', 'formidable-pro' )
+            'equals'       => __( 'Equals', 'formidable-pro' ),
+            'not_equal'    => __( 'Does Not Equal', 'formidable-pro' ),
+            'like'         => __( 'Is Like', 'formidable-pro' ),
+            'not_like'     => __( 'Is Not Like', 'formidable-pro' ),
+            'greater_than' => __( 'Greater Than', 'formidable-pro' ),
+            'less_than'    => __( 'Less Than', 'formidable-pro' ),
         );
 
         $options = array_merge($options, $cond_opts);
@@ -516,52 +622,68 @@ class FrmProFormsController {
 
 	public static function advanced_options( $options ) {
         $adv_opts = array(
-            'clickable=1' => __( 'Clickable Links', 'formidable-pro' ),
-            'links=0'   => array( 'label' => __( 'Remove Links', 'formidable-pro' ), 'title' => __( 'Removes the automatic links to category pages', 'formidable-pro' )),
-            'sanitize=1' => array( 'label' => __( 'Sanitize', 'formidable-pro' ), 'title' => __( 'Replaces spaces with dashes and lowercases all. Use if adding an HTML class or ID', 'formidable-pro' )),
-			'sanitize_url=1' => array(
+            'x clickable=1' => __( 'Clickable Links', 'formidable-pro' ),
+            'x links=0'   => array( 'label' => __( 'Remove Links', 'formidable-pro' ), 'title' => __( 'Removes the automatic links to category pages', 'formidable-pro' )),
+            'x sanitize=1' => array( 'label' => __( 'Sanitize', 'formidable-pro' ), 'title' => __( 'Replaces spaces with dashes and lowercases all. Use if adding an HTML class or ID', 'formidable-pro' )),
+			'x sanitize_url=1' => array(
 				'label' => __( 'Sanitize URL', 'formidable-pro' ),
 				'title' => __( 'Replaces all HTML entities with a URL safe string.', 'formidable-pro' ),
 			),
-            'truncate=40' => array( 'label' => __( 'Truncate', 'formidable-pro' ), 'title' => __( 'Truncate text with a link to view more. If using Both (dynamic), the link goes to the detail page. Otherwise, it will show in-place.', 'formidable-pro' )),
-            'truncate=100 more_text="More"' => __( 'More Text', 'formidable-pro' ),
-            'time_ago=1' => array( 'label' => __( 'Time Ago', 'formidable-pro' ), 'title' => __( 'How long ago a date was in minutes, hours, days, months, or years.', 'formidable-pro' )),
-            'decimal=2 dec_point="." thousands_sep=","' => __( '# Format', 'formidable-pro' ),
-            'show="value"' => array( 'label' => __( 'Saved Value', 'formidable-pro' ), 'title' => __( 'Show the saved value for fields with separate values.', 'formidable-pro' ) ),
-            'striphtml=1' => array( 'label' => __( 'Remove HTML', 'formidable-pro' ), 'title' => __( 'Remove all HTML added into your form before display', 'formidable-pro' )),
-            'keepjs=1' => array( 'label' => __( 'Keep JS', 'formidable-pro' ), 'title' => __( 'Javascript from your form entries are automatically removed. Add this option only if you trust those submitting entries.', 'formidable-pro' )),
+            'x truncate=40' => array( 'label' => __( 'Truncate', 'formidable-pro' ), 'title' => __( 'Truncate text with a link to view more. If using Both (dynamic), the link goes to the detail page. Otherwise, it will show in-place.', 'formidable-pro' )),
+            'x truncate=100 more_text="More"' => __( 'More Text', 'formidable-pro' ),
+			'x time_ago=1' => array(
+				'label' => __( 'Time Ago', 'formidable-pro' ),
+				'title' => __( 'How long ago a date was in minutes, hours, days, months, or years.', 'formidable-pro' ),
+			),
+			'x offset="+1 month"' => array(
+				'label' => __( 'Date Offset', 'formidable-pro' ),
+				'title' => __( 'Add or remove time from the selected date for date calculations.', 'formidable-pro' ),
+			),
+            'x decimal=2 dec_point="." thousands_sep=","' => __( '# Format', 'formidable-pro' ),
+            'x show="value"' => array( 'label' => __( 'Saved Value', 'formidable-pro' ), 'title' => __( 'Show the saved value for fields with separate values.', 'formidable-pro' ) ),
+            'x striphtml=1' => array( 'label' => __( 'Remove HTML', 'formidable-pro' ), 'title' => __( 'Remove all HTML added into your form before display', 'formidable-pro' )),
+            'x keepjs=1' => array( 'label' => __( 'Keep JS', 'formidable-pro' ), 'title' => __( 'Javascript from your form entries are automatically removed. Add this option only if you trust those submitting entries.', 'formidable-pro' )),
         );
 
         $options = array_merge($options, $adv_opts);
         return $options;
     }
 
+	/**
+	 * @deprecated 3.04.01
+ 	 * @codeCoverageIgnore
+	 */
 	public static function user_options( $options ) {
-        $user_fields = array(
-            'ID'            => __( 'User ID', 'formidable-pro' ),
-            'first_name'    => __( 'First Name', 'formidable-pro' ),
-            'last_name'     => __( 'Last Name', 'formidable-pro' ),
-            'display_name'  => __( 'Display Name', 'formidable-pro' ),
-            'user_login'    => __( 'User Login', 'formidable-pro' ),
-            'user_email'    => __( 'Email', 'formidable-pro' ),
-            'avatar'        => __( 'Avatar', 'formidable-pro' ),
-			'author_link'   => __( 'Author Link', 'formidable-pro' ),
-        );
+		_deprecated_function( __METHOD__, '3.04.01', 'FrmFormsController::user_shortcodes' );
+		if ( is_callable( 'FrmFormsController::user_shortcodes' ) ) {
+			$user_fields = FrmFormsController::user_shortcodes();
+		}
 
         $options = array_merge($options, $user_fields);
         return $options;
     }
 
+	/**
+	 * Handles frm_pre_get_form action.
+	 *
+	 * @since 5.2.02
+	 *
+	 * @param stdClass $form
+	 * @return void
+	 */
+	public static function pre_get_form( $form ) {
+		self::add_submit_conditions_to_frm_vars( $form );
+		self::add_honeypot_globals_to_frm_vars( $form );
+	}
 
 	/**
 	 * Add submit conditions to $frm_vars for inclusion in Conditional Logic processing
-	 * @param $atts
-	 * @param $form
+	 *
+	 * @param stdClass $form
+	 * @return void
 	 */
 	public static function add_submit_conditions_to_frm_vars( $form ) {
-		if ( ! isset( $form->options['submit_conditions'] ) ||
-             ! isset( $form->options['submit_conditions']['hide_field'] ) ||
-             empty( $form->options['submit_conditions']['hide_field'] ) ) {
+		if ( ! isset( $form->options['submit_conditions'] ) || empty( $form->options['submit_conditions']['hide_field'] ) ) {
 			return;
 		}
 
@@ -580,6 +702,50 @@ class FrmProFormsController {
 		);
 
 		FrmProFieldsHelper::setup_conditional_fields( $submit_field );
+	}
+
+	/**
+	 * @since 5.2.02
+	 *
+	 * @param stdClass $form
+	 * @return void
+	 */
+	private static function add_honeypot_globals_to_frm_vars( $form ) {
+		global $frm_vars;
+
+		if ( ! array_key_exists( 'honeypot', $frm_vars ) ) {
+			$frm_vars['honeypot'] = array();
+		}
+
+		if ( class_exists( 'FrmHoneypot' ) ) {
+			$honeypot = isset( $form->options['honeypot'] ) ? $form->options['honeypot'] : 'basic';
+		} else {
+			$honeypot = 'strict';
+		}
+
+		$frm_vars['honeypot'][ $form->id ] = $honeypot;
+	}
+
+	/**
+	 * @param string $button
+	 * @param array  $args
+	 * @return string
+	 */
+	public static function maybe_hide_submit_button( $button, $args ) {
+		if ( ! is_array( $args ) || empty( $args['form'] ) ) {
+			return $button;
+		}
+
+		$form = $args['form'];
+		if ( ! isset( $form->options['submit_align'] ) || 'none' !== $form->options['submit_align'] ) {
+			return $button;
+		}
+
+		if ( ! FrmProFormsHelper::is_final_page( $form->id ) ) {
+			return $button;
+		}
+
+		return preg_replace( '/frm_button_submit/', 'frm_hidden frm_button_submit', $button, 1 );
 	}
 
 	/**
@@ -667,11 +833,14 @@ class FrmProFormsController {
 	    return FrmProFormsHelper::setup_edit_vars($values);
 	}
 
+	/**
+	 * @param array $shortcodes
+	 * @return array $shortcodes
+	 */
 	public static function popup_shortcodes( $shortcodes ) {
-	    $shortcodes['display-frm-data'] = array( 'name' => __( 'View', 'formidable-pro' ), 'label' => __( 'Insert a View', 'formidable-pro' ));
-	    $shortcodes['frm-graph'] = array( 'name' => __( 'Graph', 'formidable-pro' ), 'label' => __( 'Insert a Graph', 'formidable-pro' ));
-        $shortcodes['frm-search'] = array( 'name' => __( 'Search', 'formidable-pro' ), 'label' => __( 'Add a Search Form', 'formidable-pro' ));
-        $shortcodes['frm-show-entry'] = array( 'name' => __( 'Single Entry', 'formidable-pro' ), 'label' => __( 'Display a Single Entry', 'formidable-pro' ));
+	    $shortcodes['frm-graph']       = array( 'name' => __( 'Graph', 'formidable-pro' ), 'label' => __( 'Insert a Graph', 'formidable-pro' ) );
+        $shortcodes['frm-search']      = array( 'name' => __( 'Search', 'formidable-pro' ), 'label' => __( 'Add a Search Form', 'formidable-pro' ) );
+        $shortcodes['frm-show-entry']  = array( 'name' => __( 'Single Entry', 'formidable-pro' ), 'label' => __( 'Display a Single Entry', 'formidable-pro' ) );
 		$shortcodes['frm-entry-links'] = array( 'name' => __( 'List of Entries', 'formidable-pro' ), 'label' => __( 'Display a List of Entries', 'formidable-pro' ) );
 
 		/*
@@ -697,43 +866,10 @@ class FrmProFormsController {
     }
 
 	private static function popup_opts_display_frm_data( array &$opts, $shortcode ) {
-        //'entry_id' => '',  'user_id' => false, 'order' => '',
-		$displays = FrmProDisplay::getAll( array(), 'title ASC' );
-
-?>
-        <h4 for="frmsc_<?php echo esc_attr( $shortcode ) ?>_id" class="frm_left_label"><?php _e( 'Select a view:', 'formidable-pro' ) ?></h4>
-        <select id="frmsc_<?php echo esc_attr( $shortcode ) ?>_id">
-            <option value=""> </option>
-            <?php foreach ( $displays as $display ) { ?>
-            <option value="<?php echo esc_attr( $display->ID ) ?>"><?php echo esc_html( $display->post_title ) ?></option>
-            <?php } ?>
-        </select>
-        <div class="frm_box_line"></div>
-<?php
-		$opts = array(
-			'filter' => array( 'val' => 'limited', 'label' => __( 'Filter shortcodes within the view content', 'formidable-pro' ) ),
-			'limit' => array( 'val' => '', 'label' => __( 'Limit', 'formidable-pro' ), 'type' => 'text' ),
-			'page_size' => array( 'val' => '', 'label' => __( 'Page size', 'formidable-pro' ), 'type' => 'text' ),
-			'order'  => array(
-				'val'   => '', 'label' => __( 'Entry order', 'formidable-pro' ), 'type' => 'select',
-				'opts'  => array(
-					''      => __( 'Default', 'formidable-pro' ),
-					'ASC'   => __( 'Ascending', 'formidable-pro' ),
-					'DESC'  => __( 'Descending', 'formidable-pro' ),
-				),
-			),
-			'drafts' => array(
-				'val'   => '',
-				'label' => __( 'Include draft entries', 'formidable-pro' ),
-				'type'  => 'select',
-				'opts'  => array(
-					''     => __( 'No draft entries', 'formidable-pro' ),
-					'1'    => __( 'Only draft entries', 'formidable-pro' ),
-					'both' => __( 'All entries', 'formidable-pro' ),
-				),
-			),
-		);
-    }
+		if ( is_callable( 'FrmViewsDisplaysController::popup_opts_display_frm_data' ) ) {
+			FrmViewsDisplaysController::popup_opts_display_frm_data( $opts, $shortcode );
+		}
+	}
 
 	private static function popup_opts_frm_search( array &$opts ) {
         $opts = array(
@@ -760,16 +896,18 @@ class FrmProFormsController {
 		$form_list = FrmForm::getAll( $where, 'name' );
 
     ?>
-		<h4 class="frm_left_label"><?php _e( 'Select a form and field:', 'formidable-pro' ) ?></h4>
+		<h4 class="frm_left_label"><?php esc_html_e( 'Select a form and field:', 'formidable-pro' ); ?></h4>
 
-		<select class="frm_get_field_selection" id="<?php echo esc_attr( $shortcode ) ?>_form">
-			<option value="">&mdash; <?php _e( 'Select Form', 'formidable-pro' ) ?> &mdash;</option>
+		<select class="frm_get_field_selection" id="<?php echo esc_attr( $shortcode ); ?>_form">
+			<option value="">&mdash; <?php esc_html_e( 'Select Form', 'formidable-pro' ); ?> &mdash;</option>
 			<?php foreach ( $form_list as $form_opts ) { ?>
-			<option value="<?php echo esc_attr( $form_opts->id ) ?>"><?php echo '' == $form_opts->name ? __( '(no title)', 'formidable-pro' ) : esc_html( FrmAppHelper::truncate($form_opts->name, 50) ) ?></option>
+			<option value="<?php echo esc_attr( $form_opts->id ); ?>">
+				<?php echo '' == $form_opts->name ? esc_html__( '(no title)', 'formidable-pro' ) : esc_html( FrmAppHelper::truncate($form_opts->name, 50) ); ?>
+			</option>
 			<?php } ?>
 		</select>
 
-		<span id="<?php echo esc_attr( $shortcode ) ?>_fields_container">
+		<span id="<?php echo esc_attr( $shortcode ); ?>_fields_container">
 		</span>
 
 		<div class="frm_box_line"></div><?php
@@ -816,9 +954,9 @@ class FrmProFormsController {
 	private static function popup_opts_frm_show_entry( array &$opts, $shortcode ) {
 
 ?>
-    <h4 class="frm_left_label"><?php _e( 'Insert an entry ID/key:', 'formidable-pro' ) ?></h4>
+	<h4 class="frm_left_label"><?php esc_html_e( 'Insert an entry ID/key:', 'formidable-pro' ); ?></h4>
 
-    <input type="text" value="" id="frmsc_<?php echo esc_attr( $shortcode ) ?>_id" />
+    <input type="text" value="" id="frmsc_<?php echo esc_attr( $shortcode ); ?>_id" />
 
     <div class="frm_box_line"></div>
 <?php
@@ -905,7 +1043,7 @@ class FrmProFormsController {
 	public static function add_pro_field_helpers( $entry_shortcodes, $settings_tab ) {
 		if ( ! $settings_tab ) {
 			$entry_shortcodes['detaillink'] = __( 'Detail Link', 'formidable-pro' );
-			$entry_shortcodes['editlink location="front" label="Edit" page_id=x'] = __( 'Edit Entry Link', 'formidable-pro' );
+			$entry_shortcodes['editlink label="Edit" page_id=x'] = __( 'Edit Entry Link', 'formidable-pro' );
 			$entry_shortcodes['entry_count'] = __( 'Entry Count', 'formidable-pro' );
 			$entry_shortcodes['entry_position'] = __( 'Entry Postion', 'formidable-pro' );
 			$entry_shortcodes['evenodd'] = __( 'Even/Odd', 'formidable-pro' );
@@ -914,6 +1052,41 @@ class FrmProFormsController {
 		}
 
 		return $entry_shortcodes;
+	}
+
+	/**
+	 * Set the strings to be translatable by multilingual plugins.
+	 *
+	 * @since 3.06.01
+	 * @param array $strings
+	 * @param object $form
+	 */
+	public static function add_form_strings( $strings, $form ) {
+		// Add edit and delete options.
+		if ( $form->editable ) {
+			$strings[] = 'edit_value';
+			$strings[] = 'edit_msg';
+		}
+
+		if ( isset( $form->options['save_draft'] ) && $form->options['save_draft'] ) {
+			if ( isset( $form->options['draft_msg'] ) ) {
+				$strings[] = 'draft_msg';
+			}
+			if ( ! empty( $form->options['draft_label'] ) ) {
+				$strings[] = 'draft_label';
+			}
+		}
+
+		if ( isset( $form->options['open_status'] ) && ! empty( $form->options['open_status'] ) ) {
+			$strings[] = 'closed_msg';
+		}
+
+		$strings[] = 'prev_value';
+		if ( isset( $form->options['rootline_titles_on'] ) && ! empty( $form->options['rootline_titles_on'] ) ) {
+			$strings[] = 'rootline_titles';
+		}
+
+		return $strings;
 	}
 
 	public static function setup_form_data_for_editing_entry( $entry, &$values ) {
@@ -942,9 +1115,9 @@ class FrmProFormsController {
 				$values[ $opt ] = $default;
 			}
 		}
-		unset($opt, $defaut);
+		unset( $opt, $default );
 
-		$post_values = stripslashes_deep( $_POST );
+		$post_values = wp_unslash( $_POST );
 		if ( ! isset( $values['custom_style'] ) ) {
 			$values['custom_style'] = FrmAppHelper::custom_style_value( $post_values );
 		}
@@ -954,7 +1127,7 @@ class FrmProFormsController {
 				$values[ $h . '_html' ] = ( isset( $post_values['options'][ $h . '_html' ] ) ? $post_values['options'][ $h . '_html' ] : FrmFormsHelper::get_default_html( $h ) );
 			}
 		}
-		unset($h);
+		unset( $h );
 	}
 
 	/* Trigger model actions */
@@ -971,19 +1144,59 @@ class FrmProFormsController {
     }
 
 	public static function update( $id, $values ) {
-        FrmProForm::update($id, $values);
+		FrmProForm::update( $id, $values );
+
+		if ( ! empty( $values['optionmap'] ) ) {
+			FrmProForm::maybe_fix_conditions( $id, $values['optionmap'] );
+		}
     }
 
-	public static function after_duplicate( $new_opts ) {
-        return FrmProForm::after_duplicate($new_opts);
+	public static function after_duplicate( $new_opts, $form_id = 0 ) {
+        return FrmProForm::after_duplicate( $new_opts, $form_id );
     }
 
 	public static function validate( $errors, $values ) {
         return FrmProForm::validate( $errors, $values );
     }
 
+	/**
+	 * @since 5.0.06
+	 *
+	 * @param string $button
+	 * @return string
+	 */
+	public static function frm_submit_button_html( $button ) {
+		FrmProFieldsHelper::replace_non_standard_formidable_shortcodes( array(), $button );
+		return $button;
+	}
+
+	/**
+	 * @deprecated 4.0
+	 */
+	public static function instruction_tabs() {
+		_deprecated_function( __METHOD__, '4.0' );
+	}
+
+	/**
+	 * @deprecated 2.05
+	 * @codeCoverageIgnore
+	 */
 	public static function add_form_row() {
 		_deprecated_function( __FUNCTION__, '2.05', 'FrmProNestedFormsController::ajax_add_repeat_row' );
 		FrmProNestedFormsController::ajax_add_repeat_row();
+	}
+
+	/**
+	 * Stars need the formidablepro.js
+	 *
+	 * @since 3.0
+	 * @deprecated 4.04.02
+	 */
+	public static function load_builder_scripts() {
+		_deprecated_function( __METHOD__, '4.04.02' );
+		$pro_js = FrmProAppController::get_pro_js_files();
+		$js_key = 'formidablepro';
+		$js = $pro_js[ $js_key ];
+		wp_enqueue_script( $js_key, FrmProAppHelper::plugin_url() . $js['file'], $js['requires'], $js['version'], true );
 	}
 }

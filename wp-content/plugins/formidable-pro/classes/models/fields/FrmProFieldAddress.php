@@ -1,5 +1,9 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	die( 'You are not allowed to call this page directly.' );
+}
+
 /**
  * @since 3.0
  */
@@ -19,11 +23,17 @@ class FrmProFieldAddress extends FrmFieldType {
 
 	protected function field_settings_for_type() {
 		$settings = array(
-			'clear_on_focus' => true,
-			'default_blank' => true,
-			'default_value' => true,
-			'visibility'    => true,
+			'clear_on_focus' => false, // Don't use the regular placeholder option.
+			'default_value'  => true,
+			'description'    => false,
+			'visibility'     => true,
+			'read_only'      => true,
 		);
+
+		if ( is_array( $this->default_value_to_array() ) ) {
+			$settings['default'] = false;
+		}
+
 		FrmProFieldsHelper::fill_default_field_display( $settings );
 		return $settings;
 	}
@@ -33,7 +43,7 @@ class FrmProFieldAddress extends FrmFieldType {
 			'address_type' => 'international',
 		);
 
-		$default_labels = self::default_labels();
+		$default_labels = $this->default_labels();
 		foreach ( $default_labels as $key => $label ) {
 			$options[ $key . '_desc' ] = $label;
 		}
@@ -41,7 +51,54 @@ class FrmProFieldAddress extends FrmFieldType {
 		return $options;
 	}
 
-	private static function default_labels() {
+	/**
+	 * @since 4.0
+	 * @param array $args - Includes 'field', 'display', and 'values'.
+	 */
+	public function show_primary_options( $args ) {
+		$field = $args['field'];
+		include( FrmProAppHelper::plugin_path() . '/classes/views/combo-fields/addresses/back-end-field-opts.php' );
+
+		parent::show_primary_options( $args );
+	}
+
+	/**
+	 * Include the settings for placeholder, default value, and sub labels for each
+	 * of the individual field labels.
+	 *
+	 * @since 4.0
+	 * @param array $args - Includes 'field', 'display'.
+	 */
+	public function show_after_default( $args ) {
+		$field         = $args['field'];
+		$default_value = $this->default_value_to_array();
+		$sub_fields    = $this->all_default_labels();
+
+		foreach ( $sub_fields as $name => $field_label ) {
+			include( FrmProAppHelper::plugin_path() . '/classes/views/frmpro-fields/back-end/default-placeholder.php' );
+		}
+
+		if ( ! empty( $field['description'] ) ) {
+			// This is here only for reverse compatibility.
+			include( FrmAppHelper::plugin_path() . '/classes/views/frm-fields/back-end/field-description.php' );
+		}
+	}
+
+	/**
+	 * @since 3.06.01
+	 */
+	public function translatable_strings() {
+		$strings   = parent::translatable_strings();
+		$strings[] = 'line1_desc';
+		$strings[] = 'line2_desc';
+		$strings[] = 'city_desc';
+		$strings[] = 'state_desc';
+		$strings[] = 'zip_desc';
+		$strings[] = 'country_desc';
+		return $strings;
+	}
+
+	private function default_labels() {
 		return array(
 			'line1' => '',
 			'line2' => '',
@@ -50,6 +107,17 @@ class FrmProFieldAddress extends FrmFieldType {
 			'zip'   => __( 'Zip/Postal', 'formidable-pro' ),
 			'country' => __( 'Country', 'formidable-pro' ),
 		);
+	}
+
+	/**
+	 * @since 4.0
+	 */
+	private function all_default_labels() {
+		$labels = $this->default_labels();
+		$labels['line1']   = __( 'Line 1', 'formidable-pro' );
+		$labels['line2']   = __( 'Line 2', 'formidable-pro' );
+		$labels['country'] = __( 'Country', 'formidable-pro' );
+		return $labels;
 	}
 
 	public function show_on_form_builder( $name = '' ) {
@@ -67,7 +135,7 @@ class FrmProFieldAddress extends FrmFieldType {
 	}
 
 	public function front_field_input( $args, $shortcode_atts ) {
-		$pass_args = array( 'errors' => $args['errors'], 'html_id' => $args['html_id'] );
+		$pass_args = array( 'errors' => $args['errors'], 'html_id' => $args['html_id'], 'field_id' => $args['field_id'] );
 		ob_start();
 		FrmProAddressesController::show_in_form( $this->field, $args['field_name'], $pass_args );
 		$input_html = ob_get_contents();
@@ -145,12 +213,38 @@ class FrmProFieldAddress extends FrmFieldType {
 
 		/**
 		 * Change the format of a displayed address
+		 *
 		 * @since 3.0.06
 		 */
 		return apply_filters( 'frm_address_format', $address_format, array( 'field' => $this->field ) );
 	}
 
+	/**
+	 * @since 4.0
+	 * @return array|string
+	 */
+	private function default_value_to_array() {
+		$default_value = $this->get_field_column( 'default_value' );
+		if ( empty( $default_value ) ) {
+			$default_value = array();
+		} elseif ( ! is_array( $default_value ) && strpos( $default_value, ']' ) === false ) {
+			// This is a default value without a shortcode so tear it up.
+			$default_value = $this->address_string_to_array( $default_value );
+		}
+
+		if ( is_array( $default_value ) ) {
+			$defaults = $this->empty_value_array();
+			$this->fill_values( $default_value, $defaults );
+		}
+
+		return $default_value;
+	}
+
 	public function address_string_to_array( $value ) {
+		if ( is_array( $value ) ) {
+			return $value;
+		}
+
 		$value = array_map( 'trim', explode( ',', $value ) );
 
 		$empty_array = array_keys( $this->empty_value_array() );
@@ -224,6 +318,8 @@ class FrmProFieldAddress extends FrmFieldType {
 	}
 
 	public function validate( $args ) {
+		$this->field->temp_id = $args['id'];
+
 		$errors = array();
 		self::validate_required_fields( $errors, $args );
 		self::validate_zip( $errors, $args );
@@ -267,5 +363,12 @@ class FrmProFieldAddress extends FrmFieldType {
 				$errors[ 'field' . $args['id'] . '-zip' ] = __( 'This value is invalid', 'formidable-pro' );
 			}
 		}
+	}
+
+	/**
+	 * @since 4.0.04
+	 */
+	public function sanitize_value( &$value ) {
+		FrmAppHelper::sanitize_value( 'sanitize_text_field', $value );
 	}
 }

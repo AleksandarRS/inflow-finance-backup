@@ -1,5 +1,9 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	die( 'You are not allowed to call this page directly.' );
+}
+
 /**
  * @since 3.0
  */
@@ -10,8 +14,6 @@ class FrmProFieldData extends FrmFieldType {
 	 * @since 3.0
 	 */
 	protected $type = 'data';
-
-	protected $is_tall = true;
 
 	protected function input_html() {
 		return $this->multiple_input_html();
@@ -32,12 +34,12 @@ class FrmProFieldData extends FrmFieldType {
 			switch ( $this->field->field_options['data_type'] ) {
 				case 'data':
 					$settings['required'] = false;
-					$settings['default_blank'] = false;
 					$settings['read_only'] = false;
 					$settings['unique'] = false;
 					break;
 				case 'select':
 					$settings['size'] = true;
+					$settings['clear_on_focus'] = true;
 			}
 		}
 
@@ -52,11 +54,66 @@ class FrmProFieldData extends FrmFieldType {
 		);
 	}
 
+	/**
+	 * @since 4.0
+	 * @param array $args - Includes 'field', 'display', and 'values'
+	 */
+	public function show_primary_options( $args ) {
+		$field = $args['field'];
+		$field_types = array(
+			'select'    => __( 'Dropdown', 'formidable-pro' ),
+			'radio'     => __( 'Radio Buttons', 'formidable-pro' ),
+			'checkbox'  => __( 'Checkboxes', 'formidable-pro' ),
+			'data'      => __( 'List', 'formidable-pro' ),
+		);
+
+		include( FrmProAppHelper::plugin_path() . '/classes/views/frmpro-fields/back-end/dynamic-field.php' );
+
+		parent::show_primary_options( $args );
+	}
+
+	/**
+	 * @since 4.0
+	 * @param array $args - Includes 'field', 'display', and 'values'
+	 */
+	public function show_extra_field_choices( $args ) {
+		$field     = $args['field'];
+		$data_type = FrmField::get_option( $field, 'data_type' );
+		$form_list = FrmForm::get_published_forms();
+
+		if ( empty( $form_list ) ) {
+			return;
+		}
+
+		$selected_field   = '';
+		$selected_form_id = '';
+		$current_field_id = $field['id'];
+		if ( isset( $field['form_select'] ) && is_numeric( $field['form_select'] ) ) {
+			$selected_field = FrmField::getOne( $field['form_select'] );
+			if ( $selected_field ) {
+				$selected_form_id = FrmProFieldsHelper::get_parent_form_id( $selected_field );
+				$fields           = FrmProFieldsController::get_field_selection_fields( $selected_form_id );
+			} else {
+				$selected_field = '';
+			}
+		} elseif ( isset( $field['form_select'] ) ) {
+			$selected_field = $field['form_select'];
+		}
+
+		include( FrmProAppHelper::plugin_path() . '/classes/views/frmpro-fields/options-form-before.php' );
+
+		if ( $data_type === 'select' ) {
+			include( FrmProAppHelper::plugin_path() . '/classes/views/frmpro-fields/back-end/multi-select.php' );
+
+			$this->auto_width_setting( $args );
+		}
+	}
+
 	public function prepare_front_field( $values, $atts ) {
 		$data_type = FrmField::get_option( $this->field, 'data_type' );
 		$form_select = FrmField::get_option( $this->field, 'form_select' );
 		if ( in_array( $data_type, array( 'select', 'radio', 'checkbox' ) ) && is_numeric( $form_select ) ) {
-			$entry_id = isset( $values['entry_id'] ) ? $values['entry_id'] : 0;
+			$entry_id = isset( $atts['entry_id'] ) ? $atts['entry_id'] : 0;
 			FrmProDynamicFieldsController::add_options_for_dynamic_field( $this->field, $values, array( 'entry_id' => $entry_id ) );
 		}
 		return $values;
@@ -198,7 +255,7 @@ class FrmProFieldData extends FrmFieldType {
 	 * @since 3.0
 	 *
 	 * @param array|string|int $value
-	 * @param array $ids
+	 * @param array            $atts
 	 *
 	 * @return array|string|int
 	 */
@@ -212,11 +269,134 @@ class FrmProFieldData extends FrmFieldType {
 
 		if ( count( $value ) <= 1 ) {
 			$value = reset( $value );
+
+			$target_field_id = $this->field->field_options['form_select'];
+			$target_field    = FrmField::getOne( $target_field_id );
+			if ( FrmField::get_option( $target_field, 'post_field' ) ) {
+				$value = $this->get_post_field_import_value( $value, $target_field );
+			} else {
+				$object  = FrmFieldFactory::get_field_object( $target_field );
+				$options = $object->get_options( array() );
+
+				if ( is_array( $options ) ) {
+					$key = array_search( $value, $options );
+
+					if ( false !== $key ) {
+						$where   = array(
+							'meta_value' => $key,
+							'field_id'   => $target_field_id,
+						);
+						$item_id = FrmDb::get_var( 'frm_item_metas', $where, 'item_id' );
+						if ( $item_id ) {
+							$value = $item_id;
+						}
+					}
+				}
+			}
 		} else {
 			$value = array_map( 'trim', $value );
 		}
 
 		return $value;
+	}
+
+	/**
+	 * Gets post field import value.
+	 *
+	 * @since 5.0.02
+	 *
+	 * @param string|int $value The value before processing.
+	 * @param object     $target_field The target field object.
+	 * @return int|string
+	 */
+	protected function get_post_field_import_value( $value, $target_field ) {
+		$post_field = FrmField::get_option( $target_field, 'post_field' );
+
+		if ( 'post_custom' === $post_field ) {
+			$meta_key = FrmField::get_option( $target_field, 'custom_field' );
+
+			if ( ! $meta_key ) {
+				return $value;
+			}
+
+			if ( '_thumbnail_id' === $meta_key && ! is_numeric( $value ) ) {
+				$value = $this->get_attachment_id_from_url( $value, $target_field );
+			}
+
+			$item_id = $this->get_item_id_from_post_custom_field( $meta_key, $value );
+		} else {
+			$item_id = $this->get_item_id_from_post_field( $post_field, $value );
+		}
+
+		if ( $item_id ) {
+			return $item_id;
+		}
+
+		return $value;
+	}
+
+	/**
+	 * Gets attachment ID from URL.
+	 *
+	 * @since 5.0.02
+	 *
+	 * @param string $value Attachment URL.
+	 * @param object $field The file upload field.
+	 * @return string
+	 */
+	protected function get_attachment_id_from_url( $value, $field ) {
+		$csv_files = FrmAppHelper::get_param( 'csv_files', '', 'REQUEST', 'absint' );
+
+		$_REQUEST['csv_files'] = 1; // Bypass the check inside FrmProFileImport::import_attachment().
+
+		$value = FrmProFileImport::import_attachment( $value, $field );
+
+		$_REQUEST['csv_files'] = $csv_files;
+
+		return $value;
+	}
+
+	/**
+	 * Gets item ID from the post custom field.
+	 *
+	 * @since 5.0.02
+	 *
+	 * @param string $meta_key The meta key.
+	 * @param string $value    The meta value.
+	 * @return int Return `0` if post not found.
+	 */
+	protected function get_item_id_from_post_custom_field( $meta_key, $value ) {
+		global $wpdb;
+
+		$sql = "SELECT items.id FROM {$wpdb->posts} AS posts
+INNER JOIN {$wpdb->prefix}frm_items as items ON posts.ID = items.post_id
+INNER JOIN {$wpdb->postmeta} AS postmeta ON posts.ID = postmeta.post_id
+WHERE postmeta.meta_key = %s and postmeta.meta_value = %s";
+
+		$item_id = $wpdb->get_var( $wpdb->prepare( $sql, $meta_key, $value ) ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+
+		return intval( $item_id );
+	}
+
+	/**
+	 * Gets item ID from the post field.
+	 *
+	 * @since 5.0.02
+	 *
+	 * @param string $post_field The post field name.
+	 * @param string $value      The post field value.
+	 * @return int Return `0` if post not found.
+	 */
+	protected function get_item_id_from_post_field( $post_field, $value ) {
+		global $wpdb;
+
+		$post_field = esc_sql( $post_field );
+		$sql        = "SELECT items.id FROM {$wpdb->posts} AS posts
+INNER JOIN {$wpdb->prefix}frm_items AS items ON posts.ID = items.post_id WHERE posts.{$post_field} = %s";
+
+		$item_id = $wpdb->get_var( $wpdb->prepare( $sql, $value ) ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+
+		return intval( $item_id );
 	}
 
 	/**

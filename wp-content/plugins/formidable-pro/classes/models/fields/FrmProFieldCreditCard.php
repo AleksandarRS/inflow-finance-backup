@@ -1,5 +1,9 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	die( 'You are not allowed to call this page directly.' );
+}
+
 /**
  * @since 3.0
  */
@@ -19,9 +23,10 @@ class FrmProFieldCreditCard extends FrmFieldType {
 
 	protected function field_settings_for_type() {
 		$settings = array(
-			'clear_on_focus' => true,
-			'default_blank' => true,
-			'visibility'    => true,
+			'clear_on_focus' => false,
+			'description'    => false,
+			'visibility'     => true,
+			'default'        => false,
 		);
 
 		FrmProFieldsHelper::fill_default_field_display( $settings );
@@ -41,9 +46,72 @@ class FrmProFieldCreditCard extends FrmFieldType {
 
 	private static function default_labels() {
 		return array(
-			'cc'  => __( 'Card number', 'formidable-pro' ),
+			'cc'  => __( 'Card Number', 'formidable-pro' ),
 			'cvc' => __( 'CVC', 'formidable-pro' ),
 		);
+	}
+
+	/**
+	 * @since 4.0
+	 * @param array $args - Includes 'field', 'display', and 'values'.
+	 */
+	public function show_primary_options( $args ) {
+		$field = $args['field'];
+		include( FrmProAppHelper::plugin_path() . '/classes/views/combo-fields/credit-cards/back-end-field-opts.php' );
+
+		if ( ! empty( $field['description'] ) ) {
+			// This is here only for reverse compatibility.
+			include( FrmAppHelper::plugin_path() . '/classes/views/frm-fields/back-end/field-description.php' );
+		}
+
+		parent::show_primary_options( $args );
+	}
+
+	/**
+	 * @since 4.0
+	 * @param array $args - Includes 'field', 'display'.
+	 */
+	public function show_after_default( $args ) {
+		$field                = $args['field'];
+		$field['placeholder'] = $this->placeholder_to_array();
+
+		$sub_fields = $this->all_default_labels();
+		foreach ( $sub_fields as $name => $field_label ) {
+			include( FrmProAppHelper::plugin_path() . '/classes/views/frmpro-fields/back-end/default-placeholder.php' );
+		}
+	}
+
+	/**
+	 * @since 4.0
+	 * @return array
+	 */
+	private function placeholder_to_array() {
+		$value = FrmField::get_option( $this->field, 'placeholder' );
+		if ( empty( $value ) ) {
+			$value = array(
+				'month' => __( 'Month', 'formidable-pro' ),
+				'year'  => __( 'Year', 'formidable-pro' ),
+			);
+		}
+
+		$defaults = $this->empty_value_array();
+		$this->fill_values( $value, $defaults );
+
+		return $value;
+	}
+
+	/**
+	 * @since 3.06.01
+	 */
+	public function translatable_strings() {
+		$strings   = parent::translatable_strings();
+		$strings[] = 'cc';
+		$strings[] = 'cvc';
+		$strings[] = 'cc_desc';
+		$strings[] = 'month_desc';
+		$strings[] = 'year_desc';
+		$strings[] = 'cvc_desc';
+		return $strings;
 	}
 
 	public function show_on_form_builder( $name = '' ) {
@@ -65,9 +133,10 @@ class FrmProFieldCreditCard extends FrmFieldType {
 	}
 
 	public function front_field_input( $args, $shortcode_atts ) {
-		$pass_args = array( 'errors' => $args['errors'], 'html_id' => $args['html_id'] );
+		$pass_args = array( 'errors' => $args['errors'], 'html_id' => $args['html_id'], 'field_id' => $args['field_id'] );
+		$callback  = apply_filters( 'frm_pro_show_card_callback', 'FrmProCreditCardsController::show_in_form' );
 		ob_start();
-		FrmProCreditCardsController::show_in_form( $this->field, $args['field_name'], $pass_args );
+		call_user_func( $callback, $this->field, $args['field_name'], $pass_args );
 		$input_html = ob_get_contents();
 		ob_end_clean();
 
@@ -85,9 +154,23 @@ class FrmProFieldCreditCard extends FrmFieldType {
 				$new_value = $value['cc'] . ' <br/>';
 			}
 
-			$new_value .= $value['month'] . '/' . $value['year'];
+			$new_value .= __( 'Expiration:', 'formidable-pro' );
+			$new_value .= ' ' . $value['month'] . '/' . $value['year'];
 		}
 		return $new_value;
+	}
+
+	/**
+	 * @since 4.0
+	 */
+	private function all_default_labels() {
+		$labels = $this->default_labels();
+		return array(
+			'cc'    => $labels['cc'],
+			'month' => __( 'Month', 'formidable-pro' ),
+			'year'  => __( 'Year', 'formidable-pro' ),
+			'cvc'   => $labels['cvc'],
+		);
 	}
 
 	private function empty_value_array() {
@@ -95,6 +178,8 @@ class FrmProFieldCreditCard extends FrmFieldType {
 	}
 
 	public function validate( $args ) {
+		$this->field->temp_id = $args['id'];
+
 		$errors = array();
 		$this->validate_required_fields( $errors, $args );
 		$this->validate_cc_number( $errors, $args );
@@ -107,6 +192,11 @@ class FrmProFieldCreditCard extends FrmFieldType {
 	private function validate_required_fields( &$errors, $args ) {
 		$values = $args['value'];
 		if ( $this->should_require( $values ) ) {
+			if ( empty( $values ) ) {
+				$errors[ 'field' . $args['id'] ] = FrmFieldsHelper::get_error_msg( $this->field, 'blank' );
+				return;
+			}
+
 			foreach ( $values as $key => $value ) {
 				if ( empty( $value ) ) {
 					$errors[ 'field' . $args['id'] . '-' . $key ] = '';
@@ -211,7 +301,7 @@ class FrmProFieldCreditCard extends FrmFieldType {
 	private function validate_cc_expiration( &$errors, $args ) {
 		$values = $args['value'];
 		if ( isset( $values['month'] ) && ! empty( $values['month'] ) && ! empty( $values['year'] ) ) {
-			$is_past_date = ( $values['year'] <= date('Y') && $values['month'] < date('m') );
+			$is_past_date = ( $values['year'] <= gmdate( 'Y' ) && $values['month'] < gmdate( 'm' ) );
 			if ( $is_past_date ) {
 				$errors[ 'field' . $args['id'] . '-month' ] = __( 'That credit card is expired', 'formidable-pro' );
 				$errors[ 'field' . $args['id'] . '-year' ] = '';
@@ -231,6 +321,9 @@ class FrmProFieldCreditCard extends FrmFieldType {
 		}
 	}
 
+	/**
+	 * @param string|array $value This may be a serialized value set before inserting into database.
+	 */
 	public function set_value_before_save( $value ) {
 		if ( empty( $value ) ) {
 			return $value;
@@ -238,7 +331,7 @@ class FrmProFieldCreditCard extends FrmFieldType {
 
 		$serialized = false;
 		if ( ! is_array( $value ) ) {
-			$value = maybe_unserialize( $value );
+			FrmProAppHelper::unserialize_or_decode( $value );
 			$serialized = true;
 		}
 
@@ -266,14 +359,19 @@ class FrmProFieldCreditCard extends FrmFieldType {
 	private function remove_extra_cc_digits( &$value ) {
 		$save_digits = FrmField::get_option( $this->field, 'save_cc' );
 
-		if ( $save_digits == 16 ) {
-			// do nothing
-		} elseif ( $save_digits == 0 ) {
+		if ( $save_digits == 0 ) {
 			$value['cc'] = '';
-		} elseif ( ! empty( $value['cc'] ) ) {
+		} elseif ( ! empty( $value['cc'] ) && $save_digits != 16 ) {
 			$length = max( strlen( $value['cc'] ) - 4, 0 );
 			$value['cc'] = str_repeat( 'x', $length ) . substr( $value['cc'], -4 );
 		}
+	}
+
+	/**
+	 * @since 4.0.04
+	 */
+	public function sanitize_value( &$value ) {
+		FrmAppHelper::sanitize_value( 'sanitize_text_field', $value );
 	}
 
 }

@@ -1,5 +1,9 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	die( 'You are not allowed to call this page directly.' );
+}
+
 /**
  * @since 3.0
  */
@@ -26,15 +30,26 @@ DEFAULT_HTML;
 
 	protected function field_settings_for_type() {
 		$settings = array(
-			'default_blank' => false,
 			'required'      => false,
 			'visibility'    => false,
 			'description'   => false,
 			'label_position' => false,
+			'default'        => false,
 		);
 
 		FrmProFieldsHelper::fill_default_field_display( $settings );
 		return $settings;
+	}
+
+	/**
+	 * @since 4.0
+	 * @param array $args - Includes 'field', 'display', and 'values'
+	 */
+	public function show_primary_options( $args ) {
+		$field = $args['field'];
+		include( FrmProAppHelper::plugin_path() . '/classes/views/frmpro-fields/back-end/insert-form.php' );
+
+		parent::show_primary_options( $args );
 	}
 
 	public function get_container_class() {

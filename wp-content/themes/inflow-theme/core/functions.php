@@ -206,15 +206,16 @@ if ( ! function_exists( 'the_social_links' ) ) :
 			/*---------------Icon Checker -------------------*/
 			if($facebook_icon!=''): $fb_icon = '<img src='.$facebook_icon.'>'; else: $fb_icon = '<i class="icon icon-facebook"></i>';endif;
 			if($twitter_icon!=''): $tw_icon ='<img src='.$twitter_icon.'>'; else: $tw_icon = '<i class="icon icon-twitter"></i>';endif;
-			if($google_icon!=''): $go_icon = '<img src='.$google_icon.'>'; else: $go_icon = '<i class="icon icon-google-plus-g"></i>';endif;
+			if($google_icon!=''): $go_icon = '<img src='.$google_icon.'>'; else: $go_icon = '<i class="icon icon-tiktok"></i>';endif;
 			if($youtube_icon!=''): $you_icon = '<img src='.$youtube_icon.'>'; else: $you_icon = '<i class="icon icon-youtube"></i>';endif;
 			if($linkedIn_icon!=''): $li_icon = '<img src='.$linkedIn_icon.'>'; else: $li_icon = '<i class="icon icon-linkedin"></i>';endif;
-			if($instagram_icon!=''): $inst_icon = '<img src='.$instagram_icon.'>'; else: $inst_icon ='<i class="icon icon-instagram"></i>';endif;
+			if($instagram_icon!=''): $inst_icon = '<img src='.$instagram_icon.'>'; else: $inst_icon ='<i class="icon icon-instagram-full"></i>';endif;
 			if($pinterest_icon!=''): $pt_icon = '<img src='.$pinterest_icon.'>'; else: $pt_icon = '<i class="icon icon-pinterest"></i>';endif;
 
-			if($facebook_url!=''){
-				$return_html .= '<div class="social-icon-menu-items facebook">';
-				$return_html .= '<a href="'.$facebook_url.'" target="_blank">'.$fb_icon.'</a>';
+			
+			if($linkedIn_url!=''){
+				$return_html .= '<div class="social-icon-menu-items linkedin">';
+				$return_html .= '<a href="'.$linkedIn_url.'" target="_blank">'.$li_icon.'</a>';
 				$return_html .= '</div>';
 			}
 
@@ -230,9 +231,9 @@ if ( ! function_exists( 'the_social_links' ) ) :
 				$return_html .= '</div>';
 			}
 
-			if($google_url!=''){
-				$return_html .= '<div class="social-icon-menu-items google">';
-				$return_html .= '<a href="'.$google_url.'" target="_blank">'.$go_icon.'</a>';
+			if($facebook_url!=''){
+				$return_html .= '<div class="social-icon-menu-items facebook">';
+				$return_html .= '<a href="'.$facebook_url.'" target="_blank">'.$fb_icon.'</a>';
 				$return_html .= '</div>';
 			}
 
@@ -242,9 +243,9 @@ if ( ! function_exists( 'the_social_links' ) ) :
 				$return_html .= '</div>';
 			}
 
-			if($linkedIn_url!=''){
-				$return_html .= '<div class="social-icon-menu-items linkedin">';
-				$return_html .= '<a href="'.$linkedIn_url.'" target="_blank">'.$li_icon.'</a>';
+			if($google_url!=''){
+				$return_html .= '<div class="social-icon-menu-items tiktok">';
+				$return_html .= '<a href="'.$google_url.'" target="_blank">'.$go_icon.'</a>';
 				$return_html .= '</div>';
 			}
 
