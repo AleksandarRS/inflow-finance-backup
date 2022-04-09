@@ -1,4 +1,8 @@
 .link {
+    font-family: $primary-font;
+    font-size: $button-font-size;
+    font-weight: $font-weight-sb;
+    @include transition-all;
     &.link-primary {
         color: $primary-color;
     }
@@ -10,7 +14,7 @@
     }
     &.link-arrow {
         i {
-			font-size: $font-size-base;
+			font-size: $font-size-xsmall - 0.1;
 			margin-left: 4px;
 			display: inline-block;
 			vertical-align: middle;

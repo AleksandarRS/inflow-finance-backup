@@ -1,0 +1,18 @@
+.hero-section {
+    &.hero-section-smaller {
+        .hero-smaller-text-description-content {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 38vh;
+            max-height: 550px;
+            min-height: 320px;
+            
+        }
+        .main-hero-title {
+            margin-bottom: 0.25em;       
+            margin-top: 0.25em;       
+        }
+    }
+}

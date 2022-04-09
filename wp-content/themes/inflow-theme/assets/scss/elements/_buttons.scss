@@ -3,14 +3,15 @@
 	border-radius: 50px;
 	display: inline-block;
 	font-size: $button-font-size;
-	font-weight: $font-weight-b;
+	font-family: $secondary-font;
+	// font-weight: $font-weight-b;
 	letter-spacing: 0.6px;
-	padding: 14px 26px;
+	padding: 14px 30px;
 	text-decoration: none;
 	vertical-align: middle;
 	@include min-mq ($lg) {
-		padding: 17px 51px;
-    	letter-spacing: 1.6px;
+		padding: 15px 51px;
+    	letter-spacing: 1px;
 	}
 	&.button-primary {
 		background-color: $primary-color;
