@@ -37,35 +37,38 @@
 	@if $filename == arrow-right-large {
 		$char: "\E005";
 	}
-	@if $filename == facebook {
+	@if $filename == check-solid {
 		$char: "\E006";
 	}
-	@if $filename == google-plus-g {
+	@if $filename == facebook {
 		$char: "\E007";
 	}
-	@if $filename == instagram-full {
+	@if $filename == google-plus-g {
 		$char: "\E008";
 	}
-	@if $filename == instagram {
+	@if $filename == instagram-full {
 		$char: "\E009";
 	}
-	@if $filename == linkedin {
+	@if $filename == instagram {
 		$char: "\E00A";
 	}
-	@if $filename == pinterest {
+	@if $filename == linkedin {
 		$char: "\E00B";
 	}
-	@if $filename == search {
+	@if $filename == pinterest {
 		$char: "\E00C";
 	}
-	@if $filename == tiktok {
+	@if $filename == search {
 		$char: "\E00D";
 	}
-	@if $filename == twitter {
+	@if $filename == tiktok {
 		$char: "\E00E";
 	}
-	@if $filename == youtube {
+	@if $filename == twitter {
 		$char: "\E00F";
+	}
+	@if $filename == youtube {
+		$char: "\E010";
 	}
 
 	@return $char;
@@ -96,6 +99,9 @@
 }
 .icon-arrow-right-large {
 	@include icon(arrow-right-large);
+}
+.icon-check-solid {
+	@include icon(check-solid);
 }
 .icon-facebook {
 	@include icon(facebook);

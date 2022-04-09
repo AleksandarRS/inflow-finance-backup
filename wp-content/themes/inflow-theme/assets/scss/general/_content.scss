@@ -27,3 +27,8 @@
     padding-right: 15px;
     width: 100%;
 }
+
+::selection {
+    color: $white;
+    background: $secondary-color;
+}

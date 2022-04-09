@@ -1,11 +1,11 @@
 .contact-details-section {
-    padding-bottom: 100px;
-    padding-top: 100px;
+    padding-bottom: 110px;
+    padding-top: 180px;
     .contact-details-content-inner {
         background-color: $tertiary-color;
         border-radius: 40px;
         padding: 45px 75px;
-        max-width: $container-width + 120;
+        max-width: $container-width-middle;
         margin-left: auto;
         margin-right: auto;
         @include min-mq ($lg) {
@@ -43,5 +43,22 @@
             font-family: $secondary-font;
         }
     }
-    
+    .contact-section-decoration-image {
+        bottom: 0;
+        position: absolute;
+        img {
+            display: block;
+        }
+        &.contact-section-decoration-image-left {
+            left: 0;
+            right: auto;
+            z-index: -1;
+        }
+        &.contact-section-decoration-image-right {
+            @extend %right-calc-absolute-middle;
+            left: auto;
+            max-width: 273px;
+            width: 100%;
+        }
+    }
 }

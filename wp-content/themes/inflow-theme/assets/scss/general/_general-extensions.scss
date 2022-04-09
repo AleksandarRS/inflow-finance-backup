@@ -6,6 +6,14 @@
     }
 }
 
+%right-calc {
+    padding-right: calc(50vw - ( #{$container-width} / 2 ) + 5px);
+    width: 100%;
+    @include max-mq ($ls + 10) {
+        padding-right: 15px;
+    }
+}
+
 %left-calc-wide {
     padding-left: calc(50vw - ( #{$container-width-wide} / 2 ) + 10px);
     width: 100%;
@@ -14,11 +22,32 @@
     }
 }
 
-%right-calc {
-    padding-right: calc(50vw - ( #{$container-width} / 2 ) + 5px);
+%right-calc-wide {
+    padding-right: calc(50vw - ( #{$container-width-wide} / 2 ) + 10px);
     width: 100%;
     @include max-mq ($ls + 10) {
         padding-right: 15px;
+    }
+}
+
+
+%left-calc-absolute-middle {
+    left: calc(50vw - ( #{$container-width-middle} / 2 ) + 0);
+    @include max-mq ($lt - 100) {
+        left: 15px;
+    }
+    @include max-mq ($mb) {
+        left: 0;
+    }
+}
+
+%right-calc-absolute-middle {
+    right: calc(50vw - ( #{$container-width-middle} / 2 ) - 57px);
+    @include max-mq ($lt - 100) {
+        right: 15px;
+    }
+    @include max-mq ($mb) {
+        right: 0;
     }
 }
 
@@ -46,23 +75,5 @@
     z-index: 0;
 }
 
-// %left-calc-absolute {
-//     left: calc(50vw - ( #{$container-wide-width} / 2 ) + 30px);
-//     @include max-mq ($llt - 100) {
-//         left: 15px;
-//     }
-//     @include max-mq ($mb_l) {
-//         left: 0;
-//     }
-// }
 
-// %right-calc-absolute {
-//     right: calc(50vw - ( #{$container-wide-width} / 2 ) + 30px);
-//     @include max-mq ($llt - 100) {
-//         right: 15px;
-//     }
-//     @include max-mq ($mb_l) {
-//         right: 0;
-//     }
-// }
 
