@@ -4,7 +4,7 @@
 <section class="faq-section">
     <div class="faq-section-wrapper section-wrapper relative">
         <div class="faq-section-wrapper-inner">
-            <div class="container">
+            <div class="container-narrow-wide faq-container-narrow-wide">
                 <div class="row faq-row">
                     <?php 
                     $section_main_title = get_sub_field('section_main_title');
@@ -26,14 +26,16 @@
                                 <?php if( have_rows('faq_questions_and_answers') ): ?>
                                     <div class="faq-section-questions-answers-items">
                                         <?php while ( have_rows('faq_questions_and_answers') ) : the_row(); ?>
+
                                             <div class="faq-section-questions-answers-item">
-                                                <div class="faq-section-item-question">
-                                                    <?php the_sub_field('faq_question'); ?>
-                                                </div>
-                                                <div class="faq-section-item-answer">
+                                                <a class="faq-section-item-question" href="#">
+                                                    <span class="faq-icon"><i class="icon icon-plus-icon"></i></span> <span class="faq-question"><?php the_sub_field('faq_question'); ?></span>
+                                                </a>
+                                                <div class="faq-section-item-answer accordion-content">
                                                     <?php the_sub_field('faq_answer'); ?>
                                                 </div>
                                             </div>
+
                                         <?php endwhile; ?>
                                     </div>
                                 <?php endif;?>

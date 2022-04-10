@@ -55,20 +55,26 @@
 	@if $filename == linkedin {
 		$char: "\E00B";
 	}
-	@if $filename == pinterest {
+	@if $filename == minus-icon {
 		$char: "\E00C";
 	}
-	@if $filename == search {
+	@if $filename == pinterest {
 		$char: "\E00D";
 	}
-	@if $filename == tiktok {
+	@if $filename == plus-icon {
 		$char: "\E00E";
 	}
-	@if $filename == twitter {
+	@if $filename == search {
 		$char: "\E00F";
 	}
-	@if $filename == youtube {
+	@if $filename == tiktok {
 		$char: "\E010";
+	}
+	@if $filename == twitter {
+		$char: "\E011";
+	}
+	@if $filename == youtube {
+		$char: "\E012";
 	}
 
 	@return $char;
@@ -118,8 +124,14 @@
 .icon-linkedin {
 	@include icon(linkedin);
 }
+.icon-minus-icon {
+	@include icon(minus-icon);
+}
 .icon-pinterest {
 	@include icon(pinterest);
+}
+.icon-plus-icon {
+	@include icon(plus-icon);
 }
 .icon-search {
 	@include icon(search);

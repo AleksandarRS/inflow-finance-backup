@@ -11,7 +11,7 @@ let _this = module.exports = {
 		# Cache dom and strings
 	-------------------------------------------------------------------------------*/
 	$dom: {
-		svgElement: $('.site-branding-main-logo a img[src$=".svg"]')
+		svgElement: $('.convert-svg img[src$=".svg"]')
     },
 
     vars: {

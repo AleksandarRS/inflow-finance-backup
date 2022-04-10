@@ -46,6 +46,15 @@ let _this = module.exports = {
 		// 	$("html, body").animate({ scrollTop: 0 }, "slow");
 		// 	return false;
 		// });
+
+
+		//Hide footer if contact flexible section is on the page
+		if ($("#page-contact-details-section").length) {
+			// console.log('page-contact-details-section in the page')
+			$('#footer-contact-details-section').remove();
+		}
+
+
     },
 	
 

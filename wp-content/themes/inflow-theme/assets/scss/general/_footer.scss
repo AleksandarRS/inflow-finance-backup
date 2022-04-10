@@ -1,11 +1,103 @@
 .site-footer {
     background-color: $primary-color;
     color: $white;
+    .site-footer-container {
+        max-width: $container-width-wide + 30px;
+    }
     .widget-wrapper {
         padding-bottom: 10px;
-        padding-top: 55px;
+        padding-top: 75px;
+        @include min-mq ($lg) {
+            padding-top: 111px;
+        }
+    }
+    .footer-widgets-wrapper {
+        align-items: center;
+    }
+    .site-info {
+        max-width: 20%;
+        flex: 0 0 20%;
+        text-align: right;
+        font-family: $tertiary-font;
+        letter-spacing: 1.3px;
+        @include min-mq ($mac) {
+            max-width: 10%;
+            flex: 0 0 10%;
+        }
+    }
+    .widget_nav_menu {
+        font-family: $tertiary-font;
+    }
+    .footer-column-2 {
+        max-width: 80%;
+        flex: 0 0 80%;
+        display: flex;
+        align-items: center;
+        @include min-mq ($mac) {
+            max-width: 90%;
+            flex: 0 0 90%;
+        }
+        .widget_nav_menu {
+            margin-left: 50px;
+            // margin-left: auto;
+            // margin-right: auto;
+            @include min-mq ($mac) {
+                margin-left: 75px;
+            }
+            li {
+                margin-left: 33px;
+                letter-spacing: 2px;
+                @include min-mq ($ls) {
+                    letter-spacing: 4px;
+                }
+                &.current-menu-item {
+                    a {
+                        color: $secondary-color;
+                    }
+                }
+            }
+        }
+        .widget_media_image {
+            max-width: 354px;
+            width: 100%;
+            a {
+                display: block;
+                &:hover {
+                    svg {
+                        path {
+                            fill: $secondary-color;
+                        }
+                    }
+                }
+            }
+            svg {
+                max-height: 114px;
+                width: 100%;
+                padding-top: 26px;
+                path {
+                    @include transition-all;
+                }
+            }
+        }
+    }
+    a {
+        color: $white;
+        text-decoration: none;
+        &:hover {
+            color: $secondary-color;
+        }
+    }
+    ul {
+        list-style: none;
+        li {
+            display: inline-block;
+            vertical-align: middle;
+            margin-left: 10px;
+            margin-right: 10px;
+        }
     }
     .mc4wp-form-fields {
+        margin-bottom: 15px;
         h1, h2, h3, h4, h5, h6 {
             text-transform: uppercase;
         }
@@ -18,8 +110,11 @@
         input {
             &[type="email"] {
                 background-color: $white;
-                border: 1px solid $white !important;
                 width: calc(100% - 105px);
+                .hfeed.site & {
+                    border: 1px solid $white;
+                    padding: 17px 22px;
+                }
             }
         }
         [type="submit"] {
@@ -29,20 +124,41 @@
             color: $secondary-color;
             margin-left: 0;
             width: 100px;
+            @include transition-all;
+            .hfeed.site & {
+                padding-bottom: 17px;
+                padding-top: 17px;
+            }
+            &:hover {
+                background-color: $secondary-color;
+                color: $white;
+                border-color: $secondary-color;
+            }
+            i {
+                padding-top: 3px;
+                display: inline-block;
+            }
         }
     }
     .newsletter-wrapper {
-        border: 2px solid $white;
         border-radius: 50px;
+        border: 2px solid $white;
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 680px;
         padding-bottom: 10px;
         padding-left: 25px;
         padding-right: 25px;
         h1, h2, h3, h4, h5, h6 {
             background-color: $primary-color;
-            margin-bottom: 0.5em;
-            margin-top: -15px;
-            padding-left: 15px;
-            padding-right: 15px;
+            letter-spacing: 1.2px;
+            margin-bottom: 1.2em;
+            margin-top: -20px;
+            max-width: 520px;
+            padding-left: 10px;
+            padding-right: 10px;
+            padding-top: 0;
+            width: 100%;
         }
         label {
             p {
@@ -55,6 +171,21 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
+        }
+    }
+    .newsletter-label-input-options-wrapper {
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 570px;
+        @include min-mq ($sm) {
+            padding-right: 13px;
+        }
+        label {
+            font-family: $tertiary-font;
+            letter-spacing: 1px;
+            p {
+                letter-spacing: 3px;
+            }
         }
     }
 }

@@ -1,6 +1,21 @@
-.social-icons-wrapper {
+.lf-social-wrapper {
+    text-align: center;
+    padding-top: 35px;
+    .site-footer & {
+        padding-top: 60px;
+    }
     .social-icon-menu-items {
         display: inline-block;
         vertical-align: middle;
+        margin-left: 15px;
+        margin-right: 15px;
+        a {
+            color: $secondary-color;
+            text-decoration: none;
+            font-size: $font-size-large;
+            &:hover {
+                color: $white;
+            }
+        }
     }
 }

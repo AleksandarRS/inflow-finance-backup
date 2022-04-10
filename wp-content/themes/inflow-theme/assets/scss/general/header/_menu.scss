@@ -151,8 +151,7 @@
 							font-weight: $font-weight-sb;
 							font-size: $font-size-small;
 							text-transform: none;
-							padding-left: 33px;
-							padding-right: 33px;
+							padding: 9px 33px 11px;
 							letter-spacing: 0;
 							@include transition-all;
 							&:hover {

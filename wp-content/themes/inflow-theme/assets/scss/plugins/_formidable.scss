@@ -77,10 +77,12 @@
 				left: 1px;
 			}
 		}
-		&:checked + span {
-			// background-color: $white;
-			&:after {
-				content: "";
+		&:checked {
+			+ span {
+				border-color: $secondary-color;
+				&:after {
+					content: "";
+				}
 			}
 		}
 	}

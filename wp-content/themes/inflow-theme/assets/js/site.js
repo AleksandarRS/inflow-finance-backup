@@ -5,6 +5,7 @@ $ = require('jquery');
 const Navigation = require('./core/navigation');
 const svgconvert = require('./site/svgconvert');
 const addremoveclass = require('./site/addremoveclass');
+const accordion = require('./site/accordion');
 const example = require('./site/example');
 
 jQuery( function(){
@@ -23,6 +24,11 @@ jQuery( function(){
    * Initialize addremoveclass module
    */
   addremoveclass.init();
+
+  /**
+   * Initialize accordion module
+   */
+  accordion.init();
 
   /**
    * Initialize sample module

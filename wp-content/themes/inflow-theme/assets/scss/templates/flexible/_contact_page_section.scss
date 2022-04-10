@@ -1,0 +1,32 @@
+#page-contact-details-section {
+    padding-top: 147px;
+    background-color: $tertiary-color;
+    &.map-is-included-into-page {
+        padding-bottom: 0;
+    }
+    .contact-details-content {
+        position: relative;
+    }
+    .contact-page-details-section-wrapper {
+        padding-top: 0;
+        
+    }
+    .contact-section-decoration-image-left {
+        z-index: 0;
+    }
+    .contact-section-decoration-image {
+        &.contact-section-decoration-image-right {
+            top: 155px;
+            @extend %right-calc-absolute-wide;
+        }
+    }
+    .contact-details-map-section-details {
+        @include min-mq ($mac) {
+            padding-top: 14px;
+        }
+        img {
+            display: block;
+            width: 100%;
+        }
+    }
+}

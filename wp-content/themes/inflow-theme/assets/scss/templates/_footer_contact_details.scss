@@ -35,8 +35,10 @@
         p {
             text-transform: uppercase;
             a {
+                display: inline-block;
                 text-transform: none;
                 text-decoration: none;
+                margin: 4px 0;
             }
         }
         strong {
@@ -60,5 +62,8 @@
             max-width: 273px;
             width: 100%;
         }
+    }
+    a[href*="mailto"] {
+        text-decoration: underline !important;
     }
 }

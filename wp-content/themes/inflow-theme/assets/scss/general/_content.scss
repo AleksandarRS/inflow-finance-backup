@@ -27,6 +27,11 @@
     max-width: $container-width-middle;
 }
 
+.container-narrow-wide {
+    max-width: $container-narrow-width;
+}
+
+.container-narrow-wide,
 .container-middle-wide,
 .container-wide {
     margin-left: auto;

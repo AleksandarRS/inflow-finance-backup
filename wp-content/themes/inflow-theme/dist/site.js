@@ -161,7 +161,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 			}
 
 		};
-	}, { "../site/global": 5 }], 2: [function (require, module, exports) {
+	}, { "../site/global": 6 }], 2: [function (require, module, exports) {
 		'use strict';
 
 		$ = require('jquery');
@@ -169,6 +169,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 		var Navigation = require('./core/navigation');
 		var svgconvert = require('./site/svgconvert');
 		var addremoveclass = require('./site/addremoveclass');
+		var accordion = require('./site/accordion');
 		var example = require('./site/example');
 
 		jQuery(function () {
@@ -189,11 +190,59 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 			addremoveclass.init();
 
 			/**
+    * Initialize accordion module
+    */
+			accordion.init();
+
+			/**
     * Initialize sample module
     */
 			example.init();
 		});
-	}, { "./core/navigation": 1, "./site/addremoveclass": 3, "./site/example": 4, "./site/svgconvert": 6, "jquery": 7 }], 3: [function (require, module, exports) {
+	}, { "./core/navigation": 1, "./site/accordion": 3, "./site/addremoveclass": 4, "./site/example": 5, "./site/svgconvert": 7, "jquery": 8 }], 3: [function (require, module, exports) {
+		"use strict";
+
+		// const Global = require('./global');
+
+		// let	_this;
+
+		var _this = module.exports = {
+
+			/*-------------------------------------------------------------------------------
+   	# Cache dom and strings
+   -------------------------------------------------------------------------------*/
+			$dom: {
+				accordionLink: $('.faq-section-item-question')
+			},
+
+			vars: {},
+
+			/*-------------------------------------------------------------------------------
+   	# Initialize
+   -------------------------------------------------------------------------------*/
+			init: function init() {
+				if (_this) {
+
+					this.$dom.accordionLink.on("click", function (e) {
+						e.preventDefault();
+						if ($(this).hasClass("active")) {
+							$(this).removeClass("active");
+							$(this).siblings(".accordion-content").slideUp(500);
+							$(".faq-section-item-question i").removeClass("icon-minus-icon").addClass("icon-plus-icon");
+						} else {
+							$(".faq-section-item-question i").removeClass("icon-minus-icon").addClass("icon-plus-icon");
+							$(this).find("i").removeClass("icon-plus-icon").addClass("icon-minus-icon");
+							$(".faq-section-item-question").removeClass("active");
+							$(this).addClass("active");
+							$(".accordion-content").slideUp(500);
+							$(this).siblings(".accordion-content").slideDown(500);
+						}
+					});
+				}
+			}
+
+		};
+	}, {}], 4: [function (require, module, exports) {
 		"use strict";
 
 		// const Global = require('./global');
@@ -240,10 +289,17 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 				// 	$("html, body").animate({ scrollTop: 0 }, "slow");
 				// 	return false;
 				// });
+
+
+				//Hide footer if contact flexible section is on the page
+				if ($("#page-contact-details-section").length) {
+					// console.log('page-contact-details-section in the page')
+					$('#footer-contact-details-section').remove();
+				}
 			}
 
 		};
-	}, {}], 4: [function (require, module, exports) {
+	}, {}], 5: [function (require, module, exports) {
 		"use strict";
 
 		// const Global = require('./global');
@@ -269,7 +325,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 			}
 
 		};
-	}, {}], 5: [function (require, module, exports) {
+	}, {}], 6: [function (require, module, exports) {
 		// "use strict";
 		var Global = module.exports = {
 
@@ -420,7 +476,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 		};
 
 		Global.privateFunctions.init();
-	}, {}], 6: [function (require, module, exports) {
+	}, {}], 7: [function (require, module, exports) {
 		"use strict";
 
 		// const Global = require('./global');
@@ -433,7 +489,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
    	# Cache dom and strings
    -------------------------------------------------------------------------------*/
 			$dom: {
-				svgElement: $('.site-branding-main-logo a img[src$=".svg"]')
+				svgElement: $('.convert-svg img[src$=".svg"]')
 			},
 
 			vars: {},
@@ -465,7 +521,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 			}
 
 		};
-	}, {}], 7: [function (require, module, exports) {
+	}, {}], 8: [function (require, module, exports) {
 		/*!
    * jQuery JavaScript Library v3.4.1
    * https://jquery.com/
