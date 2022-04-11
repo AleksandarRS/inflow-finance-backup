@@ -170,6 +170,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 		var svgconvert = require('./site/svgconvert');
 		var addremoveclass = require('./site/addremoveclass');
 		var accordion = require('./site/accordion');
+		var stickysocial = require('./site/stickysocial');
 		var example = require('./site/example');
 
 		jQuery(function () {
@@ -195,11 +196,16 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 			accordion.init();
 
 			/**
+    * Initialize stickysocial module
+    */
+			stickysocial.init();
+
+			/**
     * Initialize sample module
     */
 			example.init();
 		});
-	}, { "./core/navigation": 1, "./site/accordion": 3, "./site/addremoveclass": 4, "./site/example": 5, "./site/svgconvert": 7, "jquery": 8 }], 3: [function (require, module, exports) {
+	}, { "./core/navigation": 1, "./site/accordion": 3, "./site/addremoveclass": 4, "./site/example": 5, "./site/stickysocial": 7, "./site/svgconvert": 8, "jquery": 9 }], 3: [function (require, module, exports) {
 		"use strict";
 
 		// const Global = require('./global');
@@ -489,6 +495,59 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
    	# Cache dom and strings
    -------------------------------------------------------------------------------*/
 			$dom: {
+				// accordionLink: $('.faq-section-item-question'),
+			},
+
+			vars: {},
+
+			/*-------------------------------------------------------------------------------
+   	# Initialize
+   -------------------------------------------------------------------------------*/
+			init: function init() {
+				if (_this) {
+
+					var $sticky = $('.social-share-options');
+					var $stickyrStopper = $('.related-posts-section');
+					if (!!$sticky.offset()) {
+						// make sure ".sticky" element exists
+
+						var generalSidebarHeight = $sticky.innerHeight();
+						var stickyTop = $sticky.offset().top;
+						var stickOffset = 150;
+						var stickyStopperPosition = $stickyrStopper.offset().top;
+						var stopPoint = stickyStopperPosition - generalSidebarHeight - stickOffset;
+						var diff = stopPoint + stickOffset;
+
+						$(window).scroll(function () {
+							// scroll event
+							var windowTop = $(window).scrollTop(); // returns number
+
+							if (stopPoint < windowTop) {
+								$sticky.css({ position: 'absolute', top: diff, opacity: 0 });
+							} else if (stickyTop < windowTop + stickOffset) {
+								$sticky.css({ position: 'fixed', top: stickOffset, opacity: 1 });
+							} else {
+								$sticky.css({ position: 'absolute', top: 'initial', opacity: 1 });
+							}
+						});
+					}
+				}
+			}
+
+		};
+	}, {}], 8: [function (require, module, exports) {
+		"use strict";
+
+		// const Global = require('./global');
+
+		// let	_this;
+
+		var _this = module.exports = {
+
+			/*-------------------------------------------------------------------------------
+   	# Cache dom and strings
+   -------------------------------------------------------------------------------*/
+			$dom: {
 				svgElement: $('.convert-svg img[src$=".svg"]')
 			},
 
@@ -521,7 +580,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 			}
 
 		};
-	}, {}], 8: [function (require, module, exports) {
+	}, {}], 9: [function (require, module, exports) {
 		/*!
    * jQuery JavaScript Library v3.4.1
    * https://jquery.com/

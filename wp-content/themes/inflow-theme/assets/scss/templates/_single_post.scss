@@ -1,0 +1,122 @@
+.single {
+    &.single-post {
+        .entry-title {
+            font-size: $font-size-h1 - 1;
+            letter-spacing: 0;
+            margin-top: 0.35em;
+            margin-bottom: 0.35em;
+            line-height: 1.4;
+        }
+    }
+    iframe {
+        width: 100%;
+        border-radius: 10px;
+    }
+    .single-post-featured-image-wrap {
+        padding-bottom: 41px;
+        padding-top: 6px;
+    }
+    .blog-posts-thumbnail-image {
+        border-radius: 20px;
+        display: block;
+        height: 500px;
+    }
+
+    h3 {
+        font-weight: $font-weight-m;
+        line-height: 1.35;
+    }
+    .blog-page-post-date {
+        .post-date-value {
+            font-size: $font-size-base;
+        }
+        
+    }
+    .social-share-options {
+        margin-left: 15px;
+        @include min-mq ($lg) {
+            margin-left: 30px;
+        }
+    }
+    h4 {
+        font-size: $font-size-h4 - 0.175;
+        font-weight: $font-weight-m;
+        margin-top: 1.15em;
+    }
+}
+
+
+
+.single-post-categories {
+    padding-top: 145px;
+    @include min-mq ($lg) {
+        padding-top: 215px;
+    }
+    .term-name {
+        margin-right: 14px;
+        padding-right: 18px;
+    }
+    a {
+        font-size: $button-font-size;
+        font-weight: $font-weight-sb;
+        text-decoration: none;
+        letter-spacing: 1px;
+    }
+}
+
+.single-page-content-wrapper {
+    padding-bottom: 32px;
+}
+
+.single-page-content-inner {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: $container-narrow-width - 180;
+    figure {
+        &.wp-caption {
+            img {
+                margin-bottom: 0.5em;
+            }
+        }
+        img {
+            margin-bottom: 1.7em;
+            margin-top: 1.7em;
+        }
+    }
+    .wp-caption .wp-caption-text {
+        margin: 0.4075em 0;
+        font-size: $font-size-small;
+        font-style: italic;
+    }
+}
+
+.social-share-options {
+    position: absolute;
+    margin-top: 0;
+}
+
+.related-posts-section {
+    .entry-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .section-title {
+        font-size: $font-size-h3 + 0.5;
+        font-weight: $font-weight-m;
+        margin: 1em 0 0.8em;
+    }
+    .read-more-link-wrap {
+        padding-top: 15px;
+    }
+    a {
+        text-decoration: none;
+    }
+    .blog-page-latest-posts-content-inner {
+        > .blog-page-post {
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+        }
+    }
+    
+}

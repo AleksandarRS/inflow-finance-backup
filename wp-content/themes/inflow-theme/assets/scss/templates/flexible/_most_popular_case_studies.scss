@@ -1,0 +1,92 @@
+.most-popular-case-studies-section {
+    padding-top: 94px;
+    padding-bottom: 60px;
+    .section-description {
+        max-width: $container-narrow-width;
+        margin-left: auto;
+        margin-right: auto;
+        h1, h2 {
+            letter-spacing: 0.6px;
+            margin-bottom: 0.5em;
+        }
+        p, li, span, strong, b {
+            font-size: $font-size-large;
+            line-height: 1.4;
+        }
+    }
+    .button-wrapper {
+        padding-top: 28px;
+        .button {
+            max-width: 400px;
+            width: 100%;
+        }
+    }
+}
+.posts-cards-items.case-study-post-cards-items {
+    .posts-cards-case-study-item {
+        padding-bottom: 38px;
+        &:hover {
+            a {
+                color: $secondary-color;
+                // .link {
+                //     color: $primary-color;
+                // }
+            }
+        }
+        a {
+            color: $primary-color;
+            text-decoration: none;
+        }
+        .entry-content {
+            font-size: $font-size-base;
+            margin-top: 0.1em;
+            a {
+                p {
+                    font-size: $font-size-base;
+                }
+            }
+        }
+        .post-prediction-item {
+            &:last-child {
+                p {
+                    text-transform: none;
+                }
+            }
+        }
+        .post-heading-excerpt-wraper {
+            padding-bottom: 90px;
+        }
+        .entry-header {
+            padding-top: 12px;
+            min-height: 0;
+            margin-bottom: 0.2em;
+        }
+        .post-prediction-items-button-wrapper {
+            max-width: 430px;
+        }
+        .post-product-read-more {
+            padding-top: 12px;
+        }
+    }
+    .case-study-post-featured-img-wrap {
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        border-radius: 20px;
+        display: block;
+        margin-bottom: 24px;
+        height: 364px;
+    }
+    .term-name {
+        font-weight: $font-weight-sb;
+        color: $secondary-color;
+    }
+    .read-more-link-wrap {
+        .link {
+            @include min-mq ($lg) {
+                margin-right: -25px;
+                margin-left: 15px;
+            }
+        }
+    }
+}

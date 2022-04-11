@@ -15,11 +15,12 @@
         align-items: center;
     }
     .site-info {
-        max-width: 20%;
         flex: 0 0 20%;
-        text-align: right;
         font-family: $tertiary-font;
+        font-weight: $font-weight-m;
         letter-spacing: 1.3px;
+        max-width: 20%;
+        text-align: right;
         @include min-mq ($mac) {
             max-width: 10%;
             flex: 0 0 10%;
@@ -91,9 +92,10 @@
         list-style: none;
         li {
             display: inline-block;
-            vertical-align: middle;
+            font-weight: $font-weight-m;
             margin-left: 10px;
             margin-right: 10px;
+            vertical-align: middle;
         }
     }
     .mc4wp-form-fields {
@@ -163,6 +165,7 @@
         label {
             p {
                 margin-bottom: 0.25em;
+                font-weight: $font-weight-m;
             }
         }
         .newsletter-form-wrap {
@@ -183,6 +186,7 @@
         label {
             font-family: $tertiary-font;
             letter-spacing: 1px;
+            font-weight: $font-weight-m;
             p {
                 letter-spacing: 3px;
             }

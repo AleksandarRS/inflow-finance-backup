@@ -12,8 +12,30 @@
  */
 
 get_header(); ?>
+<?php 
+	$add_blog_page_top_image = get_field('add_blog_page_top_image', 'option');
+	$add_blog_page_description = get_field('add_blog_page_description', 'option');
+?>
+<section class="blog-hero-section">
+    <div class="blog-hero-section-wrapper section-wrapper">
+        <?php  if ( $add_blog_page_top_image ) : ?>
+            <div class="blog-hero-section-background-image section-background-image" style="background-image: url(<?php echo esc_url($add_blog_page_top_image['url']); ?>);" role="img" aria-label="<?php echo esc_attr($add_blog_page_top_image['alt']); ?>"></div>
+        <?php endif; ?>
+        <div class="blog-hero-section-wrapper-inner">
+            <div class="container">
+                <div class="row blog-hero-row">
+                    <?php  if ( $add_blog_page_description ) : ?>
+                        <div class="entry-content section-description col-md-12">
+                            <?php echo $add_blog_page_description; ?>
+                        </div>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
-<div class="container">
+<div class="container relative">
 	<div class="row">
 		<div id="primary" class="content-area">
 			<main id="main" class="site-main site-blog-main" role="main">
@@ -21,7 +43,7 @@ get_header(); ?>
 				<div class="featured-post-item-wrapper">
 					<div class="container featured-post-container">
 						<div class="row featured-post-row">
-							<div class="featured-post-item-inner">
+							<div class="featured-post-item-inner col-md-12">
 								<?php
 									$args = array(
 										'post_type' => 'post',
@@ -79,7 +101,7 @@ get_header(); ?>
 											get_template_part('template-parts/custom/content', 'blog-page');
 										?>
 									<?php endwhile; ?>
-									<div class="blog-navigation">
+									<div class="blog-navigation nav-links">
 										<?php 
 											$big = 999999999;
 											echo paginate_links( array(
@@ -87,8 +109,8 @@ get_header(); ?>
 												'format' => '?paged=%#%',
 												'mid_size' => 0,
 												'current' => max( 1, get_query_var('paged') ),
-												'next_text' => '<i class="icon icon-angle-right"></i>',
-												'prev_text' => '<i class="icon icon-angle-left"></i>',
+												'next_text' => '<i class="icon icon-angle-right"></i><i class="icon icon-angle-right"></i>',
+												'prev_text' => '<i class="icon icon-angle-left"></i><i class="icon icon-angle-left"></i>',
 												'total' => $post1s->max_num_pages
 											) ); 
 										?>

@@ -49,32 +49,38 @@
 	@if $filename == instagram-full {
 		$char: "\E009";
 	}
-	@if $filename == instagram {
+	@if $filename == instagram-new {
 		$char: "\E00A";
 	}
-	@if $filename == linkedin {
+	@if $filename == instagram {
 		$char: "\E00B";
 	}
-	@if $filename == minus-icon {
+	@if $filename == linkedin {
 		$char: "\E00C";
 	}
-	@if $filename == pinterest {
+	@if $filename == minus-icon {
 		$char: "\E00D";
 	}
-	@if $filename == plus-icon {
+	@if $filename == pinterest {
 		$char: "\E00E";
 	}
-	@if $filename == search {
+	@if $filename == plus-icon {
 		$char: "\E00F";
 	}
-	@if $filename == tiktok {
+	@if $filename == search {
 		$char: "\E010";
 	}
-	@if $filename == twitter {
+	@if $filename == share {
 		$char: "\E011";
 	}
-	@if $filename == youtube {
+	@if $filename == tiktok {
 		$char: "\E012";
+	}
+	@if $filename == twitter {
+		$char: "\E013";
+	}
+	@if $filename == youtube {
+		$char: "\E014";
 	}
 
 	@return $char;
@@ -118,6 +124,9 @@
 .icon-instagram-full {
 	@include icon(instagram-full);
 }
+.icon-instagram-new {
+	@include icon(instagram-new);
+}
 .icon-instagram {
 	@include icon(instagram);
 }
@@ -135,6 +144,9 @@
 }
 .icon-search {
 	@include icon(search);
+}
+.icon-share {
+	@include icon(share);
 }
 .icon-tiktok {
 	@include icon(tiktok);

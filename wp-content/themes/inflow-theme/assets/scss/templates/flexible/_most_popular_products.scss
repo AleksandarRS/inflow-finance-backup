@@ -7,6 +7,9 @@
         > div {
             max-width: $container-width-middle + 40;
         }
+        .button-wrapper {
+            padding-bottom: 24px;
+        }
     }
     .section-description {
         max-width: $container-narrow-width;
@@ -152,4 +155,10 @@
     font-weight: $font-weight-sb;
     padding-bottom: 13px;
     padding-top: 13px;
+    a {
+        color: $primary-color;
+        &:hover {
+            color: $secondary-color;
+        }
+    }
 }

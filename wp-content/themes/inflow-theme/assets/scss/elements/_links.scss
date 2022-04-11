@@ -2,12 +2,19 @@
     font-family: $primary-font;
     font-size: $button-font-size;
     font-weight: $font-weight-sb;
+    text-decoration: none;
     @include transition-all;
     &.link-primary {
         color: $primary-color;
+        &:hover {
+            color: $secondary-color;
+        }
     }
     &.link-secondary {
         color: $secondary-color;
+        &:hover {
+            color: $primary-color;
+        }
     }
     &.link-tertiary {
         color: $tertiary-color;

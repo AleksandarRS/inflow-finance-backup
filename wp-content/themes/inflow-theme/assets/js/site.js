@@ -6,6 +6,7 @@ const Navigation = require('./core/navigation');
 const svgconvert = require('./site/svgconvert');
 const addremoveclass = require('./site/addremoveclass');
 const accordion = require('./site/accordion');
+const stickysocial = require('./site/stickysocial');
 const example = require('./site/example');
 
 jQuery( function(){
@@ -29,6 +30,11 @@ jQuery( function(){
    * Initialize accordion module
    */
   accordion.init();
+
+  /**
+   * Initialize stickysocial module
+   */
+  stickysocial.init();
 
   /**
    * Initialize sample module

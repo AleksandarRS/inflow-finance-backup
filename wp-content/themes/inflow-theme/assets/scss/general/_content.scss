@@ -31,6 +31,11 @@
     max-width: $container-narrow-width;
 }
 
+.container-middle-wide-large {
+    max-width: $container-width-middle-large;
+}
+
+.container-middle-wide-large,
 .container-narrow-wide,
 .container-middle-wide,
 .container-wide {
@@ -44,4 +49,51 @@
 ::selection {
     color: $white;
     background: $secondary-color;
+}
+
+.icon-instagram-new{
+    position: relative;
+    &:after {
+        border-radius: 50%;
+        border: 3px solid $primary-color;
+        bottom: 3px;
+        content: "";
+        height: 12px;
+        left: 0;
+        margin: auto;
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 12px;
+    }
+}
+
+.content-area {
+    ul {
+        list-style: none;
+        padding-left: 0;
+        li {
+            position: relative;
+            padding-left: 25px;
+            @extend %after-full;
+            &:after {
+				color: $secondary-color;
+                content: "";
+				display: inline-block;
+				font-size: $font-size-base - 0.15;
+				font-style: normal;
+				font-variant: normal;
+				font-weight: normal;
+				left: 0px;
+				line-height: 1;
+				position: absolute;
+				text-decoration: none;
+				text-transform: none;
+				top: 5px;
+				vertical-align: middle;
+                font-family: "font-icons";
+                right: auto;
+            }
+        }
+    }
 }

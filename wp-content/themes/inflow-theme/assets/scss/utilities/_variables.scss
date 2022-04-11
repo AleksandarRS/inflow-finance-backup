@@ -1,6 +1,7 @@
 // Container widths
 $container-width-wide: 1800px;
 $container-width-middle: 1290px;
+$container-width-middle-large: 1490px;
 $container-width: 1170px;
 $container-narrow-width: 880px;
 
@@ -17,9 +18,9 @@ $gray-100:				#F8F8F8;
 $gray-300:				#CCCCCC;
 
 // Fonts
-$primary-font: 'Agenda Light';
-$secondary-font: 'Agenda Bold';
-$tertiary-font: 'Agenda Medium';
+$primary-font: 'agenda';
+$secondary-font: 'agenda';
+$tertiary-font: 'agenda';
 
 // Font Sizes
 $font-size-xsmall:	0.7em;

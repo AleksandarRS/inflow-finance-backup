@@ -50,6 +50,7 @@ let _this = module.exports = {
 						.slideDown(500);
 					}
 			});
+
 		}
     },
 

@@ -4,7 +4,7 @@
 	display: inline-block;
 	font-size: $button-font-size;
 	font-family: $secondary-font;
-	// font-weight: $font-weight-b;
+	font-weight: $font-weight-b;
 	letter-spacing: 0.6px;
 	padding: 14px 30px;
 	text-decoration: none;
@@ -51,6 +51,7 @@
 					max-width: 500px;
 					padding: 14px 20px;
 					text-decoration: none;
+					font-weight: $font-weight-b;
 					vertical-align: middle;
 					width: 100%;
 					@include min-mq ($lg) {

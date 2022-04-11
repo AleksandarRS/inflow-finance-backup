@@ -16,6 +16,36 @@
             &:hover {
                 color: $white;
             }
+            i {
+                display: inline-block;
+                vertical-align: middle;
+            }
         }
+    }
+}
+
+.social-share-options {
+    background-color: $white;
+    max-width: 25px;
+    opacity: 1;
+    text-align: center;
+    .share-title {
+        margin-bottom: 20px;
+    }
+    a {
+        display: block;
+        text-decoration: none;
+        margin-bottom: 20px;
+        font-size: $font-size-large;
+        &:last-of-type {
+            margin-bottom: 10px;
+        }
+        &:hover {
+            color: $primary-color;
+        }
+    }
+    .share-option {
+        color: $secondary-color;
+        font-size: $font-size-large;
     }
 }

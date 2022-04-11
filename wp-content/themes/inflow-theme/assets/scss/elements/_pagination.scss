@@ -1,21 +1,27 @@
 .nav-links {
+  padding-bottom: 20px;
+  padding-top: 7px;
   text-align: center;
   width: 100%;
 
   .page-numbers {
-    border: 2px solid $secondary-color;
+    border: 2px solid transparent;
     color: $secondary-color;
+    border-radius: 6px;
+    font-family: $secondary-font;
+    font-weight: $font-weight-sb;
     display: inline-block;
-    height: 30px;
-    line-height: 1.7em;
-    margin: 0 3px;
-    min-width: 30px;
-    transition: .2s;
+    height: 31px;
+    line-height: 27px;
+    margin: 0 1px;
+    min-width: 31px;
+    @include transition-all;
 
     &:hover,
     &.current {
-      background-color: $secondary-color;
-      color: #fff;
+      background-color: $white;
+      color: $primary-color-100;
+      border-color: $primary-color-100;
     }
 
     &.prev,
@@ -25,6 +31,13 @@
       color: $secondary-color;
       height: auto;
       width: auto;
+      &:hover {
+        color: $primary-color-100;
+      }
+      i {
+        display: inline-block;
+        vertical-align: middle;
+      }
     }
   }
 }

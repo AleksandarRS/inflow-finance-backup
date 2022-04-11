@@ -209,7 +209,7 @@ if ( ! function_exists( 'the_social_links' ) ) :
 			if($google_icon!=''): $go_icon = '<img src='.$google_icon.'>'; else: $go_icon = '<i class="icon icon-tiktok"></i>';endif;
 			if($youtube_icon!=''): $you_icon = '<img src='.$youtube_icon.'>'; else: $you_icon = '<i class="icon icon-youtube"></i>';endif;
 			if($linkedIn_icon!=''): $li_icon = '<img src='.$linkedIn_icon.'>'; else: $li_icon = '<i class="icon icon-linkedin"></i>';endif;
-			if($instagram_icon!=''): $inst_icon = '<img src='.$instagram_icon.'>'; else: $inst_icon ='<i class="icon icon-instagram-full"></i>';endif;
+			if($instagram_icon!=''): $inst_icon = '<img src='.$instagram_icon.'>'; else: $inst_icon ='<i class="icon icon-instagram-new"></i>';endif;
 			if($pinterest_icon!=''): $pt_icon = '<img src='.$pinterest_icon.'>'; else: $pt_icon = '<i class="icon icon-pinterest"></i>';endif;
 
 			

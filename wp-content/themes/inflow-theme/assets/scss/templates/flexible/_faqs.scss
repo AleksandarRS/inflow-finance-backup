@@ -37,6 +37,7 @@
     }
 }
 .faq-section-item-question {
+    color: $primary-color;
     align-items: center;
     border-bottom: 1px solid $gray-300;
     display: flex;
@@ -44,6 +45,9 @@
     font-size: $button-font-size;
     padding: 22px 0;
     @include transition-all;
+    &:hover {
+        color: $secondary-color;
+    }
     &.active {
         border-bottom-color: $white;
     }
@@ -64,6 +68,7 @@
     .faq-question {
         padding-left: 25px;
         letter-spacing: -0.2px;
+        font-weight: $font-weight-m;
 
     }
 }

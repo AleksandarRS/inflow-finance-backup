@@ -1,0 +1,19 @@
+.posts-cards-items {
+    .posts-cards-list-item {
+        .posts-cards-item-link {
+            display: flex;
+        }
+        .product-card-thumbnail-wrap {
+            flex: 0 0 100px;
+            max-width: 100%;
+        }
+        .post-heading-excerpt-wraper {
+            flex: 0 0 calc(100% - 100px);
+            max-width: calc(100% - 100px);
+            text-align: left;
+        }
+        .post-prediction-items-button-wrapper {
+            position: static;
+        }
+    }
+}
