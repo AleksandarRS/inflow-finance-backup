@@ -1,0 +1,327 @@
+.single-product-hero-wrapper {
+    .post-prediction-items-button-wrapper {
+        position: static;
+        text-align: center;
+    }
+}
+.hero-section-single-product {
+    padding-bottom: 110px;
+    .hero-single-product-text-description-content-inner {
+        align-items: flex-end;
+        .hero-header-text-description-wrap {
+            flex: 0 0 59.9%;
+            max-width: 59.9%;
+        }
+        .main-hero-title {
+            letter-spacing: 0.7px;
+            margin-bottom: 0.65em;
+        }
+        
+        .hero-prediction-button-wrap {
+            flex: 0 0 40.1%;
+            max-width: 40.1%;
+            padding-bottom: 10px;
+        }
+        .post-prediction-item-title {
+            font-size: $font-size-base + 0.1;
+            font-weight: $font-weight-m;
+        }
+        .post-prediction-item-number {
+            font-size: $font-size-h3 + 0.5;
+            font-weight: $font-weight-sb;
+        }
+        .main-hero-description {
+            padding-top: 0;
+            margin-top: 0;
+            line-height: 1.7;
+            @include min-mq ($mac) {
+                padding-right: 20px;
+            }
+            p {
+                &:last-of-type {
+                    margin-bottom: 0;
+                }
+            }
+        }
+    }
+    .button-wrapper {
+        padding-top: 44px;
+    }
+    .button {
+        width: 100%;
+    }
+    .post-prediction-items-button-wrapper {
+        max-width: 100%;
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+
+
+.key-features-single-product {
+    .key-features-row {
+        padding-bottom: 120px;
+        padding-top: 41px;
+    }
+    .key-features-wrapper {
+        background-color: $tertiary-color;
+    }
+    .section-background-image {
+        background-image: url('../assets/images/inflow-Finance-Products-key-features-background-image.png');
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    .section-description {
+        max-width: $container-narrow-width - 20;
+        margin-left: auto;
+        margin-right: auto;
+        h1, h2, h3 {
+            letter-spacing: 0.4px;
+            margin-bottom: 0.67em;
+        }
+        p, li, span, strong, b {
+            font-size: $font-size-large;
+            line-height: 1.6;
+        }
+    }
+    .key-features-main-image-list-wrapper {
+        padding-top: 15px;
+        
+    }
+    .key-features-main-image-list-inner {
+        background-color: $white;
+        box-shadow: 0px 15px 30px rgba($color: $black, $alpha: 0.1);
+        border-radius: 30px;
+        padding: 50px 15px;
+        display: flex;
+        > div {
+            flex: 0 0 50%;
+            max-width: 50%;
+        }
+    }
+    .key-features-main-image-wrap {
+        text-align: center;
+        @include min-mq ($ls) {
+            padding-right: 25px;
+        }
+        @include min-mq ($mac) {
+            padding-right: 50px;
+        }
+    }
+    .key-features-main-list {
+        padding-bottom: 12px;
+        .key-features-main-list-item {
+            font-size: $font-size-large - 0.2;
+            padding: 24px 0 23px 0;
+            border-bottom: 1px solid $gray-300;
+            i {
+                color: $secondary-color;
+                display: inline-block;
+                vertical-align: top;
+                margin-right: 35px;
+                width: 25px;
+            }
+            &:after {
+                content: none;
+                display: none;
+            }
+        }
+    }
+}
+
+.text-image-single-product {
+    padding: 118px 0 65px;
+}
+.image-text-single-product {
+    padding: 65px 0 118px;
+}
+
+.image-text-single-product,
+.text-image-single-product {
+    .image-text-text-description-content,
+    .text-image-main-image-wrapper {
+        max-width: 46.4%;
+        flex: 0 0 46.4%;
+        @include min-mq ($sm) {
+            order: 1;
+        }
+    }
+    .image-text-main-image-wrapper,
+    .text-image-text-description-content {
+        max-width: 53.6%;
+        flex: 0 0 53.6%;
+        @include min-mq ($sm) {
+            order: 0;
+        }
+    }
+}
+
+.content-area {
+    .image-text-single-product {
+        .section-description-large {
+            h1, h2, h3 {
+                letter-spacing: 1px;
+                margin-top: 0.15em;
+                @include min-mq ($lg) {
+                    margin-top: -12px;
+                }
+            }
+        }
+        
+    }
+    .section-description-large {
+        h1, h2, h3 {
+            letter-spacing: 0.5px;
+            margin-top: 0.65em;
+        }
+        li {
+            padding: 5px 0 10px 58px;
+            font-size: $font-size-large - 0.2;
+            &:after {
+                font-size: $font-size-large;
+            }
+        }
+    }
+}
+
+
+.facility-overview-wrapper {
+    background-color: $gray-100;
+    padding-bottom: 126px;
+    padding-top: 40px;
+    .section-description {
+        max-width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+        > h1 {
+            letter-spacing: 1.1px;
+        }
+    }
+    .section-background-image {
+        background-image: url('../assets/images/Inflow-Finance-Facility-overview-background-image-Triangles.png');
+    }
+
+    .facility-overview-tables-wrapper {
+        padding-top: 15px;
+    }
+
+    .facility-overview-table-item,
+    .facility-overview-tables-inner {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+    }
+    .facility-overview-tables-inner {
+        font-size: 20px;
+    }
+    .facility-overview-table {
+        background-color: $white;
+        border-radius: 30px;
+        box-shadow: 0px 15px 30px rgba($color: $black, $alpha: 0.1);
+        .facility-overview-table-item {
+            font-size: $font-size-large - 0.2;
+        }
+    }
+    .facility-overview-first-table-wrap {
+        flex: 0 0 32%;
+        max-width: 32%;
+        .facility-overview-table {
+            padding: 32px 40px;
+            @include min-mq ($lg) {
+                padding: 46px 62px;
+            }
+        }
+        .facility-overview-table-item {
+            padding-bottom: 31px;
+            &:first-of-type {
+                font-size: $font-size-large;
+                padding-bottom: 33px;
+                .facility-overview-table-cell {
+                    font-weight: $font-weight-sb;
+                }
+            }
+            &:last-of-type {
+                padding-bottom: 8px;
+            }
+
+        }
+        .facility-overview-table-cell {
+            font-weight: $font-weight-m;
+            &:first-of-type {
+                text-transform: uppercase;
+                flex: 0 0 calc(100% - 124px);
+                max-width: calc(100% - 124px);
+            }
+            &:last-of-type {
+                flex: 0 0 124px;
+                max-width: 124px;
+                text-align: left;
+            }
+        }
+    }
+    .facility-overview-second-table-wrap {
+        flex: 0 0 58.2%;
+        max-width: 58.2%;
+        .facility-overview-table {
+            padding: 17px 40px;
+            @include min-mq ($lg) {
+                padding: 21px 60px;
+            }
+        }
+        .facility-overview-table-item {
+            border-bottom: 1px solid $gray-300;
+            padding: 25px 0;
+            &:last-child {
+                border-color: transparent;
+                padding-bottom: 0;
+            }
+        }
+        .facility-overview-table-cell {
+            &:first-child {
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+                @include min-mq ($lg) {
+                    letter-spacing: 1.6px;
+                }
+            }
+            &:last-child {
+                font-weight: $font-weight-m;
+                text-align: right;
+            }
+            .cell-note {
+                display: block;
+                font-size: 0.76925em;
+            }
+        }
+    }
+}
+
+.most-popular-case-studies-section {
+    &.latest-case-studies-section {
+        padding-top: 62px;
+        padding-bottom: 10px;
+        .main-title {
+            letter-spacing: 0.4px;
+            margin-bottom: 0.5em;
+        }
+        .case-study-post-featured-img-wrap {
+            margin-bottom: 9px;
+        }
+        .post-category-item {
+            display: none;
+        }
+        .post-product-excerpt {
+            p {
+                font-size: $font-size-base;
+            }
+        }
+        .posts-cards-case-study-item {
+            .post-heading-excerpt-wraper {
+                padding-bottom: 97px;
+            }
+        }
+    }
+    
+
+}

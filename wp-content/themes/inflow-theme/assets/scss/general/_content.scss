@@ -2,12 +2,15 @@
     position: relative;
 }
 .section-background-image {
-    position: absolute;
-    left: 0;
-    top: 0;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
     bottom: 0;
     height: 100%;
+    left: 0;
+    position: absolute;
     right: 0;
+    top: 0;
     width: 100%;
     z-index: 0;
     + div {
@@ -69,14 +72,15 @@
 }
 
 .content-area {
+    width: 100%;
     ul {
         list-style: none;
         padding-left: 0;
         li {
             position: relative;
             padding-left: 25px;
-            @extend %after-full;
             &:after {
+                @extend %after-full;
 				color: $secondary-color;
                 content: "";
 				display: inline-block;

@@ -371,6 +371,7 @@ if (!function_exists('after_setup_theme_function')):
 		register_nav_menus(
 			array(
 				'primary' => esc_html__( 'Primary Menu', 'inflow' ),
+				'error' => esc_html__( 'Error 404 Menu', 'inflow' ),
 			)
 		);
 

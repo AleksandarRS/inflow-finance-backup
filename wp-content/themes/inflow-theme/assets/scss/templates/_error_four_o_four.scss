@@ -1,0 +1,56 @@
+.not-found-content-area {
+    padding-top: 135px;
+    @include min-mq ($lg) {
+        padding-top: 185px;
+    }
+    h1, h2 {
+        font-size: $font-size-h3 + 0.5;
+        text-align: center;
+    }
+}
+
+.error-404-main-image {
+    text-align: center;
+    max-width: 450px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.error-404-page-menu {
+    text-align: center;
+    ul {
+        li {
+            display: inline-block;
+            vertical-align: middle;
+            font-weight: $font-weight-m;
+            font-size: $font-size-base + 0.015;
+            width: auto;
+
+        }
+        .sub-menu {
+            display: none;
+        }
+    }
+    li {
+        padding: 5px 0;
+        margin: 0 5px;
+        .content-area & {
+            padding-left: 0;
+        }
+        &:after {
+            content: none;
+            display: none;
+            .content-area & {
+                content: none;
+                display: none;
+            }
+        }
+        a {
+            text-decoration: none;
+            color: $primary-color;
+            &:hover {
+                color: $secondary-color;
+            }
+        }
+    }
+}

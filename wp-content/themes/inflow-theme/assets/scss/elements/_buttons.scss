@@ -2,16 +2,21 @@
 	@include transition-all;
 	border-radius: 50px;
 	display: inline-block;
-	font-size: $button-font-size;
 	font-family: $secondary-font;
+	font-size: $button-font-size;
 	font-weight: $font-weight-b;
 	letter-spacing: 0.6px;
 	padding: 14px 30px;
+	text-align: center;
 	text-decoration: none;
 	vertical-align: middle;
 	@include min-mq ($lg) {
 		padding: 15px 51px;
     	letter-spacing: 1px;
+	}
+	.single-product-hero & {
+		padding-left: 10px;
+		padding-right: 10px;
 	}
 	&.button-primary {
 		background-color: $primary-color;

@@ -37,6 +37,9 @@
         text-decoration: none;
         margin-bottom: 20px;
         font-size: $font-size-large;
+        .icon-facebook {
+            font-size: $font-size-large + 0.00125;
+        }
         &:last-of-type {
             margin-bottom: 10px;
         }

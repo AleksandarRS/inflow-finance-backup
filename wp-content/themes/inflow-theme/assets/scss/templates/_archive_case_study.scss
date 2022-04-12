@@ -1,0 +1,51 @@
+.hero-section.hero-posts {
+    padding-top: 135px;
+    @include min-mq ($lg) {
+        padding-top: 161px;
+    }
+}
+.archive-case-studies-hero-section-wrapper {
+    .hero-section-background-image {
+        background-image: url('../assets/images/case-study-archive-hero-image-Inflow-Finance.png');
+        @include min-mq ($lg) {
+            background-size: contain;
+        }
+    }
+    .main-hero-title {
+        letter-spacing: 0.4px;
+        margin-bottom: 0.5em;
+    }
+    .main-hero-description {
+        max-width: $container-narrow-width - 180;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 0.5em;
+        letter-spacing: 0.2px;
+    }
+}
+
+.archive-case-study-page-latest-items-wrapper {
+    .case-study-post-cards-items {
+        .posts-cards-case-study-item {
+            padding-bottom: 58px;
+            margin-bottom: 22px;
+        }
+        .post-product-excerpt {
+            p {
+                font-size: $font-size-base;
+            }
+        }
+    }
+    
+}
+
+.taxonomy-case-study-page-latest-items-wrapper {
+    .posts-cards-case-study-item {
+        .case-study-post-featured-img-wrap {
+            margin-bottom: 9px;
+        }
+        .post-category-item {
+            display: none;
+        }
+    }
+}

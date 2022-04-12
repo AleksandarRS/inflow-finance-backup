@@ -8,9 +8,7 @@ $link = get_sub_field('button_option');
 ?>
 <section class="hero-section hero-section-smaller">
     <div class="hero-section-wrapper relative"<?php if ( $section_background_color ) : ?> style="background-color:<?php echo $section_background_color; ?>"<?php endif; ?>>
-        <?php  if ( $section_background_image ) : ?>
-            <div class="hero-section-background-image" style="background-image: url(<?php echo esc_url($section_background_image['url']); ?>);" role="img" aria-label="<?php echo esc_attr($section_background_image['alt']); ?>"></div>
-        <?php endif; ?>
+        <div class="hero-section-background-image"<?php  if ( $section_background_image ) : ?> style="background-image: url(<?php echo esc_url($section_background_image['url']); ?>);" role="img" aria-label="<?php echo esc_attr($section_background_image['alt']); ?>"<?php endif; ?>></div>
         <div class="container-fluid">
             <div class="row hero-smaller-row">
                 <div class="hero-smaller-text-description-content col-md-12">

@@ -40,9 +40,9 @@
 	<div class="contact-section-decoration-image contact-section-decoration-image-left">
 		<img src="<?php echo esc_url($add_section_left_image['url']); ?>" alt="<?php echo esc_attr($add_section_left_image['alt']); ?>">
 	</div>
-<?php endif ?>
+<?php endif; ?>
 <?php  if ( $add_section_right_image ) : ?>
 	<div class="contact-section-decoration-image contact-section-decoration-image-right">
 		<img src="<?php echo esc_url($add_section_right_image['url']); ?>" alt="<?php echo esc_attr($add_section_right_image['alt']); ?>">
 	</div>
-<?php endif ?>
+<?php endif; ?>

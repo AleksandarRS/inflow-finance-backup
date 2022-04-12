@@ -3,6 +3,9 @@
     padding-top: 130px;
     .hero-section-background-image {
         @extend %absolute-full;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
     }
     .hero-section-wrapper {
         > div:not(.hero-section-background-image) {

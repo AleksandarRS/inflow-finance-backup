@@ -1,19 +1,105 @@
+.posts-card-list-items {
+    padding-top: 94px;
+}
 .posts-cards-items {
     .posts-cards-list-item {
+        padding-bottom: 0;
+        padding-left: 0;
+        padding-right: 0;
+        margin-bottom: 19px;
+        &:last-child {
+            .post-prediction-item-number {
+                text-transform: none;
+                font-size: $font-size-base;
+                font-weight: $font-weight-sb;
+                margin-top: 15px;
+            }
+        }
         .posts-cards-item-link {
             display: flex;
+            border-radius: 0;
+            border-bottom: 1px solid $gray-300;
+            padding: 15px;
+            box-shadow: 0px 15px 30px transparent;
+            &:hover {
+                box-shadow: 0px 15px 20px rgba($color: $black, $alpha: 0.15);
+                // .link {
+                //     color: $primary-color;
+                // }
+            }
         }
         .product-card-thumbnail-wrap {
-            flex: 0 0 100px;
-            max-width: 100%;
+            flex: 0 0 138px;
+            max-width: 138px;
         }
         .post-heading-excerpt-wraper {
-            flex: 0 0 calc(100% - 100px);
-            max-width: calc(100% - 100px);
-            text-align: left;
+            flex: 0 0 calc(100% - 138px);
+            max-width: calc(100% - 138px);
+        }
+        .post-heading-predictions-wraper {
+            display: flex;
+            padding-left: 25px;
+            @include min-mq ($lg)  {
+                padding-left: 56px;
+            }
+        }
+       
+        .post-heading-predictions-inner {
+            flex: 0 0 300px;
+            max-width: 300px;
+        }
+        .post-product-excerpt {
+            flex: 0 0 calc(100% - 300px);
+            max-width: calc(100% - 300px);
+            padding-left: 25px;
+            padding-top: 5px;
+            @include min-mq ($lg)  {
+                padding-left: 64px;
+            }
+            p, li, span, strong, b {
+                font-size: $font-size-base + 0.1;
+                line-height: 1.5;
+            }
+        }
+        .post-product-read-more {
+            padding-bottom: 15px;
+            padding-top: 19px;
+            .link {
+                letter-spacing: 0.9px;
+            }
+            i {
+                margin-left: 8px;
+                
+            }
         }
         .post-prediction-items-button-wrapper {
+            margin-left: 0;
+            margin-right: 0;
+            max-width: 100%;
+            padding-left: 0;
+            padding-right: 0;
             position: static;
+            text-align: center;
         }
+        .post-featured-img-wrap {
+            height: auto;
+            display: block;
+            margin-bottom: 23px;
+            margin-top: 20px;
+            img {
+                width: 100%;
+            }
+        }
+        .entry-header {
+            min-height: 0;
+            display: block;
+            padding-left: 15px;
+        }
+        .entry-title {
+            font-size: $font-size-h3;
+            font-weight: $font-weight-sb;
+            line-height: 1.15;
+        }
+
     }
 }

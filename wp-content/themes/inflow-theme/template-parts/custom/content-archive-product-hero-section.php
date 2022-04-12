@@ -14,7 +14,7 @@
         <?php endif; ?>
         <div class="container-fluid">
             <div class="row hero-smaller-row">
-                <div class="hero-smaller-text-description-content col-md-12">
+                <div class="hero-smaller-text-description-content archive-hero col-md-12">
                     <div class="hero-smaller-text-description-content-inner">
                         <header class="entry-header main-header align-center">
                             <?php if ( $product_page_hero_title ) : ?>

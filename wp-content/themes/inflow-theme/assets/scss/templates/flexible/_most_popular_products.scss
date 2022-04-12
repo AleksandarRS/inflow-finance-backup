@@ -137,6 +137,9 @@
     .post-prediction-item-title {
         font-family: $tertiary-font;
         font-size: $font-size-xsmall;
+        p {
+            text-transform: uppercase;
+        }
         
     }
     .post-prediction-item-number {

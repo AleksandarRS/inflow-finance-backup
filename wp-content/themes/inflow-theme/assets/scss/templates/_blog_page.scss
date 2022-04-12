@@ -12,11 +12,24 @@
             letter-spacing: 0.4px;
             margin-bottom: 0.67em;
         }
-        
         p, li, span, strong, b {
             font-size: $font-size-large;
             line-height: 1.6;
         }
+    }
+}
+
+.section-description {
+    max-width: $container-narrow-width - 20;
+    margin-left: auto;
+    margin-right: auto;
+    h1, h2, h3 {
+        letter-spacing: 0.4px;
+        margin-bottom: 0.67em;
+    }
+    p, li, span, strong, b {
+        font-size: $font-size-large;
+        line-height: 1.6;
     }
 }
 

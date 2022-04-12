@@ -58,29 +58,32 @@
 	@if $filename == linkedin {
 		$char: "\E00C";
 	}
-	@if $filename == minus-icon {
+	@if $filename == list-triangle-decor {
 		$char: "\E00D";
 	}
-	@if $filename == pinterest {
+	@if $filename == minus-icon {
 		$char: "\E00E";
 	}
-	@if $filename == plus-icon {
+	@if $filename == pinterest {
 		$char: "\E00F";
 	}
-	@if $filename == search {
+	@if $filename == plus-icon {
 		$char: "\E010";
 	}
-	@if $filename == share {
+	@if $filename == search {
 		$char: "\E011";
 	}
-	@if $filename == tiktok {
+	@if $filename == share {
 		$char: "\E012";
 	}
-	@if $filename == twitter {
+	@if $filename == tiktok {
 		$char: "\E013";
 	}
-	@if $filename == youtube {
+	@if $filename == twitter {
 		$char: "\E014";
+	}
+	@if $filename == youtube {
+		$char: "\E015";
 	}
 
 	@return $char;
@@ -132,6 +135,9 @@
 }
 .icon-linkedin {
 	@include icon(linkedin);
+}
+.icon-list-triangle-decor {
+	@include icon(list-triangle-decor);
 }
 .icon-minus-icon {
 	@include icon(minus-icon);

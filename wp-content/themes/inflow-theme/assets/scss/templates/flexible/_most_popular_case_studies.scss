@@ -28,9 +28,17 @@
         &:hover {
             a {
                 color: $secondary-color;
-                // .link {
-                //     color: $primary-color;
-                // }
+            }
+            // .term-name {
+            //     color: $primary-color;
+            // }
+        }
+        .term-name {
+            @include transition-color;
+            // color: $primary-color;
+            &:hover {
+                // color: $secondary-color;
+                color: $primary-color;
             }
         }
         a {
@@ -48,9 +56,12 @@
         }
         .post-prediction-item {
             &:last-child {
-                p {
-                    text-transform: none;
+                .post-prediction-item-number {
+                    p {
+                        text-transform: none;
+                    }
                 }
+                
             }
         }
         .post-heading-excerpt-wraper {

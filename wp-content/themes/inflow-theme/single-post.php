@@ -31,7 +31,6 @@ get_header(); ?>
 		<div class="related-posts-inner">
 			<div class="container">
 				<div class="row blog-page-posts-row">
-					
 					<header class="entry-header main-header col-md-12">
 						<h3 class="section-title"><?php _e('Related', 'inflow'); ?></h3>
 						<div class="post-product-read-more read-more-link-wrap link-wrap">
@@ -48,12 +47,11 @@ get_header(); ?>
 							if( $related ) foreach( $related as $post ) {
 							setup_postdata($post);
 
-							get_template_part('template-parts/custom/content', 'blog-page');
+							get_template_part('template-parts/custom/content', 'blog-page-cards');
 
 						}
 						wp_reset_postdata(); ?>
 					</div>
-
 				</div>
 			</div>
 		</div>

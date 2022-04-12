@@ -1,6 +1,9 @@
 .contact-details-section {
     padding-bottom: 110px;
     padding-top: 180px;
+    .post-type-archive-case-studies & {
+        padding-top: 120px;
+    }
     .contact-details-content-inner {
         background-color: $tertiary-color;
         border-radius: 40px;

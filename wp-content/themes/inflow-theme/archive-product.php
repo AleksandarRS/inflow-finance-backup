@@ -24,8 +24,8 @@ get_header(); ?>
 
                 <?php  $product_posts = get_field('products_list', 'option');
                     if( $product_posts ): ?>
-                    <div class="posts-items-cards-wrapper post-product-items-cards-wrapper col-md-12">
-                        <div class="row post-posts-items-cards-row posts-cards-items">
+                    <div class="posts-items-cards-wrapper col-md-12">
+                        <div class="row post-posts-items-cards-list-row posts-cards-items posts-card-list-items">
                             <?php foreach( $product_posts as $post ): 
                                 setup_postdata($post); ?>
                                 <?php get_template_part( 'template-parts/content', 'product-archive-list' ); ?>

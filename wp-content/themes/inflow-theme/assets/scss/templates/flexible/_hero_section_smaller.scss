@@ -1,14 +1,37 @@
 .hero-section {
     &.hero-section-smaller {
+        .hero-section-background-image {
+            background-image: url('../assets/images/inflow-finance-default-header-hero-background.jpg');
+        }
+        .hero-section-wrapper {
+            background-color: $tertiary-color;
+        }
         .hero-smaller-text-description-content {
-            width: 100%;
-            display: flex;
             align-items: center;
-            justify-content: center;
+            display: flex;
             height: 43.4vh;
+            justify-content: center;
             max-height: 550px;
             min-height: 320px;
-            
+            width: 100%;
+            &.archive-hero {
+                height: 60.4vh;
+                max-height: 620px;
+                min-height: 350px;
+                .main-hero-description {
+                    max-width: $container-narrow-width - 40;
+                    margin-left: auto;
+                    margin-right: auto;
+                    letter-spacing: 0.2px;
+                    margin-top: 1.35em;
+                }
+                .main-hero-title {
+                    margin-top: 0.15em;
+                }
+                .button-wrapper {
+                    padding-top: 15px;
+                }
+            }
         }
         .main-hero-title {
             margin-bottom: 0.45em;
