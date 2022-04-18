@@ -45,7 +45,12 @@
     }
 }
 
-
+.single-page-background-image {
+    background-image: url('../assets/images/Blog-posts-background-image.png');
+    background-repeat: no-repeat;
+    background-position: center top;
+    background-size: contain;
+}
 
 .single-post-categories {
     padding-top: 145px;

@@ -171,6 +171,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 		var addremoveclass = require('./site/addremoveclass');
 		var accordion = require('./site/accordion');
 		var stickysocial = require('./site/stickysocial');
+		var smoothscroll = require('./site/smoothscroll');
 		var example = require('./site/example');
 
 		jQuery(function () {
@@ -201,11 +202,16 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 			stickysocial.init();
 
 			/**
+    * Initialize smoothscroll module
+    */
+			smoothscroll.init();
+
+			/**
     * Initialize sample module
     */
 			example.init();
 		});
-	}, { "./core/navigation": 1, "./site/accordion": 3, "./site/addremoveclass": 4, "./site/example": 5, "./site/stickysocial": 7, "./site/svgconvert": 8, "jquery": 9 }], 3: [function (require, module, exports) {
+	}, { "./core/navigation": 1, "./site/accordion": 3, "./site/addremoveclass": 4, "./site/example": 5, "./site/smoothscroll": 7, "./site/stickysocial": 8, "./site/svgconvert": 9, "jquery": 10 }], 3: [function (require, module, exports) {
 		"use strict";
 
 		// const Global = require('./global');
@@ -495,6 +501,61 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
    	# Cache dom and strings
    -------------------------------------------------------------------------------*/
 			$dom: {
+				// window: $(window),
+
+
+			},
+
+			vars: {},
+
+			/*-------------------------------------------------------------------------------
+   	# Initialize
+   -------------------------------------------------------------------------------*/
+			init: function init() {
+				// if( _this ){
+				$('.smoothscroll').click(function (event) {
+					if (location.pathname.replace(/^\//, '') === this.pathname.replace(/^\//, '') && location.hostname === this.hostname) {
+						// Figure out element to scroll to
+						var target = $(this.hash);
+						target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+						// Does a scroll target exist?
+						if (target.length) {
+							// Only prevent default if animation is actually gonna happen
+							event.preventDefault();
+							$('html, body').animate({
+								scrollTop: target.offset().top - 60
+							}, 1500, function () {
+								// Callback after animation
+								// Must change focus!
+								var $target = $(target);
+								$target.focus();
+								if ($target.is(":focus")) {
+									// Checking if the target was focused
+									return false;
+								} else {
+									$target.attr('tabindex', '-1'); // Adding tabindex for elements not focusable
+									$target.focus(); // Set focus again
+								};
+							});
+						}
+					}
+				});
+			}
+
+		};
+	}, {}], 8: [function (require, module, exports) {
+		"use strict";
+
+		// const Global = require('./global');
+
+		// let	_this;
+
+		var _this = module.exports = {
+
+			/*-------------------------------------------------------------------------------
+   	# Cache dom and strings
+   -------------------------------------------------------------------------------*/
+			$dom: {
 				// accordionLink: $('.faq-section-item-question'),
 			},
 
@@ -536,7 +597,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 			}
 
 		};
-	}, {}], 8: [function (require, module, exports) {
+	}, {}], 9: [function (require, module, exports) {
 		"use strict";
 
 		// const Global = require('./global');
@@ -581,7 +642,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 			}
 
 		};
-	}, {}], 9: [function (require, module, exports) {
+	}, {}], 10: [function (require, module, exports) {
 		/*!
    * jQuery JavaScript Library v3.4.1
    * https://jquery.com/

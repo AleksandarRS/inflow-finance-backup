@@ -5,10 +5,12 @@
             <div class="blog-page-posts-content-inner clearfix">
                 
                 <?php if( has_post_thumbnail() ): ?>
-                    <a href="<?php the_permalink(); ?>" class="blog-posts-thumbnail-image" style="background-image: url('<?php the_post_thumbnail_url(); ?>');" area-label="<?php echo get_the_title(); ?>">
+                    <a href="<?php the_permalink(); ?>" class="blog-posts-thumbnail-image-link">
+                        <div class="blog-posts-thumbnail-image" style="background-image: url('<?php the_post_thumbnail_url(); ?>');" area-label="<?php echo get_the_title(); ?>"></div>
                     </a>
                 <?php else: ?>
-                    <a href="<?php the_permalink(); ?>" class="blog-posts-thumbnail-image" style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/images/default.jpg');" area-label="Default Inflow Finance post image">
+                    <a href="<?php the_permalink(); ?>" class="blog-posts-thumbnail-image-link">
+                        <div class="blog-posts-thumbnail-image" style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/images/default-image.jpg');" area-label="Default Inflow Finance post image"></div>
                     </a>
                 <?php endif; ?>
 

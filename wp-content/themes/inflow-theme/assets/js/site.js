@@ -7,6 +7,7 @@ const svgconvert = require('./site/svgconvert');
 const addremoveclass = require('./site/addremoveclass');
 const accordion = require('./site/accordion');
 const stickysocial = require('./site/stickysocial');
+const smoothscroll = require('./site/smoothscroll');
 const example = require('./site/example');
 
 jQuery( function(){
@@ -35,6 +36,11 @@ jQuery( function(){
    * Initialize stickysocial module
    */
   stickysocial.init();
+
+  /**
+   * Initialize smoothscroll module
+   */
+   smoothscroll.init();
 
   /**
    * Initialize sample module

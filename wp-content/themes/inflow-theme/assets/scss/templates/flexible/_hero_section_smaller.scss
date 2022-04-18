@@ -9,10 +9,10 @@
         .hero-smaller-text-description-content {
             align-items: center;
             display: flex;
-            height: 43.4vh;
+            min-height: 33vh;
             justify-content: center;
             max-height: 550px;
-            min-height: 320px;
+            // min-height: 300px;
             width: 100%;
             &.archive-hero {
                 height: 60.4vh;

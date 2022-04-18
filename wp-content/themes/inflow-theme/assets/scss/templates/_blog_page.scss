@@ -48,22 +48,33 @@
 .featured-post-item-wrapper {
     padding-top: 25px;
     .featured-posts-content-inner {
+        display: flex;
         &:hover {
-            a {
+            .featured-post-title {
                 color: $secondary-color;
             }
+            .featured-posts-thumbnail-image {
+                transform: scale(1.05);
+            }
         }
-        display: flex;
         a {
             color: $primary-color;
+        }
+        .featured-posts-thumbnail-image-link {
+            overflow: hidden;
+            display: block;
+            border-radius: 20px;
+            flex: 0 0 48%;
+            max-width: 48%;
         }
         .featured-posts-thumbnail-image {
             background-position: center;
             background-repeat: no-repeat;
             background-size: cover;
             border-radius: 20px;
-            flex: 0 0 48%;
-            max-width: 48%;
+            height: 100%;
+            transform: scale(1);
+            @include transition-all;
         }
         .featured-blog-title-excerpt-wrapper {
             flex: 0 0 52%;
@@ -80,6 +91,7 @@
         line-height: 1.35;
         margin-bottom: 0.25em;
         margin-top: 0.25em;
+        @include transition-color;
     }
     .post-categories-list {
         margin-top: -5px;
@@ -107,12 +119,21 @@
     }
     .blog-page-posts-content-inner {
         &:hover {
-            a {
+            .blog-posts-thumbnail-image {
+                transform: scale(1.05);
+            }
+            .blog-page-post-title {
                 color: $secondary-color;
             }
         }
         a {
             color: $primary-color;
+        }
+        .blog-posts-thumbnail-image-link {
+            display: block;
+            border-radius: 20px;
+            height: 250px;
+            overflow: hidden;
         }
         .blog-posts-thumbnail-image {
             display: block;
@@ -120,7 +141,9 @@
             background-repeat: no-repeat;
             background-size: cover;
             border-radius: 20px;
-            height: 250px;
+            height: 100%;
+            @include transition-all;
+            transform: scale(1);
         }
     }
     .blog-page-post-title-text-description-wrap-inner {
@@ -133,6 +156,7 @@
         margin-bottom: 0.6em;
         margin-top: 0.25em;
         line-height: 1.2;
+        @include transition-color;
     }
 }
 

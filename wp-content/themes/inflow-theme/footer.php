@@ -11,7 +11,9 @@
 
 				
 				<section id="footer-contact-details-section" class="contact-details-section custom-form-elements-position relative">
-					<?php get_template_part( 'template-parts/content', 'theme-contact-details' ); ?>
+					<div id="cta-contact">
+						<?php get_template_part( 'template-parts/content', 'theme-contact-details' ); ?>
+					</div>
 				</section> <!-- /.contact-details-section custom-form-elements-position relative -->
 			</div><!-- #content -->
 

@@ -73,6 +73,36 @@
 
 .content-area {
     width: 100%;
+    .text-content-section {
+        ul {
+            li {
+                padding-left: 30px;
+                padding-bottom: 6px;
+                &:last-of-type {
+                    padding-bottom: 0;
+                }
+                &:after {
+                    background-color: $secondary-color;
+                    border-radius: 50%;
+                    content: '';
+                    height: 7px;
+                    left: 12px;
+                    top: 12px;
+                    width: 7px;
+                }
+            }
+        }
+        ol {
+            padding-left: 27px;
+            li {
+                padding-top: 4px;
+                padding-bottom: 4px;
+                &:last-of-type {
+                    padding-bottom: 0;
+                }
+            }
+        }
+    }
     ul {
         list-style: none;
         padding-left: 0;

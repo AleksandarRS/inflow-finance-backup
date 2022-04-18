@@ -25,19 +25,10 @@
 .posts-cards-items.case-study-post-cards-items {
     .posts-cards-case-study-item {
         padding-bottom: 38px;
-        &:hover {
-            a {
-                color: $secondary-color;
-            }
-            // .term-name {
-            //     color: $primary-color;
-            // }
-        }
         .term-name {
             @include transition-color;
-            // color: $primary-color;
+            color: $secondary-color;
             &:hover {
-                // color: $secondary-color;
                 color: $primary-color;
             }
         }
@@ -65,7 +56,7 @@
             }
         }
         .post-heading-excerpt-wraper {
-            padding-bottom: 90px;
+            padding-bottom: 110px;
         }
         .entry-header {
             padding-top: 12px;
@@ -79,18 +70,46 @@
             padding-top: 12px;
         }
     }
+    .posts-cards-case-study-item-inner {
+        &:hover {
+            .case-study-post-featured-img-wrap {
+                transform: scale(1.05);
+            }
+            .link {
+                color: $primary-color;
+                i {
+                    margin-right: -8px;
+                    margin-left: 12px;
+                }
+            }
+        }
+        
+    }
+    .case-study-post-featured-img-link {
+        border-radius: 20px;
+        display: block;
+        height: 364px;
+        overflow: hidden;
+    }
     .case-study-post-featured-img-wrap {
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;
         border-radius: 20px;
         display: block;
+        height: 100%;
         margin-bottom: 24px;
-        height: 364px;
+        transform: scale(1);
+        @include transition-all;
+    }
+    .product-page-links {
+        padding-bottom: 1px;
+        padding-top: 20px;
     }
     .term-name {
         font-weight: $font-weight-sb;
         color: $secondary-color;
+        font-size: $font-size-base;
     }
     .read-more-link-wrap {
         .link {
@@ -98,6 +117,10 @@
                 margin-right: -25px;
                 margin-left: 15px;
             }
+            i {
+                transition: margin 0.5s;
+            }
         }
+        
     }
 }

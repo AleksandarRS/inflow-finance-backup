@@ -1,0 +1,36 @@
+.text-content-section {
+    padding-bottom: 45px;
+    padding-top: 43px;
+    a {
+        text-decoration: none;
+        font-weight: $font-weight-sb;
+    }
+    h3 {
+        letter-spacing: -0.15px;
+        margin-top: 1.65em;
+    }
+    h4 {
+        font-size: $font-size-h4 - 0.175;
+        font-weight: $font-weight-m;
+        margin-bottom: 0.5em;
+        margin-top: 0.9em;
+        + p {
+            margin-top: 0.5em;
+        }
+        + ol {
+            padding-top: 10px;
+        }
+    }
+    p {
+        letter-spacing: 0.05px;
+        + ul {
+            margin-top: -9px;
+        }
+    }
+
+    .text-content-section-wrapper-inner {
+        > div {
+            max-width: $container-narrow-width - 149px;
+        }
+    }
+}

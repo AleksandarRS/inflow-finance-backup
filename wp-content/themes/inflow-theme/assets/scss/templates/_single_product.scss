@@ -6,6 +6,9 @@
 }
 .hero-section-single-product {
     padding-bottom: 110px;
+    .hero-section-background-image {
+        background-image: url('../assets/images/Blog-posts-background-image.png');
+    }
     .hero-single-product-text-description-content-inner {
         align-items: flex-end;
         .hero-header-text-description-wrap {
@@ -314,11 +317,6 @@
         .post-product-excerpt {
             p {
                 font-size: $font-size-base;
-            }
-        }
-        .posts-cards-case-study-item {
-            .post-heading-excerpt-wraper {
-                padding-bottom: 97px;
             }
         }
     }

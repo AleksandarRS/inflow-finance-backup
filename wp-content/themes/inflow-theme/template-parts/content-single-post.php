@@ -31,7 +31,7 @@
 			<?php if( has_post_thumbnail() ): ?>
 				<div class="blog-posts-thumbnail-image" style="background-image: url('<?php the_post_thumbnail_url(); ?>');" area-label="<?php echo get_the_title(); ?>"></div>
 			<?php else: ?>
-				<div class="blog-posts-thumbnail-image" style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/images/default.jpg');" area-label="Default Inflow Finance post image">
+				<div class="blog-posts-thumbnail-image" style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/images/default-image.jpg');" area-label="Default Inflow Finance post image">
 				</div>
 			<?php endif; ?>
 		</div>
