@@ -18,41 +18,85 @@
         align-items: center;
     }
     .site-info {
-        flex: 0 0 20%;
+        flex: 0 0 13%;
         font-family: $tertiary-font;
         font-weight: $font-weight-m;
         letter-spacing: 1.3px;
-        max-width: 20%;
+        max-width: 13%;
         text-align: right;
         @include min-mq ($mac) {
             max-width: 10%;
             flex: 0 0 10%;
+        }
+        @include max-mq ($lg) {
+            flex: 0 0 100%;
+            max-width: 100%;
+            padding-bottom: 10px;
+            // padding-top: 10px;
+            text-align: center;
         }
     }
     .widget_nav_menu {
         font-family: $tertiary-font;
     }
     .footer-column-2 {
-        max-width: 80%;
-        flex: 0 0 80%;
+        max-width: 87%;
+        flex: 0 0 87%;
         display: flex;
         align-items: center;
         @include min-mq ($mac) {
             max-width: 90%;
             flex: 0 0 90%;
         }
+        @include max-mq ($lg) {
+            max-width: 100%;
+            flex: 0 0 100%;
+            flex-wrap: wrap;
+        }
         .widget_nav_menu {
-            margin-left: 50px;
+            margin-left: 35px;
             // margin-left: auto;
             // margin-right: auto;
             @include min-mq ($mac) {
                 margin-left: 75px;
+            }
+            @include max-mq ($ls) {
+                margin-left: 15px;
+            }
+            @include max-mq ($lg) {
+                max-width: 100%;
+                flex: 0 0 100%;
+                margin-left: 0;
+                text-align: center;
+                padding-bottom: 30px;
+            }
+            ul {
+                @include max-mq ($lg) {
+                    margin-left: 0;
+                    padding-left: 0;
+                }
             }
             li {
                 margin-left: 33px;
                 letter-spacing: 2px;
                 @include min-mq ($ls) {
                     letter-spacing: 4px;
+                }
+                @include max-mq ($mac) {
+                    font-size: $font-size-base - 0.15;
+                }
+                @include max-mq ($ls) {
+                    margin-left: 15px;
+                }
+                @include max-mq ($xs) {
+                    padding-bottom: 10px;
+                    margin-left: 0;
+                    margin-right: 0;
+                    display: block;
+                    width: 100%;
+                    &:last-child {
+                        padding-bottom: 0;
+                    }
                 }
                 &.current-menu-item {
                     a {
@@ -64,6 +108,16 @@
         .widget_media_image {
             max-width: 354px;
             width: 100%;
+            @include max-mq ($mac) {
+                max-width: 304px;
+            }
+            @include max-mq ($lg) {
+                margin-left: auto;
+                margin-right: auto;
+            }
+            @include max-mq ($xs) {
+                max-width: 264px;
+            }
             a {
                 display: block;
                 &:hover {
@@ -116,6 +170,9 @@
             &[type="email"] {
                 background-color: $white;
                 width: calc(100% - 105px);
+                @include max-mq ($mb) {
+                    width: calc(100% - 82px);
+                }
                 .hfeed.site & {
                     border: 1px solid $white;
                     padding: 17px 22px;
@@ -130,6 +187,9 @@
             margin-left: 0;
             width: 100px;
             @include transition-all;
+            @include max-mq ($mb) {
+                width: 80px;
+            }
             .hfeed.site & {
                 padding-bottom: 17px;
                 padding-top: 17px;
@@ -154,6 +214,10 @@
         padding-bottom: 10px;
         padding-left: 25px;
         padding-right: 25px;
+        @include max-mq ($ip - 20) {
+            padding-left: 16px;
+            padding-right: 16px;
+        }
         h1, h2, h3, h4, h5, h6 {
             background-color: $primary-color;
             letter-spacing: 1.2px;
@@ -164,6 +228,9 @@
             padding-right: 10px;
             padding-top: 0;
             width: 100%;
+            @include max-mq ($ip - 20) {
+                letter-spacing: 0.5px;
+            }
         }
         label {
             p {

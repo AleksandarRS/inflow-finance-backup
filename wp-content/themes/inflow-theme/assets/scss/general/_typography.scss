@@ -11,18 +11,54 @@ h1 {
 	@include min-mq ($lg) {
 		letter-spacing: 4px;
 	}
+	@include max-mq ($ls) {
+		font-size: $font-size-h1 - 0.4;
+	}
+	@include max-mq ($lg) {
+		font-size: $font-size-h1 - 0.8;
+	}
+	@include max-mq ($mb_p) {
+		font-size: $font-size-h1 - 1.2;
+	}
+	@include max-mq ($mb) {
+		font-size: $font-size-h1 - 1.5;
+	}
+	@include max-mq ($ip) {
+		font-size: $font-size-h1 - 1.7;
+	}
 }
 h2 {
 	font-size: $font-size-h2;
 	font-weight: $font-weight-b;
 	font-family: $secondary-font;
 	line-height: 1;
+	@include max-mq ($ls) {
+		font-size: $font-size-h2 - 0.25;
+	}
+	@include max-mq ($lg) {
+		font-size: $font-size-h2 - 0.45;
+	}
+	@include max-mq ($mb_p) {
+		font-size: $font-size-h2 - 0.85;
+	}
+	@include max-mq ($mb) {
+		font-size: $font-size-h2 - 1.35;
+	}
+	@include max-mq ($ip) {
+		font-size: $font-size-h2 - 1.45;
+	}
 }
 h3 {
 	font-size: $font-size-h3;
 	font-weight: $font-weight-sb;
 	font-family: $secondary-font;
 	line-height: 1.2;
+	@include max-mq ($lg) {
+		font-size: $font-size-h3 - 0.125;
+	}
+	@include max-mq ($ip - 20) {
+		font-size: $font-size-h3 - 0.35;
+	}
 }
 h4 {
 	font-size: $font-size-h4;

@@ -1,6 +1,14 @@
 .most-popular-case-studies-section {
-    padding-top: 94px;
     padding-bottom: 60px;
+    padding-top: 94px;
+    @include max-mq ($lg) {
+        padding-bottom: 50px;
+        padding-top: 60px;
+    }
+    @include max-mq ($mb) {
+        padding-bottom: 35px;
+        padding-top: 40px;
+    }
     .section-description {
         max-width: $container-narrow-width;
         margin-left: auto;
@@ -12,6 +20,12 @@
         p, li, span, strong, b {
             font-size: $font-size-large;
             line-height: 1.4;
+            @include max-mq ($md) {
+                font-size: $font-size-large - 0.25;
+            }
+            @include max-mq ($mb) {
+                font-size: $font-size-large - 0.35;
+            }
         }
     }
     .button-wrapper {
@@ -23,6 +37,9 @@
     }
 }
 .posts-cards-items.case-study-post-cards-items {
+    @include max-mq ($md) {
+        justify-content: center;
+    }
     .posts-cards-case-study-item {
         padding-bottom: 38px;
         .term-name {
@@ -56,7 +73,9 @@
             }
         }
         .post-heading-excerpt-wraper {
-            padding-bottom: 110px;
+            &.next-section-here {
+                padding-bottom: 110px;
+            }
         }
         .entry-header {
             padding-top: 12px;
@@ -90,6 +109,9 @@
         display: block;
         height: 364px;
         overflow: hidden;
+        @include max-mq ($lg) {
+            height: 234px;
+        }
     }
     .case-study-post-featured-img-wrap {
         background-position: center;
@@ -113,7 +135,7 @@
     }
     .read-more-link-wrap {
         .link {
-            @include min-mq ($lg) {
+            @include min-mq ($mac) {
                 margin-right: -25px;
                 margin-left: 15px;
             }

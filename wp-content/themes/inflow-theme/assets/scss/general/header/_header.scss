@@ -1,14 +1,19 @@
 .site-header {
     background-color: $white;
     left: 0;
-    padding-bottom: 35px;
-    padding-top: 40px;
+    padding: 40px 15px 35px;
     position: fixed;
     right: 0;
     top: 0;
     width: 100%;
     z-index: 999;
     @include transition-all;
+    @include max-mq ($lg) {
+        padding: 30px 15px 30px;
+    }
+    @include max-mq ($mb) {
+        padding: 20px 15px 20px;
+    }
     .logged-in & {
         top: 32px;
     }
@@ -16,7 +21,6 @@
         padding-bottom: 7px;
         padding-top: 7px;
     }
-    
 }
 
 
@@ -26,9 +30,21 @@
         max-width: 350px;
         width: 100%;
         @include transition-all;
+        @include max-mq ($sm) {
+            max-width: 300px;
+        }
+        @include max-mq ($mb) {
+            max-width: 240px;
+        }
         .fixed-site-header & {
             max-width: 290px;
             width: 100%;
+            @include max-mq ($sm) {
+                max-width: 270px;
+            }
+            @include max-mq ($mb) {
+                max-width: 200px;
+            }
         }
         &:hover {
             svg {

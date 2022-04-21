@@ -65,54 +65,60 @@
                             <div class="posts-cards-items">
                                 <div class="case-study-prediction-items-button-wrapper">
                                     <div class="post-prediction-items">
-                                        <div class="post-prediction-item">
-                                            <?php  if ( $product_prediction_item_title_a ) : ?>
-                                                <div class="post-prediction-item-title">
-                                                    <p><?php echo $product_prediction_item_title_a; ?></p>
-                                                </div>
-                                            <?php else: ?>
-                                                <div class="post-prediction-item-title">
-                                                    <p><?php _e('Loan amount', 'inflow') ?></p>
-                                                </div>
-                                            <?php endif; ?>
-                                            <?php  if ( $product_prediction_item_data_a ) : ?>
-                                                <div class="post-prediction-item-number">
-                                                    <p><?php echo $product_prediction_item_data_a; ?></p>
-                                                </div>
-                                            <?php endif; ?>
-                                        </div>
-                                        <div class="post-prediction-item">
-                                            <?php  if ( $product_prediction_item_title_b ) : ?>
-                                                <div class="post-prediction-item-title">
-                                                    <p><?php echo $product_prediction_item_title_b; ?></p>
-                                                </div>
-                                            <?php else: ?>
-                                                <div class="post-prediction-item-title">
-                                                    <p><?php _e('Ltv', 'inflow') ?></p>
-                                                </div>
-                                            <?php endif; ?>
-                                            <?php  if ( $product_prediction_item_data_b ) : ?>
-                                                <div class="post-prediction-item-number">
-                                                    <p><?php echo $product_prediction_item_data_b; ?></p>
-                                                </div>
-                                            <?php endif; ?>
-                                        </div>
-                                        <div class="post-prediction-item">
-                                            <?php  if ( $product_prediction_item_title_c ) : ?>
-                                                <div class="post-prediction-item-title">
-                                                    <p><?php echo $product_prediction_item_title_c; ?></p>
-                                                </div>
-                                            <?php else: ?>
-                                                <div class="post-prediction-item-title">
-                                                    <p><?php _e('Rate', 'inflow') ?></p>
-                                                </div>
-                                            <?php endif; ?>
-                                            <?php  if ( $product_prediction_item_data_c ) : ?>
-                                                <div class="post-prediction-item-number">
-                                                    <p><?php echo $product_prediction_item_data_c; ?></p>
-                                                </div>
-                                            <?php endif; ?>
-                                        </div>
+                                        <?php  if ( $product_prediction_item_title_a && $product_prediction_item_data_a ) : ?>
+                                            <div class="post-prediction-item">
+                                                <?php  if ( $product_prediction_item_title_a ) : ?>
+                                                    <div class="post-prediction-item-title">
+                                                        <p><?php echo $product_prediction_item_title_a; ?></p>
+                                                    </div>
+                                                <?php // else: ?>
+                                                    <!-- <div class="post-prediction-item-title">
+                                                        <p><?php // _e('Loan amount', 'inflow') ?></p>
+                                                    </div> -->
+                                                <?php endif; ?>
+                                                <?php  if ( $product_prediction_item_data_a ) : ?>
+                                                    <div class="post-prediction-item-number">
+                                                        <p><?php echo $product_prediction_item_data_a; ?></p>
+                                                    </div>
+                                                <?php endif; ?>
+                                            </div>
+                                        <?php endif; ?>
+                                        <?php  if ( $product_prediction_item_title_b && $product_prediction_item_data_b ) : ?>
+                                            <div class="post-prediction-item">
+                                                <?php  if ( $product_prediction_item_title_b ) : ?>
+                                                    <div class="post-prediction-item-title">
+                                                        <p><?php echo $product_prediction_item_title_b; ?></p>
+                                                    </div>
+                                                <?php // else: ?>
+                                                    <!-- <div class="post-prediction-item-title">
+                                                        <p><?php // _e('Ltv', 'inflow') ?></p>
+                                                    </div> -->
+                                                <?php endif; ?>
+                                                <?php  if ( $product_prediction_item_data_b ) : ?>
+                                                    <div class="post-prediction-item-number">
+                                                        <p><?php echo $product_prediction_item_data_b; ?></p>
+                                                    </div>
+                                                <?php endif; ?>
+                                            </div>
+                                        <?php endif; ?>
+                                        <?php  if ( $product_prediction_item_title_c && $product_prediction_item_data_c ) : ?>
+                                            <div class="post-prediction-item">
+                                                <?php  if ( $product_prediction_item_title_c ) : ?>
+                                                    <div class="post-prediction-item-title">
+                                                        <p><?php echo $product_prediction_item_title_c; ?></p>
+                                                    </div>
+                                                <?php // else: ?>
+                                                    <!-- <div class="post-prediction-item-title">
+                                                        <p><?php // _e('Rate', 'inflow') ?></p>
+                                                    </div> -->
+                                                <?php endif; ?>
+                                                <?php  if ( $product_prediction_item_data_c ) : ?>
+                                                    <div class="post-prediction-item-number">
+                                                        <p><?php echo $product_prediction_item_data_c; ?></p>
+                                                    </div>
+                                                <?php endif; ?>
+                                            </div>
+                                        <?php endif; ?>
                                     </div>
                                 </div>
                             </div>

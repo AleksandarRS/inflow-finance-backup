@@ -4,6 +4,12 @@
     font-weight: $font-weight-sb;
     text-decoration: none;
     @include transition-all;
+    @include max-mq ($lg) {
+        font-size: $button-font-size - 0.125;
+    }
+    @include max-mq ($xs) {
+        font-size: $button-font-size - 0.15;
+    }
     &.link-primary {
         color: $primary-color;
         &:hover {

@@ -3,6 +3,18 @@
     padding-bottom: 91px;
     padding-top: 91px;
     position: relative;
+    @include max-mq ($lg) {
+        padding-bottom: 65px;
+        padding-top: 65px;
+    }
+    @include max-mq ($mb_p) {
+        padding-bottom: 45px;
+        padding-top: 45px;
+    }
+    @include max-mq ($mb) {
+        padding-bottom: 35px;
+        padding-top: 35px;
+    }
     .most-popular-products-section-wrapper-inner {
         > div {
             max-width: $container-width-middle + 40;
@@ -22,9 +34,17 @@
         p, li, span, strong, b {
             font-size: $font-size-large;
             line-height: 1.6;
+            @include max-mq ($md) {
+                font-size: $font-size-large - 0.25;
+            }
+            @include max-mq ($mb) {
+                font-size: $font-size-large - 0.35;
+            }
         }
     }
     .button-wrapper {
+        position: relative;
+        z-index: 2;
         .button {
             max-width: 400px;
             width: 100%;
@@ -42,6 +62,7 @@
         &.most-popular-products-decorational-image-right {
             top: 25%;
             right: 0;
+            z-index: 0;
         }
     }
 }
@@ -50,6 +71,14 @@
     padding-top: 14px;
     .posts-cards-item {
         padding-bottom: 47px;
+        @include max-mq ($md) {
+            flex: 0 0 50%;
+            max-width: 50%;
+        }
+        @include max-mq ($md) {
+            flex: 0 0 100%;
+            max-width: 100%;
+        }
         .post-product-excerpt {
             font-size: $font-size-base;
             line-height: 1.7;
@@ -92,6 +121,10 @@
         margin-bottom: 25px;
         min-height: 72px;
         width: 100%;
+        @include max-mq ($mb_p) {
+            margin-bottom: 15px;
+            min-height: 0;
+        }
     }
     .post-heading-excerpt-wraper {
         text-align: center;
@@ -101,6 +134,9 @@
             line-height: 1.2;
             margin-bottom: 0;
             margin-top: 0;
+            @include max-mq ($lg) {
+                font-size: $font-size-h3 - 0.125;
+            }
         }
     }
     .post-prediction-items-button-wrapper {
@@ -114,6 +150,9 @@
         position: absolute;
         right: 0;
         width: 100%;
+        @include max-mq ($mb_p) {
+            max-width: 424px;
+        }
     }
     .post-prediction-items {
         display: flex;
@@ -158,6 +197,8 @@
     font-weight: $font-weight-sb;
     padding-bottom: 13px;
     padding-top: 13px;
+    position: relative;
+    z-index: 2;
     a {
         color: $primary-color;
         &:hover {

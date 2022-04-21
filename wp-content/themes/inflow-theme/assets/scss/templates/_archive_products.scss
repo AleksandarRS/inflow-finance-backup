@@ -1,5 +1,11 @@
 .posts-card-list-items {
     padding-top: 94px;
+    @include max-mq ($ls) {
+        padding-top: 54px;
+    }
+    @include max-mq ($tab) {
+        padding-top: 24px;
+    }
 }
 .posts-cards-items {
     .posts-cards-list-item {
@@ -21,6 +27,9 @@
             border-bottom: 1px solid $gray-300;
             padding: 15px;
             box-shadow: 0px 15px 30px transparent;
+            @include max-mq ($tab) {
+                flex-wrap: wrap;
+            }
             &:hover {
                 box-shadow: 0px 15px 20px rgba($color: $black, $alpha: 0.15);
                 // .link {
@@ -31,6 +40,16 @@
         .product-card-thumbnail-wrap {
             flex: 0 0 138px;
             max-width: 138px;
+            @include max-mq ($tab) {
+                flex: 0 0 100%;
+                max-width: 100%;
+            }
+            .post-featured-img-wrap {
+                @include max-mq ($tab) {
+                    margin: 12px auto 0;
+                    max-width: 140px;
+                }
+            }
         }
         .post-heading-excerpt-wraper {
             flex: 0 0 calc(100% - 138px);
@@ -42,11 +61,20 @@
             @include min-mq ($lg)  {
                 padding-left: 56px;
             }
+            @include max-mq ($mb_p + 20)  {
+                flex-wrap: wrap;
+                padding-left: 0;
+            }
         }
        
         .post-heading-predictions-inner {
             flex: 0 0 300px;
             max-width: 300px;
+            @include max-mq ($mb_p + 20)  {
+                flex: 0 0 100%;
+                max-width: 100%;
+                text-align: center;
+            }
         }
         .post-product-excerpt {
             flex: 0 0 calc(100% - 300px);
@@ -55,6 +83,12 @@
             padding-top: 5px;
             @include min-mq ($lg)  {
                 padding-left: 64px;
+            }
+            @include max-mq ($mb_p + 20)  {
+                flex: 0 0 100%;
+                max-width: 100%;
+                padding-left: 15px;
+                padding-right: 15px;
             }
             p, li, span, strong, b {
                 font-size: $font-size-base + 0.1;

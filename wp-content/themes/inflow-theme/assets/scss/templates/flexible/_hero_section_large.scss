@@ -1,6 +1,24 @@
 .hero-section {
     position: relative;
     padding-top: 130px;
+    @include max-mq ($lg) {
+        padding-top: 115px;
+    }
+    @include max-mq ($mb) {
+        padding-top: 95px;
+    }
+    &.hero-section-large {
+        @include max-mq ($tab) {
+            padding-bottom: 30px;
+        }
+    }
+    &.hero-section-smaller {
+        .entry-content {
+            @include max-mq ($mb) {
+                font-size: $font-size-large - 0.35;
+            }
+        }
+    }
     .hero-section-background-image {
         @extend %absolute-full;
         background-position: center;
@@ -18,12 +36,37 @@
         > div {
             padding-bottom: 49px;
             padding-top: 69px;
+            @include max-mq ($lg) {
+                padding-bottom: 39px;
+                padding-top: 40px;
+            }
+            @include max-mq ($tab) {
+                padding-bottom: 20px;
+                padding-top: 27px;
+            }
+            @include max-mq ($mb) {
+                padding-bottom: 0;
+                padding-top: 25px;
+            }
+        }
+    }
+    .hero-image-wrap {
+        @include max-mq ($tab) {
+            margin-left: auto;
+            margin-right: auto;
+            max-width: 85%;
+        }
+        @include max-mq ($mb) {
+            max-width: 95%;
         }
     }
     .hero-text-description-content-inner {
         padding-bottom: 30px;
         @include min-mq ($ls) {
             padding-bottom: 80px;
+        }
+        @include max-mq ($mb) {
+            padding-left: 0;
         }
         .main-hero-title {
             margin-top: 0;
@@ -37,23 +80,50 @@
         @include min-mq ($mac_l) {
             padding-left: 52px;
         }
-        @include min-mq ($sm) {
+        @include min-mq ($tab + 1) {
             order: 0;
+        }
+        @include max-mq ($tab) {
+            flex: 0 0 100%;
+            max-width: 100%;
         }
     }
     .hero-image-content {
         flex: 0 0 58%;
         max-width: 58%;
-        @include min-mq ($sm) {
+        @include min-mq ($tab + 1) {
             padding-right: 0;
             order: 1;
+        }
+        @include max-mq ($tab) {
+            flex: 0 0 100%;
+            max-width: 100%;
         }
     }
 
     .entry-content {
         font-size: $font-size-large;
+        @include max-mq ($sm) {
+            font-size: $font-size-large - 0.125;
+        }
+        
     }
     .button-wrapper {
         padding-top: 12px;
+    }
+    .button {
+        @include max-mq ($lg) {
+            padding-left: 20px;
+            padding-right: 20px;
+            font-size: $button-font-size - 0.125;
+        }
+        @include max-mq ($ip - 20) {
+            padding-left: 15px;
+            padding-right: 15px;
+            font-size: $button-font-size - 0.2;
+        }
+        @include max-mq ($xs) {
+            font-size: $button-font-size - 0.35;
+        }
     }
 }

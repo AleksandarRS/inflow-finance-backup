@@ -15,6 +15,12 @@
         p, li, span, strong, b {
             font-size: $font-size-large;
             line-height: 1.6;
+            @include max-mq ($md) {
+                font-size: $font-size-large - 0.25;
+            }
+            @include max-mq ($mb) {
+                font-size: $font-size-large - 0.35;
+            }
         }
     }
 }
@@ -30,6 +36,12 @@
     p, li, span, strong, b {
         font-size: $font-size-large;
         line-height: 1.6;
+        @include max-mq ($md) {
+            font-size: $font-size-large - 0.25;
+        }
+        @include max-mq ($mb) {
+            font-size: $font-size-large - 0.35;
+        }
     }
 }
 

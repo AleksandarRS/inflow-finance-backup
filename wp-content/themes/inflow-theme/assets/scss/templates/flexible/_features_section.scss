@@ -3,6 +3,13 @@
     .features-section-wrapper-inner {
         padding-bottom: 120px;
         padding-top: 95px;
+        @include max-mq ($lg) {
+            padding: 65px 15px 80px;
+        }
+        @include max-mq ($mb) {
+            padding-bottom: 60px;
+            padding-top: 45px;
+        }
     }
     .section-description {
         max-width: $container-narrow-width;
@@ -14,6 +21,12 @@
         p, li, span, strong, b {
             font-size: $font-size-large;
             line-height: 1.6;
+            @include max-mq ($md) {
+                font-size: $font-size-large - 0.25;
+            }
+            @include max-mq ($mb) {
+                font-size: $font-size-large - 0.35;
+            }
         }
     }
 }

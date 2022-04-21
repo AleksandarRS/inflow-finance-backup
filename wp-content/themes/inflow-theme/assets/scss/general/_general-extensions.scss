@@ -59,12 +59,12 @@
 
 %right-calc-absolute-middle {
     right: calc(50vw - ( #{$container-width-middle} / 2 ) - 57px);
-    @include max-mq ($lt - 100) {
+    @include max-mq ($mac) {
         right: 15px;
     }
-    @include max-mq ($mb) {
-        right: 0;
-    }
+    // @include max-mq ($mb) {
+    //     right: 0;
+    // }
 }
 
 %absolute-full {

@@ -9,6 +9,10 @@
 			top: 0;
 			right: 0;
 			width: 48%;
+			@include max-mq ($mb_p - 40) {
+				position: static;
+				width: 100%;
+			}
 		}
 	}
 }

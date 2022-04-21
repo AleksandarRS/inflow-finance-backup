@@ -3,16 +3,26 @@
     padding-top: 35px;
     .site-footer & {
         padding-top: 60px;
+        @include max-mq ($ip) {
+            padding-top: 35px;
+        }
     }
     .social-icon-menu-items {
         display: inline-block;
         vertical-align: middle;
         margin-left: 15px;
         margin-right: 15px;
+        @include max-mq ($ip - 10) {
+            margin-left: 10px;
+            margin-right: 10px;
+        }
         a {
             color: $secondary-color;
             text-decoration: none;
             font-size: $font-size-large;
+            @include max-mq ($xs) {
+                font-size: $font-size-large - 0.15;
+            }
             &:hover {
                 color: $white;
             }

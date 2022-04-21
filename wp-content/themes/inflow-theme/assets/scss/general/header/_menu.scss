@@ -97,37 +97,42 @@
 						}
 					}
 					&.current-menu-item {
-						&:after,
-						&:before {
-							align-items: center;
-							background-color: transparent;
-							bottom: 0;
-							color: $secondary-color;
-							display: flex;
-							height: auto;
-							justify-content: center;
-							margin: auto;
-							font-size: $font-size-h3;
-							font-weight: $font-weight-sb;
-							position: absolute;
-							top: 0;
-							width: auto;
-							line-height: 1;
-							padding-bottom: 3px;
+						> a {
+							&:after,
+							&:before {
+								align-items: center;
+								background-color: transparent;
+								bottom: 0;
+								color: $secondary-color;
+								display: flex;
+								height: auto;
+								justify-content: center;
+								margin: auto;
+								font-size: $font-size-h3;
+								font-weight: $font-weight-sb;
+								position: absolute;
+								top: 0;
+								width: auto;
+								line-height: 1;
+								padding-bottom: 3px;
+							}
+							&:after {
+								content: ']';
+								left: auto;
+								right: 10px;
+								@include max-mq($mac) {
+									right: 0;
+								}
+							}
+							&:before {
+								content: '[';
+								right: auto;
+								left: 10px;
+								@include max-mq($mac) {
+									left: 0;
+								}
+							}
 						}
-						&:after {
-							content: ']';
-							left: auto;
-							right: 13px;
-						}
-						&:before {
-							content: '[';
-							right: auto;
-							left: 10px;
-						}
-						// > a {
-						// 	color: $secondary-color;
-						// }
 						&:last-of-type {
 							a {
 								background-color: $secondary-color;
@@ -141,6 +146,9 @@
 						margin-left: 15px;
 						@include min-mq ($mac) {
 							margin-left: 27px;
+						}
+						@include max-mq ($lg) {
+							margin-left: 0;
 						}
 						&:after,
 						&:before {
@@ -156,6 +164,12 @@
 							padding: 9px 33px 11px;
 							letter-spacing: 0;
 							@include transition-all;
+							@include max-mq ($responsive-toggle-breakpoint) {
+								border: none;
+								text-transform: uppercase;
+								padding: 20px 18px;
+								// color: $secondary-color;
+							}
 							&:hover {
 								background-color: $primary-color;
 								border-color: $primary-color;
@@ -185,7 +199,12 @@
 							padding: 10px 25px;
 						}
 						@include max-mq($mac) {
-							padding: 10px 15px;
+							padding: 10px 18px;
+						}
+						@include max-mq($responsive-toggle-breakpoint) {
+							padding: 20px 18px;
+							display: inline-block;
+							width: auto;
 						}
 						&:hover {
 							color: $secondary-color;
