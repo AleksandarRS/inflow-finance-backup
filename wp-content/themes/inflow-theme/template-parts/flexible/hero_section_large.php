@@ -1,7 +1,7 @@
 <?php
 $main_hero_title = get_sub_field('main_title');
 $section_short_description = get_sub_field('section_short_description');
-$link = get_sub_field('button_option');
+// $link = get_sub_field('button_option');
 
 $section_background_image = get_sub_field('section_background_image');
 
@@ -16,9 +16,11 @@ $section_main_image = get_sub_field('section_main_image');
             <div class="row hero-row">
                 <div class="hero-image-content col-md-6">
                     <?php  if ( $section_main_image ) : ?>
-                        <div class="hero-image-wrap">
+                        <div id="lottie-hero-static" class="hero-image-wrap">
                             <img src="<?php echo esc_url($section_main_image['url']); ?>" alt="<?php echo esc_attr($section_main_image['alt']); ?>">
                         </div>
+                    <?php else: ?>
+                        <div id="lottie-hero" class="hero-image-wrap"></div>
                     <?php endif; ?>
                 </div>
                 <div class="hero-text-description-content col-md-6">
@@ -38,17 +40,18 @@ $section_main_image = get_sub_field('section_main_image');
                                     </div>
                                 <?php endif; ?>
                                 <?php
-                                    if( $link ): 
-                                        $link_url = $link['url'];
-                                        $link_title = $link['title'];
-                                        $link_target = $link['target'] ? $link['target'] : '_self';
+                                    // if( $link ): 
+                                    //     $link_url = $link['url'];
+                                    //     $link_title = $link['title'];
+                                    //     $link_target = $link['target'] ? $link['target'] : '_self';
                                     ?>
                                     <div class="button-wrapper">
-                                        <a class="button button-secondary" href="<?php echo esc_url( $link_url ); ?>" target="<?php echo esc_attr( $link_target ); ?>"><?php echo esc_html( $link_title ); ?></a>
+                                        <!-- <a class="button button-secondary" href="<?php // echo esc_url( $link_url ); ?>" target="<?php // echo esc_attr( $link_target ); ?>"><?php // echo esc_html( $link_title ); ?></a> -->
+                                        <a class="button button-secondary smoothscroll" href="#cta-contact"><?php _e('Start your next property project', 'inflow') ?></a>
                                     </div>
                                 <?php endif; ?>
                             </div>
-                        <?php endif; ?>
+                        <?php // endif; ?>
                         
                     </div>
                 </div>

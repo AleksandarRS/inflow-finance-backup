@@ -1,12 +1,31 @@
 .hero-section-background-image {
-    background-image: url('../assets/images/Case-study-hero-image.png');
+    background-image: url('../assets/images/case-study-single-page-hero-image.svg');
     background-repeat: no-repeat;
     background-size: cover;
+}
+
+.hero-section-wrapper.single-case-study-hero {
+    .hero-section-background-image {
+        background-image: url('../assets/images/case-study-single-page-hero-image.svg');
+    }
 }
 
 .single-case-study-hero {
     padding-bottom: 9px;
     padding-top: 61px;
+    @include max-mq ($fhd - 200) {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    @include max-mq ($lg) {
+        padding-top: 30px;
+    }
+    @include max-mq ($tab) {
+        padding-top: 10px;
+    }
+    @include max-mq ($sm) {
+        padding-top: 0;
+    }
     .container-middle-wide-large-case-study {
         max-width: $container-width-middle-large + 100;
     }
@@ -17,17 +36,33 @@
     background-size: cover;
     background-position: center;
     border-radius: 20px;
+    @include max-mq ($sm) {
+        height: 300px;
+        margin-bottom: 30px;
+    }
 }
 
+// .single-case-study-hero-wrapper {
+//     .hero-section-single-product {
+//         @include max-mq ($sm) {
+//             padding-bottom: 80px;
+//         }
+//     }
+// }
 
 
 .hero-single-case-study-text-description-content-inner {
     padding-bottom: 32px;
-    @include min-mq ($sm) {
+    padding-left: 30px;
+    @include min-mq ($lt) {
         padding-left: 60px;
     }
-    @include min-mq ($ls) {
+    @include min-mq ($mac) {
         padding-left: 80px;
+    }
+    @include max-mq ($sm) {
+        padding-left: 0;
+        padding-bottom: 0;
     }
     .main-hero-title {
         font-size: $font-size-h2 - 0.5;
@@ -35,6 +70,24 @@
         margin-bottom: 0.25em;
         margin-top: -5px;
         letter-spacing: 0;
+        @include max-mq ($ls) {
+            font-size: $font-size-h2 - 0.55;
+        }
+        @include max-mq ($lg) {
+            font-size: $font-size-h2 - 0.65;
+        }
+        @include max-mq ($md) {
+            line-height: 1.1;
+        }
+        @include max-mq ($mb_p) {
+            font-size: $font-size-h2 - 0.75;
+        }
+        @include max-mq ($mb) {
+            font-size: $font-size-h2 - 0.85;
+        }
+        @include max-mq ($ip) {
+            font-size: $font-size-h2 - 0.95;
+        }
     }
     .post-prediction-items {
         max-width: 580px;
@@ -49,9 +102,15 @@
             @include min-mq ($ls) {
                 letter-spacing: 1.4px;
             }
+            @include max-mq ($mb_p) {
+                font-size: $font-size-base - 0.1;
+            }
         }
         .post-prediction-item-number {
             font-size: $font-size-h3 + 0.5;
+            @include max-mq ($mb_p) {
+                font-size: $font-size-h3 + 0.25;
+            }
         }
     }
     .post-prediction-item {
@@ -66,6 +125,9 @@
     }
     .hero-prediction-button-wrap {
         padding-top: 34px;
+        @include max-mq ($mb_p) {
+            padding-top: 15px;
+        }
     }
 }
 
@@ -118,26 +180,36 @@
     background-color: $tertiary-color;
     padding-top: 50px;
     padding-bottom: 90px;
+    @include max-mq ($md) {
+        padding-bottom: 65px;
+    }
 
     .image-text-row,
     .text-image-row {
         align-items: center;
-        // align-items: flex-end;
     }
 
     .text-image-main-image-wrapper {
         flex: 0 0 36.433333%;
         max-width: 36.433333%;
+        @include max-mq ($sm) {
+            flex: 0 0 100%;
+            max-width: 100%;
+            text-align: center;
+        }
     }
     .text-image-text-description-content {
         flex: 0 0 63.566667%;
         max-width: 63.566667%;
+        @include max-mq ($sm) {
+            flex: 0 0 100%;
+            max-width: 100%;
+        }
     }
 
     .text-image-row {
         .text-image-main-image-wrapper {
             @include min-mq ($sm) {
-
                 order: 1;
             }
         }
@@ -162,8 +234,18 @@
     }
 }
 
+.image-text-main-image-wrapper {
+    @include max-mq ($sm) {
+        text-align: center;
+    }
+}
+
 .single-case-study-similar-work-wrapper {
     padding-bottom: 50px;
     padding-top: 69px;
+    @include max-mq ($md) {
+        padding-bottom: 40px;
+        padding-top: 49px;
+    }
   
 }

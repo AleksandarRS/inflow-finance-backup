@@ -39,19 +39,34 @@
     max-width: 25px;
     opacity: 1;
     text-align: center;
+    @include max-mq ($md) {
+        max-width: 100%;
+        text-align: left;
+        display: flex;
+        align-items: center;
+    }
     .share-title {
         margin-bottom: 20px;
+        @include max-mq ($md) {
+            margin-bottom: 0;
+        }
     }
     a {
         display: block;
         text-decoration: none;
         margin-bottom: 20px;
         font-size: $font-size-large;
+        @include max-mq ($md) {
+            margin: 0 15px;
+        }
         // .icon-facebook {
         //     font-size: $font-size-large + 0.00125;
         // }
         &:last-of-type {
             margin-bottom: 10px;
+            @include max-mq ($md) {
+                margin-bottom: 0;
+            }
         }
         &:hover {
             color: $primary-color;

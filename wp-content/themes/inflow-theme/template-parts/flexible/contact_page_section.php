@@ -1,6 +1,5 @@
 <?php 
     $include_map_into_page = get_sub_field('include_map_into_page');
-
     $add_map = get_field('add_map', 'option');
 ?>
 <section id="page-contact-details-section" class="contact-details-section contact-page-details-section custom-form-elements-position<?php  if ( $include_map_into_page ) : ?> map-is-included-into-page<?php endif ?>">

@@ -5,6 +5,8 @@ $ = require('jquery');
 const Navigation = require('./core/navigation');
 const svgconvert = require('./site/svgconvert');
 const addremoveclass = require('./site/addremoveclass');
+// const lottie = require('./site/lottie');
+// const jsonconvert = require('./site/jsonconvert');
 const accordion = require('./site/accordion');
 const stickysocial = require('./site/stickysocial');
 const smoothscroll = require('./site/smoothscroll');
@@ -22,15 +24,21 @@ jQuery( function(){
    */
   svgconvert.init();
 
-  /**
-   * Initialize addremoveclass module
+   /**
+   * Initialize jsonconvert module
    */
-  addremoveclass.init();
+  // jsonconvert.init();
 
   /**
    * Initialize accordion module
    */
   accordion.init();
+
+   /**
+   * Initialize addremoveclass module
+   */
+  addremoveclass.init();
+
 
   /**
    * Initialize stickysocial module

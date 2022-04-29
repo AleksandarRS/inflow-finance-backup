@@ -669,9 +669,9 @@ function frmProFormJS() {
 		function ajaxHandler( response ) {
 			var i;
 
-			for ( i = 0; i < response.length; i++ ) {
+			for ( i = 0; i < pendingDynamicFieldAjax.length; i++ ) {
 				processDynamicField(
-					response[ i ],
+					'undefined' === typeof response[ i ] ? '' : response[ i ],
 					pendingDynamicFieldAjax[ i ].args.depFieldArgs,
 					pendingDynamicFieldAjax[ i ].args.onCurrentPage
 				);
@@ -717,6 +717,8 @@ function frmProFormJS() {
 			addRepeatRow( depFieldArgs, childFieldDivIds[ i ]);
 			hideOrShowSingleField( depFieldArgs );
 		}
+
+		processPendingAjax();
 	}
 
 	/**

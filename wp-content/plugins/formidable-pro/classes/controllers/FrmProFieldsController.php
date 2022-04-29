@@ -817,7 +817,7 @@ class FrmProFieldsController {
 
 			$result_str = '';
 
-			$entry_id        = intval( $data['entry_id'] );
+			$entry_id        = is_array( $data['entry_id'] ) ? array_map( 'intval', $data['entry_id'] ) : intval( $data['entry_id'] );
 			$current_field   = intval( $data['current_field'] );
 			$hidden_field_id = sanitize_text_field( wp_unslash( $data['hide_id'] ) );
 
@@ -900,11 +900,17 @@ class FrmProFieldsController {
 	}
 
 	/**
+	 * Gets meta value for ajax handler.
+	 *
 	 * @since 5.2.04
+	 * @since 5.2.05 The first parameter can be int or array.
+	 *
+	 * @param int|array $entry_id   Entry ID or array of entry IDs.
+	 * @param object    $data_field The data field.
+	 * @return string|array
 	 */
 	private static function get_meta_value_for_ajax_handler( $entry_id, $data_field ) {
-		if ( strpos( $entry_id, ',' ) ) {
-			$entry_id   = explode(',', $entry_id);
+		if ( is_array( $entry_id ) ) {
 			$meta_value = array();
 			foreach ( $entry_id as $eid ) {
 				$new_meta = FrmProEntryMetaHelper::get_post_or_meta_value( $eid, $data_field );

@@ -97,6 +97,26 @@
             font-family: $secondary-font;
         }
     }
+    &.map-is-included-into-page {
+        .contact-section-decoration-image {
+            &.contact-section-decoration-image-left {
+                bottom: 30%;
+                @include max-mq ($mac + 40) {
+                    max-width: 380px;
+                }
+                @include max-mq ($lt) {
+                    max-width: 360px;
+                }
+                @include max-mq ($ls) {
+                    max-width: 315px;
+                    bottom: 25%;
+                }
+                @include max-mq ($lg) {
+                    display: none;
+                }
+            }
+        }
+    }
     .contact-section-decoration-image {
         bottom: 0;
         position: absolute;
@@ -107,6 +127,7 @@
             left: 0;
             right: auto;
             z-index: -1;
+            
         }
         &.contact-section-decoration-image-right {
             @extend %right-calc-absolute-middle;

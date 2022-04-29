@@ -169,6 +169,8 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 		var Navigation = require('./core/navigation');
 		var svgconvert = require('./site/svgconvert');
 		var addremoveclass = require('./site/addremoveclass');
+		// const lottie = require('./site/lottie');
+		// const jsonconvert = require('./site/jsonconvert');
 		var accordion = require('./site/accordion');
 		var stickysocial = require('./site/stickysocial');
 		var smoothscroll = require('./site/smoothscroll');
@@ -187,14 +189,19 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 			svgconvert.init();
 
 			/**
-    * Initialize addremoveclass module
-    */
-			addremoveclass.init();
+   * Initialize jsonconvert module
+   */
+			// jsonconvert.init();
 
 			/**
     * Initialize accordion module
     */
 			accordion.init();
+
+			/**
+   * Initialize addremoveclass module
+   */
+			addremoveclass.init();
 
 			/**
     * Initialize stickysocial module
@@ -268,7 +275,8 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
    -------------------------------------------------------------------------------*/
 			$dom: {
 				window: $(window),
-				mainHeader: $('.site-header')
+				mainHeader: $('.site-header'),
+				anchorLink: $('.anchor-product-list > li')
 				// scrollToTop: $('#back2Top')
 
 			},
@@ -280,6 +288,9 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
    -------------------------------------------------------------------------------*/
 			init: function init() {
 				if (_this) {
+					// $(window).on('scroll load', function () {
+
+					// });
 					_this.$dom.window.scroll(function () {
 						var scroll = _this.$dom.window.scrollTop();
 
@@ -294,6 +305,71 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 						// } else {
 						// 	_this.$dom.scrollToTop.fadeOut();
 						// }
+					});
+
+					$(window).on('load', function () {
+
+						var scrollLoad = _this.$dom.window.scrollTop();
+						if (scrollLoad >= 50) {
+							_this.$dom.mainHeader.addClass("fixed-site-header");
+						} else {
+							_this.$dom.mainHeader.removeClass("fixed-site-header");
+						}
+
+						setTimeout(function () {
+							var bodyLogedIn = $('body');
+							var windowHeight = $(window).scrollTop();
+
+							var headerHeight = $("#masthead").outerHeight();
+							var anchorMenu = $(".anchor-product-main-navigation");
+							var heroSection = $(".single-product-main-hero-wrapper > section");
+
+							if (heroSection.innerHeight() - headerHeight - headerHeight < windowHeight && !anchorMenu.hasClass("anchore-manu-fixed-position")) {
+								anchorMenu.addClass("anchore-manu-fixed-position");
+							} else if (heroSection.innerHeight() - headerHeight - headerHeight > windowHeight) {
+								anchorMenu.removeClass("anchore-manu-fixed-position");
+								anchorMenu.css({ top: 'auto' });
+							}
+
+							if (bodyLogedIn.hasClass("logged-in") && anchorMenu.hasClass("anchore-manu-fixed-position")) {
+								anchorMenu.css({ top: headerHeight + 32 });
+							} else if (anchorMenu.hasClass("anchore-manu-fixed-position")) {
+								anchorMenu.css({ top: headerHeight });
+							}
+						}, 1000);
+					});
+
+					$(window).on('scroll', function () {
+
+						var scrollLoad = _this.$dom.window.scrollTop();
+						if (scrollLoad >= 50) {
+							_this.$dom.mainHeader.addClass("fixed-site-header");
+						} else {
+							_this.$dom.mainHeader.removeClass("fixed-site-header");
+						}
+
+						var bodyLogedIn = $('body');
+						var windowHeight = $(window).scrollTop();
+						var headerHeight = $("#masthead").outerHeight();
+						var anchorMenu = $(".anchor-product-main-navigation");
+						var heroSection = $(".single-product-main-hero-wrapper > section");
+
+						if (heroSection.innerHeight() - headerHeight - headerHeight < windowHeight && !anchorMenu.hasClass("anchore-manu-fixed-position")) {
+							anchorMenu.addClass("anchore-manu-fixed-position");
+						} else if (heroSection.innerHeight() - headerHeight - headerHeight > windowHeight) {
+							anchorMenu.removeClass("anchore-manu-fixed-position");
+							anchorMenu.css({ top: 'auto' });
+						}
+
+						if (bodyLogedIn.hasClass("logged-in") && anchorMenu.hasClass("anchore-manu-fixed-position")) {
+							anchorMenu.css({ top: headerHeight + 32 });
+						} else if (anchorMenu.hasClass("anchore-manu-fixed-position")) {
+							anchorMenu.css({ top: headerHeight });
+						}
+					});
+
+					_this.$dom.anchorLink.click(function () {
+						$(this).addClass('active-anchor-link').siblings().removeClass('active-anchor-link');
 					});
 				}
 				// _this.$dom.scrollToTop.click(function(event) {
@@ -512,34 +588,36 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
    	# Initialize
    -------------------------------------------------------------------------------*/
 			init: function init() {
-				// if( _this ){
-				$('.smoothscroll').click(function (event) {
-					if (location.pathname.replace(/^\//, '') === this.pathname.replace(/^\//, '') && location.hostname === this.hostname) {
-						// Figure out element to scroll to
-						var target = $(this.hash);
-						target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
-						// Does a scroll target exist?
-						if (target.length) {
-							// Only prevent default if animation is actually gonna happen
-							event.preventDefault();
-							$('html, body').animate({
-								scrollTop: target.offset().top - 60
-							}, 1500, function () {
-								// Callback after animation
-								// Must change focus!
-								var $target = $(target);
-								$target.focus();
-								if ($target.is(":focus")) {
-									// Checking if the target was focused
-									return false;
-								} else {
-									$target.attr('tabindex', '-1'); // Adding tabindex for elements not focusable
-									$target.focus(); // Set focus again
-								};
-							});
+				if (_this) {
+
+					$('.smoothscroll').click(function (event) {
+						if (location.pathname.replace(/^\//, '') === this.pathname.replace(/^\//, '') && location.hostname === this.hostname) {
+							// Figure out element to scroll to
+							var target = $(this.hash);
+							target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+							// Does a scroll target exist?
+							if (target.length) {
+								// Only prevent default if animation is actually gonna happen
+								event.preventDefault();
+								$('html, body').animate({
+									scrollTop: target.offset().top - 60
+								}, 1500, function () {
+									// Callback after animation
+									// Must change focus!
+									var $target = $(target);
+									$target.focus();
+									if ($target.is(":focus")) {
+										// Checking if the target was focused
+										return false;
+									} else {
+										$target.attr('tabindex', '-1'); // Adding tabindex for elements not focusable
+										$target.focus(); // Set focus again
+									};
+								});
+							}
 						}
-					}
-				});
+					});
+				}
 			}
 
 		};
@@ -571,7 +649,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 					var $stickyrStopper = $('.related-posts-section');
 					if (!!$sticky.offset()) {
 						// make sure ".sticky" element exists
-						if ($(window).width() > 960) {
+						if ($(window).width() > 990) {
 							var generalSidebarHeight = $sticky.innerHeight();
 							var stickyTop = $sticky.offset().top;
 							var stickOffset = 150;

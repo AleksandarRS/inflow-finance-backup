@@ -1,6 +1,12 @@
 #page-contact-details-section {
     padding-top: 147px;
     background-color: $tertiary-color;
+    @include max-mq ($lg) {
+        padding-top: 107px;
+    }
+    @include max-mq ($mb) {
+        padding-top: 95px;
+    }
     &.map-is-included-into-page {
         padding-bottom: 0;
     }
@@ -18,9 +24,31 @@
         &.contact-section-decoration-image-right {
             top: 155px;
             @extend %right-calc-absolute-wide;
+            @include max-mq ($fhd - 100) {
+                right: 20px;
+            }
+            @include max-mq ($mac) {
+                max-width: 220px;
+            }
+            @include max-mq ($lt) {
+                max-width: 200px;
+            }
+            @include max-mq ($lt - 20) {
+                max-width: 180px;
+                right: 5px;
+            }
+            @include max-mq ($ls - 10) {
+                max-width: 160px;
+            }
+            @include max-mq ($lg) {
+                display: none;
+            }
+       
         }
     }
     .contact-details-map-section-details {
+        position: relative;
+        z-index: 2;
         @include min-mq ($mac) {
             padding-top: 14px;
         }

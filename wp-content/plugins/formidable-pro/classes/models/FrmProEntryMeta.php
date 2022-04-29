@@ -275,6 +275,8 @@ class FrmProEntryMeta {
 						break;
 					}
 
+					$subfield->temp_id = $subfield->id . '-' . $field->id . '-' . $k;
+
 					FrmEntryValidate::validate_field(
 						$subfield,
 						$errors,
@@ -282,7 +284,7 @@ class FrmProEntryMeta {
 						array(
 							'parent_field_id'  => $field->id,
 							'key_pointer'   => $k,
-							'id'            => $subfield->id . '-' . $field->id . '-' . $k,
+							'id'            => $subfield->temp_id,
 						)
 					);
 

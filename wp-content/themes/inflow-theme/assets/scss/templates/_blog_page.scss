@@ -1,5 +1,11 @@
 .blog-hero-section {
     padding-top: 193px;
+    @include max-mq ($ls) {
+        padding-top: 153px;
+    }
+    @include max-mq ($lg) {
+        padding-top: 125px;
+    }
     .blog-hero-section-background-image {
         background-position: center top;
         background-size: cover;
@@ -61,6 +67,9 @@
     padding-top: 25px;
     .featured-posts-content-inner {
         display: flex;
+        @include max-mq ($sm) {
+            flex-wrap: wrap;
+        }
         &:hover {
             .featured-post-title {
                 color: $secondary-color;
@@ -78,6 +87,11 @@
             border-radius: 20px;
             flex: 0 0 48%;
             max-width: 48%;
+            @include max-mq ($sm) {
+                flex: 0 0 100%;
+                max-width: 100%;
+                height: 300px;
+            }
         }
         .featured-posts-thumbnail-image {
             background-position: center;
@@ -94,6 +108,13 @@
             padding-bottom: 37px;
             padding-left: 37px;
             padding-top: 0;
+            @include max-mq ($sm) {
+                flex: 0 0 100%;
+                max-width: 100%;
+                padding-bottom: 0;
+                padding-left: 0;
+                padding-top: 18px;
+            }
 
         }
     }
@@ -104,6 +125,16 @@
         margin-bottom: 0.25em;
         margin-top: 0.25em;
         @include transition-color;
+        @include max-mq ($md) {
+            font-size: $font-size-h2 - 1.15;
+        }
+        @include max-mq ($mb) {
+            font-size: $font-size-h2 - 1.3;
+        }
+        @include max-mq ($ip) {
+            font-size: $font-size-h2 - 1.5;
+            line-height: 1.15;
+        }
     }
     .post-categories-list {
         margin-top: -5px;
@@ -124,10 +155,25 @@
         padding-bottom: 40px;
         padding-left: 15px;
         padding-right: 15px;
+        @include max-mq ($tab) {
+            flex: 0 0 50%;
+            max-width: 50%;
+        }
+        @include max-mq ($mb_p - 40) {
+            flex: 0 0 100%;
+            max-width: 100%;
+            padding-bottom: 22px;
+        }
     }
     .blog-page-post-title {
         font-size: $font-size-h3;
         font-weight: $font-weight-sb;
+        @include max-mq ($md) {
+            font-size: $font-size-h3 - 0.15;
+        }
+        @include max-mq ($mb) {
+            font-size: $font-size-h3 - 0.3;
+        }
     }
     .blog-page-posts-content-inner {
         &:hover {

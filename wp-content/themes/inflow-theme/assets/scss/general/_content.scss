@@ -127,6 +127,11 @@
 				vertical-align: middle;
                 font-family: "font-icons";
                 right: auto;
+                width: 25px;
+                @include max-mq ($ip) {
+                    top: 9px;
+                    font-size: $font-size-base - 0.18;
+                }
             }
         }
     }

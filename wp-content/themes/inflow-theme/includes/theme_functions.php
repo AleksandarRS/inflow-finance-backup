@@ -36,4 +36,13 @@ function change_page_menu_classes($menu)
     return $menu;
 }
 add_filter('nav_menu_css_class', 'change_page_menu_classes', 10, 2);
+
+
+function cc_mime_types_dd($mimesdd) {
+    $mimesdd['json'] = 'application/json'; 
+    $mimesdd['svg'] = 'image/svg+xml'; 
+    return $mimesdd; 
+    } 
+    
+add_filter('upload_mimes', 'cc_mime_types_dd');
 ?>

@@ -1,6 +1,15 @@
 .faq-section {
     padding-top: 110px;
     padding-bottom: 25px;
+    @include max-mq ($ls) {
+        padding-top: 90px;
+    }
+    @include max-mq ($md) {
+        padding-top: 80px;
+    }
+    @include max-mq ($mb_p) {
+        padding-top: 60px;
+    }
     + .faq-section {
         padding-top: 0;
         padding-bottom: 38px;
@@ -12,6 +21,22 @@
         letter-spacing: -0.8px;
         margin-bottom: 0.75em;
         margin-top: 0.2em;
+        @include max-mq ($ls) {
+            font-size: $font-size-h2 - 0.55;
+        }
+        @include max-mq ($lg) {
+            font-size: $font-size-h2 - 0.65;
+        }
+        @include max-mq ($mb_p) {
+            font-size: $font-size-h2 - 0.75;
+        }
+        @include max-mq ($mb) {
+            font-size: $font-size-h2 - 0.85;
+        }
+        @include max-mq ($ip) {
+            font-size: $font-size-h2 - 1.25;
+        }
+
     }
     .section-title {
         margin-bottom: 0.05em;

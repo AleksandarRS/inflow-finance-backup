@@ -117,10 +117,12 @@
             padding-right: 20px;
             font-size: $button-font-size - 0.125;
         }
+        @include max-mq ($ip) {
+            font-size: $button-font-size - 0.2;
+        }
         @include max-mq ($ip - 20) {
             padding-left: 15px;
             padding-right: 15px;
-            font-size: $button-font-size - 0.2;
         }
         @include max-mq ($xs) {
             font-size: $button-font-size - 0.35;

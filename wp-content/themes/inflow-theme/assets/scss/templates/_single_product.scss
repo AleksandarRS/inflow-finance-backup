@@ -6,14 +6,51 @@
 }
 .hero-section-single-product {
     padding-bottom: 110px;
+    @include max-mq ($md) {
+        padding-bottom: 80px;
+    }
+    &.second-hero-activated {
+        // padding-bottom: 70px;
+        padding-top: 70px;
+        @include max-mq ($md) {
+            padding-top: 50px;
+        }
+        @include max-mq ($mb_p) {
+            padding-bottom: 60px;
+            // padding-top: 35px;
+        }
+        .hero-section-background-image {
+            background-image: url('../assets/images/single-product-hero-double.svg');
+        }
+        .hero-single-product-text-description-content-inner {
+            align-items: center;
+            h1 {
+                letter-spacing: 0;
+                line-height: 1.2;
+            }
+        }
+    }
     .hero-section-background-image {
-        background-image: url('../assets/images/Blog-posts-background-image.png');
+        background-image: url('../assets/images/Blog-posts-background-image.svg');
     }
     .hero-single-product-text-description-content-inner {
         align-items: flex-end;
+        @include max-mq ($md) {
+            flex-wrap: wrap;
+        }
         .hero-header-text-description-wrap {
             flex: 0 0 59.9%;
             max-width: 59.9%;
+            padding-right: 15px;
+            @include max-mq ($lg) {
+                flex: 0 0 57%;
+                max-width: 57%;
+            }
+            @include max-mq ($md) {
+                flex: 0 0 100%;
+                max-width: 100%;
+                padding-right: 0;
+            }
         }
         .main-hero-title {
             letter-spacing: 0.7px;
@@ -24,14 +61,41 @@
             flex: 0 0 40.1%;
             max-width: 40.1%;
             padding-bottom: 10px;
+            @include max-mq ($lg) {
+                flex: 0 0 43%;
+                max-width: 43%;
+            }
+            @include max-mq ($md) {
+                flex: 0 0 480px;
+                max-width: 480px;
+                padding-top: 25px;
+            }
+            @include max-mq ($mb_p) {
+                flex: 0 0 380px;
+                max-width: 380px;
+            }
+            @include max-mq ($ip - 20) {
+                flex: 0 0 330px;
+                max-width: 330px;
+            }
+            @include max-mq ($xs) {
+                flex: 0 0 300px;
+                max-width: 300px;
+            }
         }
         .post-prediction-item-title {
             font-size: $font-size-base + 0.1;
             font-weight: $font-weight-m;
+            @include max-mq ($mb_p) {
+                font-size: $font-size-base - 0.15;
+            }
         }
         .post-prediction-item-number {
             font-size: $font-size-h3 + 0.5;
             font-weight: $font-weight-sb;
+            @include max-mq ($mb_p) {
+                font-size: $font-size-h3 + 0.15;
+            }
         }
         .main-hero-description {
             padding-top: 0;
@@ -49,6 +113,9 @@
     }
     .button-wrapper {
         padding-top: 44px;
+        @include max-mq ($md) {
+            padding-top: 24px;
+        }
     }
     .button {
         width: 100%;
@@ -70,7 +137,7 @@
         background-color: $tertiary-color;
     }
     .section-background-image {
-        background-image: url('../assets/images/inflow-Finance-Products-key-features-background-image.png');
+        background-image: url('../assets/images/inflow-Finance-Products-key-features-background-image.svg');
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;
@@ -79,6 +146,9 @@
         max-width: $container-narrow-width - 20;
         margin-left: auto;
         margin-right: auto;
+        @include max-mq ($md) {
+            margin-top: 0;
+        }
         h1, h2, h3 {
             letter-spacing: 0.4px;
             margin-bottom: 0.67em;
@@ -104,32 +174,74 @@
         border-radius: 30px;
         padding: 50px 15px;
         display: flex;
+        @include max-mq ($sm) {
+            flex-wrap: wrap;
+        }
+        @include max-mq ($sm) {
+            padding-bottom: 15px;
+        }
+        @include max-mq ($mb) {
+            padding-bottom: 5px;
+        }
         > div {
             flex: 0 0 50%;
             max-width: 50%;
+            @include max-mq ($sm) {
+                flex: 0 0 100%;
+                max-width: 100%;
+            }
         }
     }
     .key-features-main-image-wrap {
         text-align: center;
+        padding-right: 15px;
         @include min-mq ($ls) {
             padding-right: 25px;
         }
         @include min-mq ($mac) {
             padding-right: 50px;
         }
+        @include max-mq ($sm) {
+            padding-right: 0;
+        }
     }
     .key-features-main-list {
         padding-bottom: 12px;
         .key-features-main-list-item {
-            font-size: $font-size-large - 0.2;
-            padding: 24px 0 23px 0;
             border-bottom: 1px solid $gray-300;
+            font-size: $font-size-large - 0.2;
+            padding: 24px 0 23px 70px;
+            position: relative;
+            @include min-max-mq ($sm, $md) {
+                font-size: $font-size-large - 0.4;
+            }
+            @include min-max-mq ($sm, $lg) {
+                padding-left: 50px;
+            }
+            @include max-mq ($mb_p) {
+                font-size: $font-size-large - 0.4;
+                padding-left: 50px;
+            }
+            @include max-mq ($ip) {
+                padding-left: 40px;
+            }
             i {
+                bottom: 0;
                 color: $secondary-color;
                 display: inline-block;
+                height: 36px;
+                left: 0;
+                margin: auto;
+                position: absolute;
+                top: 0;
                 vertical-align: top;
-                margin-right: 35px;
                 width: 25px;
+                @include min-max-mq ($sm, $md) {
+                    height: 30px;
+                }
+                @include max-mq ($mb_p) {
+                    height: 27px;
+                }
             }
             &:after {
                 content: none;
@@ -141,9 +253,21 @@
 
 .text-image-single-product {
     padding: 118px 0 65px;
+    @include max-mq ($sm) {
+        padding: 90px 0 65px;
+    }
+    @include max-mq ($ip) {
+        padding: 65px 0 35px;
+    }
 }
 .image-text-single-product {
     padding: 65px 0 118px;
+    @include max-mq ($sm) {
+        padding: 65px 0 90px;
+    }
+    @include max-mq ($ip) {
+        padding: 35px 0 65px;
+    }
 }
 
 .image-text-single-product,
@@ -155,6 +279,16 @@
         @include min-mq ($sm) {
             order: 1;
         }
+        @include max-mq ($sm) {
+            max-width: 100%;
+            flex: 0 0 100%;
+        }
+    }
+    .image-text-main-image-wrap,
+    .text-image-main-image-wrap {
+        @include max-mq ($sm) {
+            text-align: center;
+        }
     }
     .image-text-main-image-wrapper,
     .text-image-text-description-content {
@@ -162,6 +296,10 @@
         flex: 0 0 53.6%;
         @include min-mq ($sm) {
             order: 0;
+        }
+        @include max-mq ($sm) {
+            max-width: 100%;
+            flex: 0 0 100%;
         }
     }
 }
@@ -187,8 +325,15 @@
         li {
             padding: 5px 0 10px 58px;
             font-size: $font-size-large - 0.2;
+            @include max-mq ($ip) {
+                padding-left: 45px;
+                font-size: $font-size-large - 0.3;
+            }
             &:after {
                 font-size: $font-size-large;
+                @include max-mq ($ip) {
+                    font-size: $font-size-large - 0.2;
+                }
             }
         }
     }
@@ -208,7 +353,7 @@
         }
     }
     .section-background-image {
-        background-image: url('../assets/images/Inflow-Finance-Facility-overview-background-image-Triangles.png');
+        background-image: url('../assets/images/Inflow-Finance-Facility-overview-background-image-Triangles.svg');
     }
 
     .facility-overview-tables-wrapper {
@@ -220,6 +365,9 @@
         display: flex;
         align-items: flex-start;
         justify-content: space-between;
+        @include max-mq ($tab) {
+            flex-wrap: wrap;
+        }
     }
     .facility-overview-tables-inner {
         font-size: 20px;
@@ -230,15 +378,33 @@
         box-shadow: 0px 15px 30px rgba($color: $black, $alpha: 0.1);
         .facility-overview-table-item {
             font-size: $font-size-large - 0.2;
+            @include max-mq ($mb + 50) {
+                font-size: $font-size-large - 0.4;
+            }
+            @include max-mq ($ip - 10) {
+                font-size: $font-size-large - 0.5;
+            }
         }
     }
     .facility-overview-first-table-wrap {
         flex: 0 0 32%;
         max-width: 32%;
+        @include max-mq ($lg) {
+            flex: 0 0 35%;
+            max-width: 35%;
+        }
+        @include max-mq ($tab) {
+            flex: 0 0 100%;
+            max-width: 100%;
+            margin-bottom: 35px;
+        }
         .facility-overview-table {
             padding: 32px 40px;
             @include min-mq ($lg) {
                 padding: 46px 62px;
+            }
+            @include max-mq ($mb_p) {
+                padding: 15px 25px;
             }
         }
         .facility-overview-table-item {
@@ -246,8 +412,14 @@
             &:first-of-type {
                 font-size: $font-size-large;
                 padding-bottom: 33px;
+                @include max-mq ($ip) {
+                    font-size: $font-size-large - 0.25;
+                }
                 .facility-overview-table-cell {
                     font-weight: $font-weight-sb;
+                    @include max-mq ($mb) {
+                        font-size: $font-size-large - 0.5;
+                    }
                 }
             }
             &:last-of-type {
@@ -272,10 +444,21 @@
     .facility-overview-second-table-wrap {
         flex: 0 0 58.2%;
         max-width: 58.2%;
+        @include max-mq ($lg) {
+            flex: 0 0 60%;
+            max-width: 60%;
+        }
+        @include max-mq ($tab) {
+            flex: 0 0 100%;
+            max-width: 100%;
+        }
         .facility-overview-table {
             padding: 17px 40px;
             @include min-mq ($lg) {
                 padding: 21px 60px;
+            }
+            @include max-mq ($mb_p) {
+                padding: 15px 25px;
             }
         }
         .facility-overview-table-item {
@@ -284,6 +467,12 @@
             &:last-child {
                 border-color: transparent;
                 padding-bottom: 0;
+                @include max-mq ($ip - 20) {
+                    > div {
+                        flex: 0 0 100%;
+                        max-width: 100%;
+                    }
+                }
             }
         }
         .facility-overview-table-cell {
@@ -292,6 +481,17 @@
                 letter-spacing: 0.5px;
                 @include min-mq ($lg) {
                     letter-spacing: 1.6px;
+                }
+                @include max-mq ($ip) {
+                    letter-spacing: 0.2px;
+                    max-width: 210px;
+                    padding-right: 5px;
+                }
+                @include max-mq ($ip - 10) {
+                    font-size: 1em;
+                }
+                @include max-mq ($ip - 25) {
+                    max-width: 150px;
                 }
             }
             &:last-child {
@@ -328,4 +528,107 @@
     }
     
 
+}
+
+.single-product-main-hero-wrapper {
+    position: relative;
+    .anchor-product-main-navigation {
+        position: absolute;
+        bottom: -70px;
+        top: auto;
+        @include max-mq ($mb + 100) {
+            bottom: -90px;
+        }
+    }
+}
+.main-hero-section-single-product-hybrid {
+    margin-bottom: 70px;
+    // @include max-mq ($mb + 100) {
+    //     margin-bottom: 90px;
+    // }
+}
+
+.anchor-product-main-navigation {
+    background-color: $gray-100;
+    // background-color: red;
+    text-transform: uppercase;
+    padding: 0;
+    left: 0;
+    right: 0;
+    position: static;
+    @include max-mq ($sm - 10) {
+        text-transform: none;
+        line-height: 1;
+    }
+    &.anchore-manu-fixed-position {
+        position: fixed;
+        z-index: 99;
+        bottom: auto;
+    }
+    .anchor-menu-navigation {
+        max-width: $container-narrow-width + 70;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .anchor-product-list {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        @include max-mq ($sm - 10) {
+            max-width: 580px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        @include max-mq ($mb + 100) {
+            max-width: 400px;
+        }
+        li {
+            flex: 1 1;
+            padding-left: 0;
+            &:after {
+                content: none;
+                display: none;
+            }
+            &.active-anchor-link {
+                span {
+                    &:after {
+                        background-color: $secondary-color;
+                    }
+                }
+            }
+        }
+        a {
+            color: $primary-color;
+            display: block;
+            text-decoration: none;
+            padding: 0 8px;
+            font-weight: $font-weight-m;
+            @include min-mq ($tab) {
+                letter-spacing: 1px;
+            }
+            @include min-mq ($lg) {
+                letter-spacing: 2px;
+            }
+            @include min-mq ($mac) {
+                letter-spacing: 4px;
+            }
+            // @include max-mq ($sm - 10) {
+                
+            // }
+            span {
+                display: inline-block;
+                position: relative;
+                padding: 25px 0;
+                &:after {
+                    @extend %after-full;
+                    top: auto;
+                    height: 2px;
+                }
+            }
+            &:hover {
+                color: $secondary-color;
+            }
+        }
+    }
 }

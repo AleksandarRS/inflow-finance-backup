@@ -4,7 +4,7 @@ $section_background_image = get_sub_field('section_background_image');
 
 $main_hero_title = get_sub_field('main_title');
 $section_short_description = get_sub_field('section_short_description');
-$link = get_sub_field('button_option');
+// $link = get_sub_field('button_option');
 ?>
 <section class="hero-section hero-section-smaller">
     <div class="hero-section-wrapper relative"<?php if ( $section_background_color ) : ?> style="background-color:<?php echo $section_background_color; ?>"<?php endif; ?>>
@@ -20,22 +20,25 @@ $link = get_sub_field('button_option');
                                 <h1 class="main-hero-title main-title"><?php the_title(); ?></h1>
                             <?php endif; ?>
                         </header>
-                        <?php  if ( $section_short_description || $link ) : ?>
+                        <?php  if ( $section_short_description ) : ?>
                             <div class="entry-content-button-wrapper">
                                 <?php  if ( $section_short_description ) : ?>
                                     <div class="entry-content main-hero-description align-center">
                                         <?php echo $section_short_description; ?>
                                     </div>
                                 <?php endif; ?>
-                                <?php
-                                    if( $link ): 
-                                        $link_url = $link['url'];
-                                        $link_title = $link['title'];
-                                        $link_target = $link['target'] ? $link['target'] : '_self';
-                                    ?>
-                                    <div class="button-wrapper align-center">
-                                        <a class="button button-secondary" href="<?php echo esc_url( $link_url ); ?>" target="<?php echo esc_attr( $link_target ); ?>"><?php echo esc_html( $link_title ); ?></a>
-                                    </div>
+                                <?php if ( get_sub_field('button_option') !== true ) : ?>
+                                    <?php
+                                        // if( $link ): 
+                                        //     $link_url = $link['url'];
+                                        //     $link_title = $link['title'];
+                                        //     $link_target = $link['target'] ? $link['target'] : '_self';
+                                        ?>
+                                        <div class="button-wrapper align-center">
+                                            <a class="button button-secondary smoothscroll" href="#cta-contact"><?php _e('Start your next property project', 'inflow') ?></a>
+                                            <!-- <a class="button button-secondary" href="<?php // echo esc_url( $link_url ); ?>" target="<?php // echo esc_attr( $link_target ); ?>"><?php // echo esc_html( $link_title ); ?></a> -->
+                                        </div>
+                                <?php // endif; ?>
                                 <?php endif; ?>
                             </div>
                         <?php endif; ?>

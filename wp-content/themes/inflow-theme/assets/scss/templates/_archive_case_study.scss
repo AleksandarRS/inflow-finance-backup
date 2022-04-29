@@ -6,9 +6,9 @@
 }
 .archive-case-studies-hero-section-wrapper {
     .hero-section-background-image {
-        background-image: url('../assets/images/case-study-archive-hero-image-Inflow-Finance.png');
-        @include min-mq ($lg) {
-            background-size: contain;
+        background-image: url('../assets/images/case-study-archive-hero-image-Inflow-Finance.svg');
+        @include min-mq ($fhd + 200) {
+            background-size: auto;
         }
     }
     .main-hero-title {
@@ -27,8 +27,17 @@
 .archive-case-study-page-latest-items-wrapper {
     .case-study-post-cards-items {
         .posts-cards-case-study-item {
-            padding-bottom: 58px;
+            padding-bottom: 15px;
             margin-bottom: 22px;
+            @include max-mq ($md) {
+                flex: 0 0 50%;
+                max-width: 50%;
+            }
+            @include max-mq ($sm) {
+                flex: 0 0 100%;
+                max-width: 100%;
+                margin-bottom: 0;
+            }
         }
         .post-product-excerpt {
             p {

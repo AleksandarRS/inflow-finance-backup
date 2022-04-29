@@ -74,7 +74,10 @@
         }
         .post-heading-excerpt-wraper {
             &.next-section-here {
-                padding-bottom: 110px;
+                padding-bottom: 130px;
+                @include max-mq ($md) {
+                    padding-bottom: 110px;
+                }
             }
         }
         .entry-header {

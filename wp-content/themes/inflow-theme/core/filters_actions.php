@@ -141,6 +141,7 @@ if (!function_exists('cc_mime_types')):
 
 endif;
 
+
 /**
  * fix_svg_thumb_display
  *
@@ -385,7 +386,8 @@ if (!function_exists('after_setup_theme_function')):
 			wp_enqueue_style('lf-css', get_stylesheet_directory_uri() . '/dist/style.css');
 
 			// wp_enqueue_script('vendor-main', get_template_directory_uri() . '/assets/js/vendor.min.js', array('jquery'), '1.0',true);
-			wp_enqueue_script('main', get_template_directory_uri() . '/dist/scripts.js', array('jquery'), '1.1', true);
+			wp_enqueue_script('lottie-main', 'https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.9.3/lottie.min.js', array('jquery'), '1.0',true);
+			wp_enqueue_script('main', get_template_directory_uri() . '/dist/scripts.js', array('jquery', 'lottie-main'), '1.1', true);
             
 			// Only uncomment this if theme needs to have comments enabled
 			if (is_singular() && comments_open() && get_option('thread_comments')) {

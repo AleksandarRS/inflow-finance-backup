@@ -24,7 +24,8 @@ h1 {
 		font-size: $font-size-h1 - 1.5;
 	}
 	@include max-mq ($ip) {
-		font-size: $font-size-h1 - 1.7;
+		// font-size: $font-size-h1 - 1.7;
+		font-size: $font-size-h1 - 1.5;
 	}
 }
 h2 {

@@ -13,6 +13,7 @@ let _this = module.exports = {
 	$dom: {
 		window: $(window),
 		mainHeader: $('.site-header'),
+		anchorLink: $('.anchor-product-list > li'),
 		// scrollToTop: $('#back2Top')
 		
     },
@@ -25,6 +26,9 @@ let _this = module.exports = {
 	-------------------------------------------------------------------------------*/
 	init: function () {
 		if( _this ){
+			// $(window).on('scroll load', function () {
+				
+			// });
 			_this.$dom.window.scroll(function() {    
 				var scroll = _this.$dom.window.scrollTop();
 			
@@ -39,6 +43,76 @@ let _this = module.exports = {
 				// } else {
 				// 	_this.$dom.scrollToTop.fadeOut();
 				// }
+			});
+
+			$(window).on('load', function () {
+
+				var scrollLoad = _this.$dom.window.scrollTop();
+				if (scrollLoad >= 50) {
+					_this.$dom.mainHeader.addClass("fixed-site-header");
+				} else {
+					_this.$dom.mainHeader.removeClass("fixed-site-header");
+				}
+
+				setTimeout(function() {
+					var bodyLogedIn = $('body');
+					var windowHeight = $(window).scrollTop();
+					
+					
+					var headerHeight = $("#masthead").outerHeight();
+					var anchorMenu = $(".anchor-product-main-navigation");
+					var heroSection = $(".single-product-main-hero-wrapper > section");
+
+
+					if (heroSection.innerHeight() - headerHeight - headerHeight < windowHeight && !anchorMenu.hasClass("anchore-manu-fixed-position")) {
+						anchorMenu.addClass("anchore-manu-fixed-position");
+					} else if (heroSection.innerHeight() - headerHeight - headerHeight > windowHeight) {
+						anchorMenu.removeClass("anchore-manu-fixed-position");
+						anchorMenu.css({ top: 'auto' });
+					}
+
+					if ( (bodyLogedIn.hasClass("logged-in")) && (anchorMenu.hasClass("anchore-manu-fixed-position")) ) {
+						anchorMenu.css({ top: headerHeight + 32 });
+					} else if (anchorMenu.hasClass("anchore-manu-fixed-position")) {
+						anchorMenu.css({ top: headerHeight });
+					}
+				}, 1000);
+
+            });
+
+			$(window).on('scroll', function () {
+
+				var scrollLoad = _this.$dom.window.scrollTop();
+				if (scrollLoad >= 50) {
+					_this.$dom.mainHeader.addClass("fixed-site-header");
+				} else {
+					_this.$dom.mainHeader.removeClass("fixed-site-header");
+				}
+
+                var bodyLogedIn = $('body');
+                var windowHeight = $(window).scrollTop();
+                var headerHeight = $("#masthead").outerHeight();
+                var anchorMenu = $(".anchor-product-main-navigation");
+                var heroSection = $(".single-product-main-hero-wrapper > section");
+
+
+                if (heroSection.innerHeight() - headerHeight - headerHeight < windowHeight && !anchorMenu.hasClass("anchore-manu-fixed-position")) {
+                    anchorMenu.addClass("anchore-manu-fixed-position");
+                } else if (heroSection.innerHeight() - headerHeight - headerHeight > windowHeight) {
+                    anchorMenu.removeClass("anchore-manu-fixed-position");
+                    anchorMenu.css({ top: 'auto' });
+                }
+
+                if ( (bodyLogedIn.hasClass("logged-in")) && (anchorMenu.hasClass("anchore-manu-fixed-position")) ) {
+                    anchorMenu.css({ top: headerHeight + 32 });
+                } else if (anchorMenu.hasClass("anchore-manu-fixed-position")) {
+                    anchorMenu.css({ top: headerHeight });
+                }
+
+            });
+
+			_this.$dom.anchorLink.click(function() {
+				$(this).addClass('active-anchor-link').siblings().removeClass('active-anchor-link');
 			});
 		}
 		// _this.$dom.scrollToTop.click(function(event) {

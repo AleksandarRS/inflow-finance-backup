@@ -5,7 +5,7 @@
 	$product_page_hero_title = get_field('product_page_hero_title', 'option');
 	$product_page_description = get_field('product_page_description', 'option');
 
-	$product_page_cta_button_link = get_field('product_page_cta_button_link', 'option');
+	// $product_page_cta_button_link = get_field('product_page_cta_button_link', 'option');
 ?>
 <section class="hero-section hero-section-smaller">
     <div class="hero-section-wrapper relative"<?php if ( $product_page_hero_bg_color ) : ?> style="background-color:<?php echo $product_page_hero_bg_color; ?>"<?php endif; ?>>
@@ -31,17 +31,18 @@
                                     </div>
                                 <?php endif; ?>
                                 <?php
-                                    if( $product_page_cta_button_link ): 
-                                        $link_url = $product_page_cta_button_link['url'];
-                                        $link_title = $product_page_cta_button_link['title'];
-                                        $link_target = $product_page_cta_button_link['target'] ? $product_page_cta_button_link['target'] : '_self';
+                                    // if( $product_page_cta_button_link ): 
+                                    //     $link_url = $product_page_cta_button_link['url'];
+                                    //     $link_title = $product_page_cta_button_link['title'];
+                                    //     $link_target = $product_page_cta_button_link['target'] ? $product_page_cta_button_link['target'] : '_self';
                                     ?>
                                     <div class="button-wrapper align-center">
-                                        <a class="button button-secondary" href="<?php echo esc_url( $link_url ); ?>" target="<?php echo esc_attr( $link_target ); ?>"><?php echo esc_html( $link_title ); ?></a>
+                                        <!-- <a class="button button-secondary" href="<?php // echo esc_url( $link_url ); ?>" target="<?php // echo esc_attr( $link_target ); ?>"><?php // echo esc_html( $link_title ); ?></a> -->
+                                        <a class="button button-secondary smoothscroll" href="#cta-contact"><?php _e('Start your next property project', 'inflow') ?></a>
                                     </div>
                                 <?php endif; ?>
                             </div>
-                        <?php endif; ?>
+                        <?php // endif; ?>
                         
                     </div>
                 </div>

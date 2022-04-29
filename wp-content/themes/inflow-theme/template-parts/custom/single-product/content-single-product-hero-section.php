@@ -15,14 +15,6 @@
     $product_prediction_item_data_b = get_field('product_prediction_item_data_b');
     $product_prediction_item_data_c = get_field('product_prediction_item_data_c');
 
-    $product_prediction_item_title_a_c = get_field('product_prediction_item_title_a_c');
-    $product_prediction_item_title_b_c = get_field('product_prediction_item_title_b_c');
-    $product_prediction_item_title_c_c = get_field('product_prediction_item_title_c_c');
-
-    $product_prediction_item_data_a_c = get_field('product_prediction_item_data_a_c');
-    $product_prediction_item_data_b_c = get_field('product_prediction_item_data_b_c');
-    $product_prediction_item_data_c_c = get_field('product_prediction_item_data_c_c');
-
 
     $add_hash_for_second = get_field('add_hash_for_second');
     $second_main_title = get_field('second_main_title');
@@ -30,7 +22,7 @@
 
     
 ?>
-<section class="hero-section hero-section-single-product hero-posts">
+<section id="first-product-hero" class="hero-section hero-section-single-product<?php  if ( $add_hash_for_second ) : ?> second-hero-activated<?php endif; ?>">
     <div class="hero-section-wrapper relative"<?php if ( $add_hero_background_color ) : ?> style="background-color:<?php echo $add_hero_background_color; ?>"<?php endif; ?>>
         <div class="hero-section-background-image"<?php  if ( $hero_background_image ) : ?> style="background-image: url(<?php echo esc_url($hero_background_image['url']); ?>);" role="img" aria-label="<?php echo esc_attr($hero_background_image['alt']); ?>"<?php endif; ?>></div>
         <div class="container">
@@ -121,3 +113,4 @@
         </div>
     </div>
 </section>
+

@@ -1,19 +1,32 @@
 .hero-section {
     &.hero-section-smaller {
         .hero-section-background-image {
-            background-image: url('../assets/images/inflow-finance-default-header-hero-background.jpg');
+            background-image: url('../assets/images/inflow-finance-default-header-hero-background.svg');
         }
         .hero-section-wrapper {
             background-color: $tertiary-color;
         }
         .hero-smaller-text-description-content {
+            // min-height: 300px;
             align-items: center;
             display: flex;
-            min-height: 33vh;
             justify-content: center;
             max-height: 550px;
-            // min-height: 300px;
+            min-height: 33vh;
+            padding-bottom: 65px;
+            padding-top: 65px;
             width: 100%;
+            @include max-mq ($lg) {
+                padding-bottom: 40px;
+                padding-top: 40px;
+            }
+            @include max-mq ($sm) {
+                padding-bottom: 25px;
+                padding-top: 25px;
+            }
+            .button-wrapper {
+                padding-bottom: 30px;
+            }
             &.archive-hero {
                 height: 60.4vh;
                 max-height: 620px;

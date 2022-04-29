@@ -28,6 +28,7 @@
 
 	$add_hash_for_second = get_field('add_hash_for_second');
 	$second_main_title = get_field('second_main_title');
+	$second_product_featured_image = get_field('second_product_featured_image');
 	$second_excerpt = get_field('second_excerpt');
 
 ?>
@@ -118,17 +119,23 @@
 	</div>
 	<div class="posts-cards-item posts-cards-list-item col-md-12">
 		<a href="<?php the_permalink(); ?><?php  if ( $add_hash_for_second ) : ?>#<?php echo $add_hash_for_second; ?><?php endif; ?>" class="posts-cards-item-link">
+			
 			<div class="product-card-thumbnail-wrap">
-				<?php if( get_the_post_thumbnail() ): ?>
+				<?php  if ( $second_product_featured_image ) : ?>
 					<div class="post-featured-img-wrap">
-						<?php the_post_thumbnail(); ?>
+						<img src="<?php echo esc_url($second_product_featured_image['url']); ?>" alt="<?php echo esc_attr($second_product_featured_image['alt']); ?>">
 					</div>
 				<?php else: ?>
 					<div class="post-featured-img-wrap">
-						<img src="<?php echo get_template_directory_uri(); ?>/assets/images/default-image.jpg" alt="Product alternative default image of Inflow Finance">
+						<?php if( get_the_post_thumbnail() ): ?>
+							<?php the_post_thumbnail(); ?>
+						<?php else: ?>
+							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/default-image.jpg" alt="Product alternative default image of Inflow Finance">
+						<?php endif; ?>
 					</div>
 				<?php endif; ?>
 			</div>
+
 			<div class="post-heading-predictions-wraper">
 				<div class="post-heading-predictions-inner">
 					<header class="post-title entry-header">

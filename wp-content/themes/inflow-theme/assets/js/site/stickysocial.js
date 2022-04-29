@@ -26,7 +26,7 @@ let _this = module.exports = {
 			var $sticky = $('.social-share-options');
 			var $stickyrStopper = $('.related-posts-section');
 			if (!!$sticky.offset()) { // make sure ".sticky" element exists
-				if( $(window).width() > 960 ) {
+				if( $(window).width() > 990 ) {
 					var generalSidebarHeight = $sticky.innerHeight();
 					var stickyTop = $sticky.offset().top;
 					var stickOffset = 150;
@@ -48,6 +48,7 @@ let _this = module.exports = {
 
 				}
 			}
+			
 		}
     },
 

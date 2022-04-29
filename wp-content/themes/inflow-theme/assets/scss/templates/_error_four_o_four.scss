@@ -3,6 +3,10 @@
     @include min-mq ($lg) {
         padding-top: 185px;
     }
+    @include max-mq ($md) {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
     h1, h2 {
         font-size: $font-size-h3 + 0.5;
         text-align: center;
@@ -28,6 +32,9 @@
             font-weight: $font-weight-m;
             font-size: $font-size-base + 0.015;
             width: auto;
+            @include max-mq ($ip) {
+                font-size: $font-size-base;
+            }
 
         }
         .sub-menu {
@@ -37,6 +44,9 @@
     li {
         padding: 5px 0;
         margin: 0 5px;
+        @include max-mq ($ip) {
+            margin: 0 4px;
+        }
         .content-area & {
             padding-left: 0;
         }

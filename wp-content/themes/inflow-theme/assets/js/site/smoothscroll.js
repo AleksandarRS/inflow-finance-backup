@@ -23,7 +23,8 @@ let _this = module.exports = {
 		# Initialize
 	-------------------------------------------------------------------------------*/
 	init: function () {
-		// if( _this ){
+		if( _this ){
+
 			$('.smoothscroll').click(function(event) {
 			if (
 				location.pathname.replace(/^\//, '') === this.pathname.replace(/^\//, '') 
@@ -53,8 +54,10 @@ let _this = module.exports = {
 				});
 				}
 			}
+			
 		});
-    },
 	
+		}
+	}
 
 };

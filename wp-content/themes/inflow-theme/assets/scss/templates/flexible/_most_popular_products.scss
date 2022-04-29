@@ -75,7 +75,7 @@
             flex: 0 0 50%;
             max-width: 50%;
         }
-        @include max-mq ($md) {
+        @include max-mq ($sm) {
             flex: 0 0 100%;
             max-width: 100%;
         }
@@ -113,6 +113,7 @@
         margin-bottom: 35px;
         padding-bottom: 0;
         text-align: center;
+        overflow: hidden;
     }
     .entry-header {
         align-items: center;

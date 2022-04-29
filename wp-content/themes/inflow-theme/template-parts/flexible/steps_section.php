@@ -16,6 +16,9 @@ $section_description = get_sub_field('section_description');
                     <?php  if ( $section_description ) : ?>
                         <div class="entry-content section-description col-md-12">
                             <?php echo $section_description; ?>
+                            <div class="step-animation-wrapper">
+                                <div id="entry-step-animation"></div>
+                            </div>
                         </div>
                     <?php endif; ?>
                     <?php if( have_rows('add_steps') ): ?>
