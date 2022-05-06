@@ -34,7 +34,7 @@ $page_background_image = get_field('page_background_image');
 			<div class="related-posts-inner">
 				<div class="container">
 					<div class="row blog-page-posts-row">
-						<header class="entry-header main-header col-md-12">
+						<header class="entry-header main-header col-md-12 wow fadeInDown" data-wow-delay="0.4s" data-wow-duration="1s">
 							<h3 class="section-title"><?php _e('Related', 'inflow'); ?></h3>
 							<div class="post-product-read-more read-more-link-wrap link-wrap">
 								<a href="#" class="link link-arrow link-secondary"><?php _e('See all articles', 'inflow'); ?> <i class="icon icon-arrow-right-large"></i></a>

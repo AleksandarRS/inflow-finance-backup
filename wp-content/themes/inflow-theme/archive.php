@@ -12,15 +12,15 @@ get_header(); ?>
 
 <div id="primary" class="content-area">
     <main id="main" class="site-main" role="main">
-        <div class="archive-category-posts-content-wrapper blog-page-latest-posts-content-wrapper">
+        <div class="archive-category-posts-content-wrapper blog-page-latest-posts-content-wrapper wow fadeIn" data-wow-delay="0.2s" data-wow-duration="1s">
             <div class="container blog-page-posts-container">
                 <div class="row blog-page-posts-row">
                     <?php if (have_posts()) : ?>
-                        <div class="hero-section hero-posts col-md-12">
+                        <div class="hero-section hero-posts col-md-12 wow fadeIn" data-wow-delay="0.2s" data-wow-duration="1s">
                             <header class="page-header align-center">
                                 <?php
-                                echo inflow_archive_title('<h1 class="page-title">', '</h1>');
-                                the_archive_description('<div class="taxonomy-description">', '</div>');
+                                echo inflow_archive_title('<h1 class="page-title wow fadeInDown" data-wow-delay="0.4s" data-wow-duration="1s">', '</h1>');
+                                the_archive_description('<div class="taxonomy-description wow fadeInDown" data-wow-delay="0.4s" data-wow-duration="1s">', '</div>');
                                 ?>
                             </header><!-- .page-header -->
                         </div>

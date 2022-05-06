@@ -23,7 +23,7 @@
     
 ?>
 <?php if ( ($add_hero_title_here_c || $short_hero_description) || ( $product_prediction_item_data_a_c || $product_prediction_item_data_b_c || $product_prediction_item_data_c_c ) ) : ?>
-<section id="<?php echo $add_hash_for_second; ?>" class="hero-section hero-section-single-product<?php  if ( $add_hash_for_second ) : ?> second-hero-activated<?php endif; ?>">
+<section id="<?php echo $add_hash_for_second; ?>" class="hero-section hero-section-single-product wow fadeIn<?php  if ( $add_hash_for_second ) : ?> second-hero-activated<?php endif; ?>" data-wow-delay="0.2s" data-wow-duration="1s">
     <div class="hero-section-wrapper relative"<?php if ( $add_hero_background_color ) : ?> style="background-color:<?php echo $add_hero_background_color; ?>"<?php endif; ?>>
         <div class="hero-section-background-image"<?php  if ( $hero_background_image ) : ?> style="background-image: url(<?php echo esc_url($hero_background_image['url']); ?>);" role="img" aria-label="<?php echo esc_attr($hero_background_image['alt']); ?>"<?php endif; ?>></div>
         <div class="container">
@@ -33,18 +33,18 @@
                         <div class="hero-header-text-description-wrap">
                             <?php if ( $add_hero_title_here_c ) : ?>
                                 <header class="entry-header main-header">
-                                    <h1 class="main-title"><?php echo $add_hero_title_here_c; ?></h1>
+                                    <h1 class="main-title wow<?php if ( $disable_or_enable_prediction_items !== true ) : ?> fadeInDown<?php else: ?> fadeInLeft<?php endif; ?>" data-wow-delay="0.4s" data-wow-duration="1s"><?php echo $add_hero_title_here_c; ?></h1>
                                 </header>
                             <?php endif; ?>
                             <?php  if ( $short_hero_description ) : ?>
-                                <div class="entry-content main-hero-description">
+                                <div class="entry-content main-hero-description wow<?php if ( $disable_or_enable_prediction_items !== true ) : ?> fadeIn<?php else: ?> fadeInLeft<?php endif; ?>" data-wow-delay="0.4s" data-wow-duration="1s">
                                     <?php echo $short_hero_description; ?>
                                 </div>
                             <?php endif; ?>
                         </div>
 
                         <?php  if ( $product_prediction_item_data_a_c || $product_prediction_item_data_b_c || $product_prediction_item_data_c_c ) : ?>
-                        <div class="hero-prediction-button-wrap">
+                        <div class="hero-prediction-button-wrap wow fadeInRight" data-wow-delay="0.4s" data-wow-duration="1s">
                             <div class="posts-cards-items">
                                 <div class="post-prediction-items-button-wrapper">
                                     <div class="post-prediction-items">

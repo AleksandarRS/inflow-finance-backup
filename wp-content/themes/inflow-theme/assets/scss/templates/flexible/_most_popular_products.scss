@@ -1,3 +1,11 @@
+.site-main .most-popular-products-section {
+    // visibility: hidden;
+    overflow: visible;
+    @include min-mq (999px) {
+        visibility: hidden;
+    }
+
+}
 .most-popular-products-section-wrapper {
     background-color: $tertiary-color;
     padding-bottom: 91px;

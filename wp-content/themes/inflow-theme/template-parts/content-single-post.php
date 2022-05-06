@@ -6,7 +6,7 @@
  */
 
 ?>
-<div class="single-post-categories align-center">
+<div class="single-post-categories align-center wow fadeInDown" data-wow-delay="0.4s" data-wow-duration="1s">
 	<div class="post-categories-list">
 		<?php
 			$categories = get_the_category();
@@ -20,8 +20,8 @@
 </div>
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 	<header class="entry-header align-center">
-		<?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
-		<div class="blog-page-post-date">
+		<?php the_title( '<h1 class="entry-title wow fadeInDown" data-wow-delay="0.4s" data-wow-duration="1s">', '</h1>' ); ?>
+		<div class="blog-page-post-date wow fadeInUp" data-wow-delay="0.4s" data-wow-duration="1s">
 			<span class="post-date-value blog-page-post-date-value"><?php echo get_the_date('F j'); ?></span>
 		</div>
 	</header><!-- .entry-header -->
@@ -29,9 +29,9 @@
 	<div class="entry-content">
 		<div class="single-post-featured-image-wrap">
 			<?php if( has_post_thumbnail() ): ?>
-				<div class="blog-posts-thumbnail-image" style="background-image: url('<?php the_post_thumbnail_url(); ?>');" area-label="<?php echo get_the_title(); ?>"></div>
+				<div class="blog-posts-thumbnail-image wow fadeInUp" data-wow-delay="0.4s" data-wow-duration="1s" style="background-image: url('<?php the_post_thumbnail_url(); ?>');" area-label="<?php echo get_the_title(); ?>"></div>
 			<?php else: ?>
-				<div class="blog-posts-thumbnail-image" style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/images/default-image.jpg');" area-label="Default Inflow Finance post image">
+				<div class="blog-posts-thumbnail-image wow fadeInUp" data-wow-delay="0.4s" data-wow-duration="1s" style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/images/default-image.jpg');" area-label="Default Inflow Finance post image">
 				</div>
 			<?php endif; ?>
 		</div>
@@ -48,7 +48,7 @@
 
 				<div class="share-option"><i class="icon icon-share"></i></div>
 			</div>
-			<div class="single-page-content-inner">
+			<div class="single-page-content-inner wow fadeInUp" data-wow-delay="0.4s" data-wow-duration="1s">
 				<?php the_content(); ?>
 			</div>
 		</div>

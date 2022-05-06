@@ -6,6 +6,9 @@
             margin-top: 0.35em;
             margin-bottom: 0.35em;
             line-height: 1.4;
+            @include min-mq (999px) {
+                visibility: hidden;
+            }
             @include max-mq ($ls) {
                 font-size: $font-size-h1 - 1.2;
             }
@@ -40,6 +43,9 @@
         border-radius: 20px;
         display: block;
         height: 500px;
+        @include min-mq (999px) {
+            visibility: hidden;
+        }
         @include max-mq ($md) {
             height: 410px;
         }
@@ -53,6 +59,9 @@
         line-height: 1.35;
     }
     .blog-page-post-date {
+        @include min-mq (999px) {
+            visibility: hidden;
+        }
         .post-date-value {
             font-size: $font-size-base;
         }
@@ -84,6 +93,9 @@
 
 .single-post-categories {
     padding-top: 145px;
+    @include min-mq (999px) {
+        visibility: hidden;
+    }
     @include min-mq ($lg) {
         padding-top: 215px;
     }

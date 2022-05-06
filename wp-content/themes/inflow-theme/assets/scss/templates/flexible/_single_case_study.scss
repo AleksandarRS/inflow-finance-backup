@@ -180,6 +180,10 @@
     background-color: $tertiary-color;
     padding-top: 50px;
     padding-bottom: 90px;
+    // visibility: hidden;
+    @include min-mq (999px) {
+        visibility: hidden;
+    }
     @include max-mq ($md) {
         padding-bottom: 65px;
     }

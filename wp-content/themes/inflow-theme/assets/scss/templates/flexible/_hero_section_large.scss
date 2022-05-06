@@ -1,6 +1,10 @@
 .hero-section {
     position: relative;
     padding-top: 130px;
+    // visibility: hidden;
+    @include min-mq (999px) {
+        visibility: hidden;
+    }
     @include max-mq ($lg) {
         padding-top: 115px;
     }
@@ -124,7 +128,7 @@
             padding-left: 15px;
             padding-right: 15px;
         }
-        @include max-mq ($xs) {
+        @include max-mq ($xs + 5) {
             font-size: $button-font-size - 0.35;
         }
     }

@@ -22,13 +22,13 @@
     $product_prediction_item_data_c_c = get_field('product_prediction_item_data_c_c');
 ?>
 
-<section class="hero-section hero-section-single-product hero-posts">
+<section class="hero-section hero-section-single-product hero-posts wow fadeIn" data-wow-delay="0.2s" data-wow-duration="1s">
     <div class="hero-section-wrapper single-case-study-hero relative"<?php if ( $add_hero_background_color ) : ?> style="background-color:<?php echo $add_hero_background_color; ?>"<?php endif; ?>>
         <div class="hero-section-background-image"<?php  if ( $hero_background_image ) : ?> style="background-image: url(<?php echo esc_url($hero_background_image['url']); ?>);" role="img" aria-label="<?php echo esc_attr($hero_background_image['alt']); ?>"<?php endif; ?>></div>
         <div class="container-middle-wide-large container-middle-wide-large-case-study">
             <div class="row hero-smaller-row">
-                <div class="single-case-study-featured-image col-md-6" style="background-image: url('<?php if( get_the_post_thumbnail() ): ?><?php the_post_thumbnail_url(); ?><?php else: ?><?php echo get_template_directory_uri(); ?>/assets/images/default-image.jpg<?php endif; ?>');"></div>
-                <div class="hero-smaller-text-description-content single-product-hero col-md-6">
+                <div class="single-case-study-featured-image col-md-6 wow fadeInLeft" data-wow-delay="0.4s" data-wow-duration="1s" style="background-image: url('<?php if( get_the_post_thumbnail() ): ?><?php the_post_thumbnail_url(); ?><?php else: ?><?php echo get_template_directory_uri(); ?>/assets/images/default-image.jpg<?php endif; ?>');"></div>
+                <div class="hero-smaller-text-description-content single-product-hero col-md-6 wow fadeInRight" data-wow-delay="0.4s" data-wow-duration="1s">
                     <div class="hero-single-case-study-text-description-content-inner">
                         <div class="hero-header-text-description-wrap">
                             <header class="entry-header main-header">

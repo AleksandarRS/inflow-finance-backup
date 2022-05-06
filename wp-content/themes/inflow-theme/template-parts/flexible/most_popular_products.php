@@ -13,15 +13,15 @@ $left_bg_decoration_image = get_sub_field('left_bg_decoration_image');
 $right_bg_decoration_image = get_sub_field('right_bg_decoration_image');
 ?>
 
-<section class="most-popular-products-section">
+<section class="most-popular-products-section wow fadeIn" data-wow-delay="0.2s" data-wow-duration="1s">
     <div class="most-popular-products-section-wrapper section-wrapper relative"<?php if ( $section_background_color ) : ?> style="background-color:<?php echo $section_background_color; ?>"<?php endif; ?>>
         <?php  if ( $left_bg_decoration_image ) : ?>
-            <div class="most-popular-products-decorational-image most-popular-products-decorational-image-left">
+            <div class="most-popular-products-decorational-image most-popular-products-decorational-image-left wow fadeInRight" data-wow-delay="0.2s" data-wow-duration="1s">
                 <img src="<?php echo esc_url($left_bg_decoration_image['url']); ?>" alt="<?php echo esc_attr($left_bg_decoration_image['alt']); ?>">
             </div>
         <?php endif; ?>
         <?php  if ( $right_bg_decoration_image ) : ?>
-            <div class="most-popular-products-decorational-image most-popular-products-decorational-image-right">
+            <div class="most-popular-products-decorational-image most-popular-products-decorational-image-right wow fadeInLeft" data-wow-delay="0.2s" data-wow-duration="1s">
                 <img src="<?php echo esc_url($right_bg_decoration_image['url']); ?>" alt="<?php echo esc_attr($right_bg_decoration_image['alt']); ?>">
             </div>
         <?php endif; ?>
@@ -32,7 +32,7 @@ $right_bg_decoration_image = get_sub_field('right_bg_decoration_image');
             <div class="container-middle-wide">
                 <div class="row most-popular-products-row">
                     <?php  if ( $section_description ) : ?>
-                        <div class="entry-content section-description col-md-12">
+                        <div class="entry-content section-description col-md-12 wow fadeInUp" data-wow-delay="0.2s" data-wow-duration="1s">
                             <?php echo $section_description; ?>
                         </div>
                     <?php endif; ?>
@@ -53,7 +53,7 @@ $right_bg_decoration_image = get_sub_field('right_bg_decoration_image');
                     <?php endif; ?>
 
                     <?php if ( $after_products_cta_section ) : ?>
-                        <div class="after-products-cta-element col-md-12">
+                        <div class="after-products-cta-element col-md-12 wow fadeInUp" data-wow-delay="0.2s" data-wow-duration="1s">
                             <?php echo $after_products_cta_section; ?>
                         </div>
                     <?php endif; ?>
@@ -65,7 +65,7 @@ $right_bg_decoration_image = get_sub_field('right_bg_decoration_image');
                             $link_target = $see_all_products_link['target'] ? $see_all_products_link['target'] : '_self';
                         ?>
                         <div class="button-wrapper align-center col-md-12">
-                            <a class="button button-secondary" href="<?php echo esc_url( $link_url ); ?>" target="<?php echo esc_attr( $link_target ); ?>"><?php echo esc_html( $link_title ); ?></a>
+                            <a class="button button-secondary wow fadeInUp" data-wow-delay="0.2s" data-wow-duration="1s" href="<?php echo esc_url( $link_url ); ?>" target="<?php echo esc_attr( $link_target ); ?>"><?php echo esc_html( $link_title ); ?></a>
                         </div>
                     <?php endif; ?>
 

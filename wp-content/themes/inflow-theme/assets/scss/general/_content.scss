@@ -74,6 +74,9 @@
 .content-area {
     width: 100%;
     .text-content-section {
+        @include min-mq (999px) {
+            visibility: hidden;
+        }
         ul {
             li {
                 padding-left: 30px;
@@ -134,5 +137,11 @@
                 }
             }
         }
+    }
+}
+
+.site-main {
+    > section {
+        overflow: hidden;
     }
 }

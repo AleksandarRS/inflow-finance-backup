@@ -1,5 +1,9 @@
 .blog-hero-section {
     padding-top: 193px;
+    // visibility: hidden;
+    @include min-mq (999px) {
+        visibility: hidden;
+    }
     @include max-mq ($ls) {
         padding-top: 153px;
     }
@@ -53,6 +57,10 @@
 
 .blog-page-latest-posts-content-wrapper {
     padding-bottom: 35px;
+    // visibility: hidden;
+    @include min-mq (999px) {
+        visibility: hidden;
+    }
 }
 
 .site-blog-main {
@@ -67,6 +75,10 @@
     padding-top: 25px;
     .featured-posts-content-inner {
         display: flex;
+        // visibility: hidden;
+        @include min-mq (999px) {
+            visibility: hidden;
+        }
         @include max-mq ($sm) {
             flex-wrap: wrap;
         }

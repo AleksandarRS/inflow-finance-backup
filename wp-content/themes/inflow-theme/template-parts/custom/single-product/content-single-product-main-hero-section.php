@@ -7,7 +7,7 @@
 
 ?>
 <?php if ( $section_main_title || $short_hero_description ) : ?>
-    <section class="hero-section hero-section-smaller main-hero-section-single-product main-hero-section-single-product-hybrid">
+    <section class="hero-section hero-section-smaller main-hero-section-single-product main-hero-section-single-product-hybrid wow fadeIn" data-wow-delay="0.2s" data-wow-duration="1s">
         <div class="hero-section-wrapper relative"<?php if ( $add_hero_background_color ) : ?> style="background-color:<?php echo $add_hero_background_color; ?>"<?php endif; ?>>
             <div class="hero-section-background-image"<?php  if ( $hero_background_image ) : ?> style="background-image: url(<?php echo esc_url($hero_background_image['url']); ?>);" role="img" aria-label="<?php echo esc_attr($hero_background_image['alt']); ?>"<?php endif; ?>></div>
             <div class="container">
@@ -17,11 +17,11 @@
                             <div class="hero-header-text-description-wrap align-center">
                                 <?php if ( $section_main_title ) : ?>
                                     <header class="entry-header main-header">
-                                        <h1 class="main-title"><?php echo $section_main_title; ?></h1>
+                                        <h1 class="main-title wow fadeInDown" data-wow-delay="0.4s" data-wow-duration="1s"><?php echo $section_main_title; ?></h1>
                                     </header>
                                 <?php endif; ?>
                                 <?php  if ( $short_hero_description ) : ?>
-                                    <div class="entry-content main-hero-description">
+                                    <div class="entry-content main-hero-description wow fadeInUp" data-wow-delay="0.4s" data-wow-duration="1s">
                                         <?php echo $short_hero_description; ?>
                                     </div>
                                 <?php endif; ?>
@@ -39,7 +39,7 @@ $second_product_menu_item = get_field('second_product_menu_item');
 $add_hash_for_second = get_field('add_hash_for_second');
 ?>
 <?php  if ( $first_product_menu_item || $second_product_menu_item ) : ?>
-    <div class="anchor-product-main-navigation">
+    <div class="anchor-product-main-navigation wow fadeInUp" data-wow-delay="0.4s" data-wow-duration="1s">
         <div class="container">
             <div id="anchor-menu-items" class="anchor-menu-navigation align-center">
                 <nav>

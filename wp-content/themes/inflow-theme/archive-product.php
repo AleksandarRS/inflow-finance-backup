@@ -25,7 +25,7 @@ get_header(); ?>
                 <?php  $product_posts = get_field('products_list', 'option');
                     if( $product_posts ): ?>
                     <div class="posts-items-cards-wrapper col-md-12">
-                        <div class="row post-posts-items-cards-list-row posts-cards-items posts-card-list-items">
+                        <div class="row post-posts-items-cards-list-row archive-posts-cards-items posts-cards-items posts-card-list-items wow fadeIn" data-wow-delay="0.2s" data-wow-duration="1s">
                             <?php foreach( $product_posts as $post ): 
                                 setup_postdata($post); ?>
                                 <?php get_template_part( 'template-parts/content', 'product-archive-list' ); ?>

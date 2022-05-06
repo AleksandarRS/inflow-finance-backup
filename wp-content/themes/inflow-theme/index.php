@@ -16,7 +16,7 @@ get_header(); ?>
 	$add_blog_page_top_image = get_field('add_blog_page_top_image', 'option');
 	$add_blog_page_description = get_field('add_blog_page_description', 'option');
 ?>
-<section class="blog-hero-section">
+<section class="blog-hero-section wow fadeIn" data-wow-delay="0.2s" data-wow-duration="1s">
     <div class="blog-hero-section-wrapper section-wrapper">
         <?php  if ( $add_blog_page_top_image ) : ?>
             <div class="blog-hero-section-background-image section-background-image" style="background-image: url(<?php echo esc_url($add_blog_page_top_image['url']); ?>);" role="img" aria-label="<?php echo esc_attr($add_blog_page_top_image['alt']); ?>"></div>
@@ -25,7 +25,7 @@ get_header(); ?>
             <div class="container">
                 <div class="row blog-hero-row">
                     <?php  if ( $add_blog_page_description ) : ?>
-                        <div class="entry-content section-description col-md-12">
+                        <div class="entry-content section-description col-md-12 wow fadeInDown" data-wow-delay="0.4s" data-wow-duration="1s">
                             <?php echo $add_blog_page_description; ?>
                         </div>
                     <?php endif; ?>
@@ -66,7 +66,7 @@ get_header(); ?>
 					</div> <!-- /.container featured-post-container -->
 				</div> <!-- /.featured-post-item-wrapper -->
 
-				<div class="blog-page-latest-posts-content-wrapper">
+				<div class="blog-page-latest-posts-content-wrapper wow fadeIn" data-wow-delay="0.2s" data-wow-duration="1s">
 					<div class="container blog-page-posts-container">
 						<div class="row blog-page-posts-row">
 							<div class="blog-page-latest-posts-content-inner">
@@ -101,7 +101,7 @@ get_header(); ?>
 											get_template_part('template-parts/custom/content', 'blog-page-cards');
 										?>
 									<?php endwhile; ?>
-									<div class="blog-navigation nav-links">
+									<div class="blog-navigation nav-links wow fadeInUp" data-wow-delay="0.4s" data-wow-duration="1s">
 										<?php 
 											$big = 999999999;
 											echo paginate_links( array(

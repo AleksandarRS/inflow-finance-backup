@@ -5,7 +5,7 @@
                 <!-- <header class="entry-header main-header col-md-12">
                     <h1 class="main-title"></h1>
                 </header> -->
-            <div class="related-posts-section col-md-12">
+            <div class="related-posts-section col-md-12 wow fadeInDown" data-wow-delay="0.4s" data-wow-duration="1s">
                 <header class="entry-header main-header">
                     <h3 class="section-title"><?php _e('Explore more of our work', 'inflow') ?></h3>
                     <div class="post-product-read-more read-more-link-wrap link-wrap">

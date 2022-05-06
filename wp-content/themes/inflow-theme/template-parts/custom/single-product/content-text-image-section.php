@@ -4,14 +4,14 @@
     
 ?>
 <?php  if ( $add_image || $add_text_content ) : ?>
-    <section class="text-image text-image-single-product">        
+    <section class="text-image text-image-single-product wow fadeIn" data-wow-delay="0.2s" data-wow-duration="1s">        
         <div class="container">
             <div class="row text-image-row">
                 <?php  if ( $add_image ) : ?>
                     <div class="text-image-main-image-wrapper col-md-6">
                         <div class="text-image-main-image-list-inner">
                             <div class="text-image-main-image-wrap">
-                                <img src="<?php echo esc_url($add_image['url']); ?>" alt="<?php echo esc_attr($add_image['alt']); ?>">
+                                <img class="wow fadeInRight" data-wow-delay="0.4s" data-wow-duration="1s" src="<?php echo esc_url($add_image['url']); ?>" alt="<?php echo esc_attr($add_image['alt']); ?>">
                             </div>
                         </div>
                     </div>
@@ -19,7 +19,7 @@
                 <?php  if ( $add_text_content ) : ?>
                     <div class="text-image-text-description-content col-md-6">
                         <div class="text-image-header-text-description-wrap">
-                            <div class="entry-content section-description-inner section-description-large">
+                            <div class="entry-content section-description-inner section-description-large wow fadeInLeft" data-wow-delay="0.4s" data-wow-duration="1s">
                                 <?php echo $add_text_content; ?>
                             </div>
                         </div>

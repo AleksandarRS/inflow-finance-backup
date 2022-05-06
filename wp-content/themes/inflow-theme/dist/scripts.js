@@ -166,17 +166,23 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 		$ = require('jquery');
 
+		var wow = require('./site/wow');
 		var Navigation = require('./core/navigation');
 		var svgconvert = require('./site/svgconvert');
 		var addremoveclass = require('./site/addremoveclass');
 		// const lottie = require('./site/lottie');
-		// const jsonconvert = require('./site/jsonconvert');
+		var jsonconvert = require('./site/jsonconvert');
 		var accordion = require('./site/accordion');
 		var stickysocial = require('./site/stickysocial');
 		var smoothscroll = require('./site/smoothscroll');
 		var example = require('./site/example');
 
 		jQuery(function () {
+
+			/**
+    * Initialize site wow
+    */
+			wow.init();
 
 			/**
     * Initialize site navigation
@@ -191,7 +197,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 			/**
    * Initialize jsonconvert module
    */
-			// jsonconvert.init();
+			jsonconvert.init();
 
 			/**
     * Initialize accordion module
@@ -218,7 +224,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     */
 			example.init();
 		});
-	}, { "./core/navigation": 1, "./site/accordion": 3, "./site/addremoveclass": 4, "./site/example": 5, "./site/smoothscroll": 7, "./site/stickysocial": 8, "./site/svgconvert": 9, "jquery": 10 }], 3: [function (require, module, exports) {
+	}, { "./core/navigation": 1, "./site/accordion": 3, "./site/addremoveclass": 4, "./site/example": 5, "./site/jsonconvert": 7, "./site/smoothscroll": 8, "./site/stickysocial": 9, "./site/svgconvert": 10, "./site/wow": 11, "jquery": 12 }], 3: [function (require, module, exports) {
 		"use strict";
 
 		// const Global = require('./global');
@@ -577,6 +583,52 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
    	# Cache dom and strings
    -------------------------------------------------------------------------------*/
 			$dom: {
+				// accordionLink: $('.faq-section-item-question'),
+			},
+
+			vars: {},
+
+			/*-------------------------------------------------------------------------------
+   	# Initialize
+   -------------------------------------------------------------------------------*/
+			init: function init() {
+				if (_this) {
+
+					var animationHero = bodymovin.loadAnimation({
+						container: document.getElementById('lottie-hero'), // Required
+						path: '/inflow/wp-content/themes/inflow-theme/assets/json/inflow-header-animation-final.json', // Required - local path
+						// path: '/wp-content/themes/inflow-theme/assets/json/inflow-header-animation-final.json', // Required - server path
+						renderer: 'svg', // Required
+						loop: true, // Optional
+						autoplay: true // Optional
+						// name: "Hello World", // Name for future reference. Optional.
+					});
+					var animationStep = bodymovin.loadAnimation({
+						container: document.getElementById('entry-step-animation'), // Required
+						path: '/inflow/wp-content/themes/inflow-theme/assets/json/gear-animation.json', // Required - local path
+						// path: '/wp-content/themes/inflow-theme/assets/json/gear-animation.json', // Required - server path
+						renderer: 'svg', // Required
+						loop: true, // Optional
+						autoplay: true // Optional
+						// name: "Hello World", // Name for future reference. Optional.
+					});
+				}
+			}
+
+		};
+	}, {}], 8: [function (require, module, exports) {
+		"use strict";
+
+		// const Global = require('./global');
+
+		// let	_this;
+
+		var _this = module.exports = {
+
+			/*-------------------------------------------------------------------------------
+   	# Cache dom and strings
+   -------------------------------------------------------------------------------*/
+			$dom: {
 				// window: $(window),
 
 
@@ -621,7 +673,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 			}
 
 		};
-	}, {}], 8: [function (require, module, exports) {
+	}, {}], 9: [function (require, module, exports) {
 		"use strict";
 
 		// const Global = require('./global');
@@ -675,7 +727,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 			}
 
 		};
-	}, {}], 9: [function (require, module, exports) {
+	}, {}], 10: [function (require, module, exports) {
 		"use strict";
 
 		// const Global = require('./global');
@@ -720,7 +772,39 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 			}
 
 		};
-	}, {}], 10: [function (require, module, exports) {
+	}, {}], 11: [function (require, module, exports) {
+		"use strict";
+
+		// const Global = require('./global');
+
+		// let	_this;
+
+		var _this = module.exports = {
+
+			/*-------------------------------------------------------------------------------
+   	# Cache dom and strings
+   -------------------------------------------------------------------------------*/
+			$dom: {
+				body: $('body')
+			},
+
+			vars: {},
+
+			/*-------------------------------------------------------------------------------
+   	# Initialize
+   -------------------------------------------------------------------------------*/
+			init: function init() {
+
+				// if( _this ){	
+				// }
+				if ($(window).width() > 998) {
+					new WOW().init();
+				}
+				// new WOW().init();
+			}
+
+		};
+	}, {}], 12: [function (require, module, exports) {
 		/*!
    * jQuery JavaScript Library v3.4.1
    * https://jquery.com/

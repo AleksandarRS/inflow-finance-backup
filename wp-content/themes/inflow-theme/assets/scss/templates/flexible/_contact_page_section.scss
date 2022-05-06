@@ -1,6 +1,9 @@
 #page-contact-details-section {
     padding-top: 147px;
     background-color: $tertiary-color;
+    @include min-mq (999px) {
+        visibility: hidden;
+    }
     @include max-mq ($lg) {
         padding-top: 107px;
     }
@@ -15,7 +18,6 @@
     }
     .contact-page-details-section-wrapper {
         padding-top: 0;
-        
     }
     .contact-section-decoration-image-left {
         z-index: 0;

@@ -19,26 +19,26 @@ get_header(); ?>
         <div id="primary" class="content-area">
             <main id="main" class="site-main" role="main">
 
-                <section class="error-404 not-found-content-area not-found">
-                    <div class="error-404-main-image">
-                        <img src="<?php echo esc_url($add_image['url']); ?>" alt="<?php echo esc_attr($add_image['alt']); ?>">
+                <section class="error-404 not-found-content-area not-found wow fadeIn" data-wow-delay="0.1s" data-wow-duration="1s">
+                    <div id="lottie-hero" class="error-404-main-image wow fadeInDown" data-wow-delay="0.4s" data-wow-duration="1s">
+                        <!-- <img src="<?php //echo esc_url($add_image['url']); ?>" alt="<?php // echo esc_attr($add_image['alt']); ?>"> -->
                     </div>
                     <?php  if ( $add_main_content ) : ?>
-                        <div class="error-404-entry-content section-description">
+                        <div class="error-404-entry-content section-description wow fadeInUp" data-wow-delay="0.4s" data-wow-duration="1s">
                             <?php echo $add_main_content; ?>
                         </div>
                     <?php else : ?>
                         <header class="page-header align-center">
-                            <h1 class="page-title"><?php esc_html_e('Oops, it looks like this page does not exist.', 'inflow'); ?></h1>
+                            <h1 class="page-title wow fadeInUp" data-wow-delay="0.4s" data-wow-duration="1s"><?php esc_html_e('Oops, it looks like this page does not exist.', 'inflow'); ?></h1>
                         </header><!-- .page-header -->
                     <?php endif; ?>
 
                     <?php  if ( $add_menu_text ) : ?>
-                        <div class="page-subcontent align-center">
+                        <div class="page-subcontent align-center wow fadeInUp" data-wow-delay="0.4s" data-wow-duration="1s">
                             <?php echo $add_menu_text; ?>
                         </div><!-- .page-subcontent -->
                     <?php endif; ?>
-                    <nav class="error-404-page-menu">
+                    <nav class="error-404-page-menu wow fadeInUp" data-wow-delay="0.4s" data-wow-duration="1s">
                         <?php wp_nav_menu(
 							array(
 								'theme_location' 		=> 	'error',

@@ -2,4 +2,8 @@
     background-color: $gray-100;
     padding-bottom: 90px;
     padding-top: 90px;
+    // visibility: hidden;
+    @include min-mq (999px) {
+        visibility: hidden;
+    }
 }

@@ -33,7 +33,7 @@
 
 ?>
 <?php  if ( $add_hash_for_second ) : ?>
-	<div class="posts-cards-item col-md-4">
+	<div class="posts-cards-item col-md-4 wow fadeIn" data-wow-delay="0.35s" data-wow-duration="1s">
 		<a href="<?php the_permalink(); ?>" class="posts-cards-item-link">
 			<?php if( get_the_post_thumbnail() ): ?>
 				<div class="post-featured-img-wrap">
@@ -111,7 +111,7 @@
 			</div> <!-- /.post-heading-excerpt-button-wraper -->
 		</a>
 	</div>
-	<div class="posts-cards-item col-md-4">
+	<div class="posts-cards-item col-md-4 wow fadeIn" data-wow-delay="0.35s" data-wow-duration="1s">
 		<a href="<?php the_permalink(); ?><?php  if ( $add_hash_for_second ) : ?>#<?php echo $add_hash_for_second; ?><?php endif; ?>" class="posts-cards-item-link">
 			<?php  if ( $second_product_featured_image ) : ?>
 				<div class="post-featured-img-wrap">
@@ -196,7 +196,7 @@
 		</a>
 	</div>
 <?php else: ?>
-	<div class="posts-cards-item col-md-4">
+	<div class="posts-cards-item col-md-4 wow fadeIn" data-wow-delay="0.35s" data-wow-duration="1s">
 		<a href="<?php the_permalink(); ?>" class="posts-cards-item-link">
 			<?php if( get_the_post_thumbnail() ): ?>
 				<div class="post-featured-img-wrap">

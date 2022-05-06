@@ -5,8 +5,12 @@
     position: fixed;
     right: 0;
     top: 0;
+    // visibility: hidden;
     width: 100%;
     z-index: 999;
+    @include min-mq (999px) {
+        visibility: hidden;
+    }
     @include transition-all;
     @include max-mq ($lg) {
         padding: 30px 15px 30px;

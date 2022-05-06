@@ -2,19 +2,19 @@
     <div class="featured-post-wrapper">
 
         <div class="featured-posts-content-wrapper regular">
-            <div class="featured-posts-content-inner">
+            <div class="featured-posts-content-inner wow fadeIn" data-wow-delay="0.2s" data-wow-duration="1s">
                 <?php if( has_post_thumbnail() ): ?>
                     <a href="<?php the_permalink(); ?>" class="featured-posts-thumbnail-image-link">
-                        <div class="featured-posts-thumbnail-image" style="background-image: url('<?php the_post_thumbnail_url(); ?>');" area-label="<?php echo get_the_title(); ?>">
+                        <div class="featured-posts-thumbnail-image wow fadeInLeft" data-wow-delay="0.4s" data-wow-duration="1s" style="background-image: url('<?php the_post_thumbnail_url(); ?>');" area-label="<?php echo get_the_title(); ?>">
                         </div>
                     </a>
                 <?php else: ?>
                     <a href="<?php the_permalink(); ?>" class="featured-posts-thumbnail-image-link">
-                        <div class="featured-posts-thumbnail-image" style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/images/default-image.jpg');" area-label="Default Inflow Finance post image">
+                        <div class="featured-posts-thumbnail-image wow fadeInLeft" data-wow-delay="0.4s" data-wow-duration="1s" style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/images/default-image.jpg');" area-label="Default Inflow Finance post image">
                         </div>
                     </a>
                 <?php endif; ?>
-                <div class="featured-blog-title-excerpt-wrapper">
+                <div class="featured-blog-title-excerpt-wrapper wow fadeInRight" data-wow-delay="0.4s" data-wow-duration="1s">
                     <div class="featured-post-title-text-description-wrap">
                         <div class="featured-post-title-text-description-wrap-inner">
                             <div class="post-categories-list">

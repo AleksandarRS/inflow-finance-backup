@@ -1,6 +1,9 @@
 .faq-section {
     padding-top: 110px;
     padding-bottom: 25px;
+    @include min-mq (999px) {
+        visibility: hidden;
+    }
     @include max-mq ($ls) {
         padding-top: 90px;
     }

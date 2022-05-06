@@ -29,7 +29,7 @@ get_header(); ?>
                             <?php endwhile; ?>
                         </div>
                     </div>
-                    <div class="blog-navigation nav-links">
+                    <div class="blog-navigation nav-links wow fadeInUp" data-wow-delay="0.4s" data-wow-duration="1s">
                         <?php 
                             $big = 999999999;
                             echo paginate_links( array(

@@ -7,7 +7,18 @@
         padding-top: 24px;
     }
 }
+
 .posts-cards-items {
+    &.archive-posts-cards-items {
+        // visibility: hidden;
+        @include min-mq (999px) {
+            visibility: hidden;
+        }
+        .posts-cards-list-item {
+            flex: 0 0 100%;
+            max-width: 100%;
+        }
+    }
     .posts-cards-list-item {
         padding-bottom: 0;
         padding-left: 0;

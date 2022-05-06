@@ -39,6 +39,8 @@
                 @include max-mq ($md) {
                     height: auto;
                     max-height: 430px;
+                    padding-top: 25px;
+                    padding-bottom: 25px;
                 }
                 .main-hero-description {
                     max-width: $container-narrow-width - 40;

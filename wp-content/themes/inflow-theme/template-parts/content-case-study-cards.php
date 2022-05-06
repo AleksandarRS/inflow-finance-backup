@@ -29,11 +29,11 @@
 	<div class="posts-cards-case-study-item-inner">
 		<?php if( get_the_post_thumbnail() ): ?>
 			<a href="<?php the_permalink(); ?>" class="case-study-post-featured-img-link">
-				<div class="case-study-post-featured-img-wrap" style="background-image: url('<?php the_post_thumbnail_url(); ?>');" area-label="<?php echo get_the_title(); ?>"></div>
+				<div class="case-study-post-featured-img-wrap wow fadeIn" data-wow-delay="0.4s" data-wow-duration="1s" style="background-image: url('<?php the_post_thumbnail_url(); ?>');" area-label="<?php echo get_the_title(); ?>"></div>
 			</a>
 		<?php else: ?>
 			<a href="<?php the_permalink(); ?>" class="case-study-post-featured-img-link">
-				<div class="case-study-post-featured-img-wrap" style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/images/default-image.jpg');" area-label="Case study alternative default featured image of Inflow Finance website"></div>
+				<div class="case-study-post-featured-img-wrap wow fadeIn" data-wow-delay="0.4s" data-wow-duration="1s" style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/images/default-image.jpg');" area-label="Case study alternative default featured image of Inflow Finance website"></div>
 			</a>
 		<?php endif; ?>
 		<div class="post-heading-excerpt-wraper<?php  if ( ( $product_prediction_item_title_a && $product_prediction_item_data_a ) || ( $product_prediction_item_title_b && $product_prediction_item_data_b ) || ( $product_prediction_item_title_c && $product_prediction_item_data_c ) ) : ?> next-section-here<?php endif;?>">
@@ -46,23 +46,23 @@
 								$link_title = $card_links_to_products['title'];
 								$link_target = $card_links_to_products['target'] ? $card_links_to_products['target'] : '_self';
 							?>
-							<a class="term-name" href="<?php echo esc_url( $link_url ); ?>" target="<?php echo esc_attr( $link_target ); ?>"><?php echo esc_html( $link_title ); ?></a>
+							<a class="term-name wow fadeInUp" data-wow-delay="0.4s" data-wow-duration="1s" href="<?php echo esc_url( $link_url ); ?>" target="<?php echo esc_attr( $link_target ); ?>"><?php echo esc_html( $link_title ); ?></a>
 						<?php endif; ?>
 					<?php endwhile; ?>
 				</div>
 			<?php endif;?>
 			<a href="<?php the_permalink(); ?>">
 				<header class="post-title entry-header">
-					<h2 class="entry-title"><?php the_title(); ?></h2>
+					<h2 class="entry-title wow fadeInUp" data-wow-delay="0.4s" data-wow-duration="1s"><?php the_title(); ?></h2>
 				</header>
-				<div class="post-product-excerpt entry-content">
+				<div class="post-product-excerpt entry-content wow fadeInUp" data-wow-delay="0.4s" data-wow-duration="1s">
 					<?php the_excerpt(); ?>
 				</div>
 			</a>
 			<?php  if ( ( $product_prediction_item_title_a && $product_prediction_item_data_a ) || ( $product_prediction_item_title_b && $product_prediction_item_data_b ) || ( $product_prediction_item_title_c && $product_prediction_item_data_c ) ) : ?>
 				<div class="post-prediction-items-button-wrapper">
 					<a href="<?php the_permalink(); ?>" class="post-prediction-items-link">
-						<div class="post-prediction-items">
+						<div class="post-prediction-items wow fadeInUp" data-wow-delay="0.4s" data-wow-duration="1s">
 							<?php  if ( $product_prediction_item_title_a && $product_prediction_item_data_a ) : ?>
 								<div class="post-prediction-item">
 									<?php  if ( $product_prediction_item_title_a ) : ?>
@@ -119,7 +119,7 @@
 							<?php endif; ?>
 						</div>
 						<div class="post-product-read-more read-more-link-wrap link-wrap">
-							<span class="link link-arrow link-secondary">
+							<span class="link link-arrow link-secondary wow fadeInUp" data-wow-delay="0.4s" data-wow-duration="1s">
 								<?php _e('Read more','inflow'); ?> <i class="icon icon-arrow-right-large"></i>
 							</span>
 						</div>

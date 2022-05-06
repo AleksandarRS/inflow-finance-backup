@@ -16,7 +16,7 @@ $see_all_case_studies_link = get_sub_field('see_all_case_studies_link');
             <div class="container-middle-wide-large">
                 <div class="row most-popular-case-studies-row">
                     <?php  if ( $section_description ) : ?>
-                        <div class="entry-content section-description col-md-12">
+                        <div class="entry-content section-description col-md-12 wow fadeInUp" data-wow-delay="0.6s" data-wow-duration="1s">
                             <?php echo $section_description; ?>
                         </div>
                     <?php endif; ?>
@@ -43,7 +43,7 @@ $see_all_case_studies_link = get_sub_field('see_all_case_studies_link');
                             $link_target = $see_all_case_studies_link['target'] ? $see_all_case_studies_link['target'] : '_self';
                         ?>
                         <div class="button-wrapper align-center col-md-12">
-                            <a class="button button-secondary" href="<?php echo esc_url( $link_url ); ?>" target="<?php echo esc_attr( $link_target ); ?>"><?php echo esc_html( $link_title ); ?></a>
+                            <a class="button button-secondary wow fadeInUp" data-wow-delay="0.4s" data-wow-duration="1s" href="<?php echo esc_url( $link_url ); ?>" target="<?php echo esc_attr( $link_target ); ?>"><?php echo esc_html( $link_title ); ?></a>
                         </div>
                     <?php endif; ?>
 

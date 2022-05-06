@@ -9,11 +9,11 @@ $add_case_study_section_link = get_field('add_case_study_section_link', 'option'
             <div class="container-middle-wide-large">
                 <div class="row most-popular-case-studies-row">
                     <?php if ( $case_study_section_title ) : ?>
-                        <header class="entry-header main-header col-md-12 align-center">
+                        <header class="entry-header main-header col-md-12 align-center wow fadeInUp" data-wow-delay="0.4s" data-wow-duration="1s">
                             <h1 class="main-title"><?php echo $case_study_section_title; ?></h1>
                         </header>
                     <?php else : ?>
-                        <header class="entry-header main-header col-md-12 align-center">
+                        <header class="entry-header main-header col-md-12 align-center wow fadeInUp" data-wow-delay="0.4s" data-wow-duration="1s">
                             <h1 class="main-title"><?php _e('Our case studies', 'inflow') ?></h1>
                         </header>
                     <?php endif; ?>

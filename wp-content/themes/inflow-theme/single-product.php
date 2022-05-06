@@ -21,6 +21,10 @@ get_header(); ?>
 			<?php get_template_part('template-parts/custom/single-product/content', 'single-product-hero-section'); ?>
 		</div>
 
+		<div class="single-product-main-hero-wrapper">
+			<?php get_template_part('template-parts/custom/single-product/content', 'single-product-bespoke-section'); ?>
+		</div>
+
 		<div class="single-product-key-features-wrapper">
 			<?php get_template_part('template-parts/custom/single-product/content', 'key-features'); ?>
 		</div>
