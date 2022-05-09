@@ -4,6 +4,11 @@
 	@include max-mq($sm) {
 		padding: 10px 15px;
 	}
+	&.main-logo-menu-wrapper {
+		@include max-mq($lt) {
+			max-width: $container-width-middle + 10;
+		}
+	}
 	.site-branding{
 		margin-right: auto;
 	}

@@ -11,8 +11,11 @@ h1 {
 	@include min-mq ($lg) {
 		letter-spacing: 4px;
 	}
-	@include max-mq ($ls) {
-		font-size: $font-size-h1 - 0.4;
+	@include max-mq ($mac_l) {
+		font-size: $font-size-h1 - 0.45;
+	}
+	@include max-mq ($lt) {
+		font-size: $font-size-h1 - 0.8;
 	}
 	@include max-mq ($lg) {
 		font-size: $font-size-h1 - 0.8;

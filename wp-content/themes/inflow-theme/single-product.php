@@ -37,7 +37,7 @@ get_header(); ?>
 			<?php get_template_part('template-parts/custom/single-product/content', 'image-text-section'); ?>
 		</div>
 
-		<div class="single-product-image-text-wrapper">
+		<div class="single-product-facility-wrapper">
 			<?php get_template_part('template-parts/custom/single-product/content', 'facility-overview-section'); ?>
 		</div>
 

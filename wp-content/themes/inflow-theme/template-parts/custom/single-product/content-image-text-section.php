@@ -1,6 +1,6 @@
 <?php 
-    $add_text_content_s = get_field('add_text_content_s_c');
-	$add_image_s = get_field('add_image_s_c');
+    $add_text_content_s = get_field('add_text_content_s');
+	$add_image_s = get_field('add_image_s');
     
 ?>
 <?php  if ( $add_image_s || $add_text_content_s ) : ?>

@@ -9,6 +9,11 @@
 }
 
 .posts-cards-items {
+    @include max-mq($lt) {
+        max-width: $container-width-middle + 40;
+        margin-left: auto;
+        margin-right: auto;
+    }
     &.archive-posts-cards-items {
         // visibility: hidden;
         @include min-mq (999px) {

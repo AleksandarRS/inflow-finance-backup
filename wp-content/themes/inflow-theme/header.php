@@ -33,7 +33,7 @@
 			</div> 
 		</div>  -->
 		
-		<div class="container-wide logo-menu-wrapper">
+		<div class="container-wide logo-menu-wrapper main-logo-menu-wrapper">
 			<div class="justify-content-between row">
 				<div class="site-branding-main-logo site-branding convert-svg">
 					<div class="site-title">
