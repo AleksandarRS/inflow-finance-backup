@@ -6,13 +6,13 @@
 }
 .hero-section-single-product {
     padding-bottom: 110px;
-    @include max-mq ($md) {
+    @include max-mq ($lt) {
         padding-bottom: 80px;
     }
     &.second-hero-activated {
         // padding-bottom: 70px;
         padding-top: 70px;
-        @include max-mq ($md) {
+        @include max-mq ($lt) {
             padding-top: 50px;
         }
         @include max-mq ($mb_p) {
@@ -162,6 +162,10 @@
     .key-features-row {
         padding-bottom: 120px;
         padding-top: 41px;
+        @include max-mq ($lt) {
+            padding-bottom: 100px;
+            padding-top: 32px;
+        }
     }
     .key-features-wrapper {
         background-color: $tertiary-color;
@@ -186,6 +190,9 @@
         p, li, span, strong, b {
             font-size: $font-size-large;
             line-height: 1.6;
+            @include max-mq ($lt) {
+                font-size: $font-size-large - 0.15;
+            }
             @include max-mq ($md) {
                 font-size: $font-size-large - 0.25;
             }
@@ -242,6 +249,9 @@
             font-size: $font-size-large - 0.2;
             padding: 24px 0 23px 70px;
             position: relative;
+            @include max-mq ($lt) {
+                font-size: $font-size-large - 0.25;
+            }
             @include min-max-mq ($sm, $md) {
                 font-size: $font-size-large - 0.4;
             }
@@ -283,8 +293,11 @@
 
 .text-image-single-product {
     padding: 118px 0 65px;
+    @include max-mq ($lt) {
+        padding: 98px 0 55px;
+    }
     @include max-mq ($sm) {
-        padding: 90px 0 65px;
+        padding: 90px 0 55px;
     }
     @include max-mq ($ip) {
         padding: 65px 0 35px;
@@ -292,8 +305,11 @@
 }
 .image-text-single-product {
     padding: 65px 0 118px;
+    @include max-mq ($lt) {
+        padding: 55px 0 98px;
+    }
     @include max-mq ($sm) {
-        padding: 65px 0 90px;
+        padding: 55px 0 90px;
     }
     @include max-mq ($ip) {
         padding: 35px 0 65px;
@@ -374,10 +390,17 @@
     background-color: $gray-100;
     padding-bottom: 126px;
     padding-top: 40px;
+    @include max-mq ($lt) {
+        padding-bottom: 100px;
+        padding-top: 40px;
+    }
     .section-description {
         max-width: 100%;
         margin-left: 0;
         margin-right: 0;
+        @include max-mq ($lt) {
+            margin-top: 0.3em;
+        }
         > h1 {
             letter-spacing: 1.1px;
         }
@@ -399,9 +422,7 @@
             flex-wrap: wrap;
         }
     }
-    .facility-overview-tables-inner {
-        font-size: 20px;
-    }
+    
     .facility-overview-table {
         background-color: $white;
         border-radius: 30px;
@@ -413,6 +434,97 @@
             }
             @include max-mq ($ip - 10) {
                 font-size: $font-size-large - 0.5;
+            }
+        }
+    }
+    .facility-overview-tables-inner {
+        font-size: 20px;
+        &.third-facility-added {
+            flex-wrap: wrap;
+            .facility-overview-first-table-wrap {
+                flex: 0 0 39%;
+                max-width: 39%;
+                @include max-mq ($lt) {
+                    flex: 0 0 41%;
+                    max-width: 41%;
+                }
+                @include max-mq ($lg) {
+                    flex: 0 0 43.5%;
+                    max-width: 43.5%;
+                }
+                @include max-mq ($md) {
+                    flex: 0 0 100%;
+                    max-width: 100%;
+                    margin-bottom: 35px;
+                }
+                .facility-overview-table {
+                    padding: 46px 32px;
+                    @include max-mq ($mb_p) {
+                        padding: 15px 25px;
+                    }
+                    @include max-mq ($xs) {
+                        padding: 15px 20px;
+                    }
+                }
+                .facility-overview-table-item {
+                    &:first-of-type {
+                        font-size: $font-size-large - 0.15;
+                        @include max-mq ($ip) {
+                            font-size: $font-size-large - 0.35;
+                        }
+                        @include max-mq ($xs) {
+                            font-size: $font-size-large - 0.45;
+                        }
+                    }
+                }
+                .facility-overview-table-cell {
+                    flex: 0 0 35%;
+                    max-width: 35%;
+                    @include max-mq ($lt) {
+                        flex: 0 0 37%;
+                        max-width: 37%;
+                    }
+                    @include max-mq ($ip) {
+                        flex: 0 0 38%;
+                        max-width: 38%;
+                    }
+                    @include max-mq ($xs) {
+                        flex: 0 0 39%;
+                        max-width: 39%;
+                    }
+                    &:first-of-type {
+                        flex: 0 0 30%;
+                        max-width: 30%;
+                        @include max-mq ($lt) {
+                            flex: 0 0 26%;
+                            max-width: 26%;
+                        }
+                        @include max-mq ($ip) {
+                            flex: 0 0 24%;
+                            max-width: 24%;
+                        }
+                        @include max-mq ($xs) {
+                            flex: 0 0 22%;
+                            max-width: 22%;
+                        }
+                    }
+                }
+            }
+            .facility-overview-second-table-wrap {
+                flex: 0 0 52%;
+                max-width: 52%;
+                @include max-mq ($lt) {
+                    flex: 0 0 53%;
+                    max-width: 53%;
+                }
+                @include max-mq ($lg) {
+                    flex: 0 0 54.5%;
+                    max-width: 54.5%;
+                }
+                @include max-mq ($md) {
+                    flex: 0 0 100%;
+                    max-width: 100%;
+                }
             }
         }
     }
@@ -540,6 +652,9 @@
     &.latest-case-studies-section {
         padding-top: 62px;
         padding-bottom: 10px;
+        @include max-mq ($lt) {
+            padding-top: 45px;
+        }
         .main-title {
             letter-spacing: 0.4px;
             margin-bottom: 0.5em;
@@ -566,6 +681,9 @@
         position: absolute;
         bottom: -70px;
         top: auto;
+        @include max-mq ($mac) {
+            bottom: -80px;
+        }
         @include max-mq ($mb + 100) {
             bottom: -90px;
         }
@@ -573,6 +691,9 @@
 }
 .main-hero-section-single-product-hybrid {
     margin-bottom: 70px;
+    @include max-mq ($mac) {
+        margin-bottom: 80px;
+    }
     // @include max-mq ($mb + 100) {
     //     margin-bottom: 90px;
     // }

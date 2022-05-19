@@ -80,6 +80,16 @@
 			> ul {
 				> li {
 					text-align: center;
+					&:last-of-type {
+						@include max-mq ($responsive-toggle-breakpoint) {
+							border-bottom: none;
+						}
+						a {
+							@include max-mq ($responsive-toggle-breakpoint) {
+								margin-top: 15px;
+							}
+						}
+					}
 				}
 			}
 			ul {
@@ -143,6 +153,14 @@
 								background-color: $secondary-color;
 								border-color: $secondary-color;
 								color: $white;
+								&:after,
+								&:before {
+									content: none;
+									display: none;
+								}
+								@include max-mq ($responsive-toggle-breakpoint) {
+									padding: 14px 28px;
+								}
 							}
 						}
 					}

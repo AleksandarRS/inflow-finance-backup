@@ -4,6 +4,9 @@
     @include min-mq (999px) {
         visibility: hidden;
     }
+    @include max-mq ($lt) {
+        padding-top: 173px;
+    }
     @include max-mq ($ls) {
         padding-top: 153px;
     }
@@ -25,6 +28,9 @@
         p, li, span, strong, b {
             font-size: $font-size-large;
             line-height: 1.6;
+            @include max-mq ($lt) {
+                font-size: $font-size-large - 0.15;
+            }
             @include max-mq ($md) {
                 font-size: $font-size-large - 0.25;
             }
@@ -46,6 +52,9 @@
     p, li, span, strong, b {
         font-size: $font-size-large;
         line-height: 1.6;
+        @include max-mq ($lt) {
+            font-size: $font-size-large - 0.15;
+        }
         @include max-mq ($md) {
             font-size: $font-size-large - 0.25;
         }

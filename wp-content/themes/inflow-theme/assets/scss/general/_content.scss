@@ -142,8 +142,21 @@
     }
 }
 
+.mobile-hidden {
+    @include max-mq ($sm) {
+        display: none;
+    }
+}
+
 .site-main {
     > section {
         overflow: hidden;
+    }
+}
+
+div.cli-tab-footer .wt-cli-privacy-accept-btn {
+    background-color: $secondary-color;
+    &:hover {
+        background-color: $primary-color;
     }
 }

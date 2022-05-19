@@ -1,8 +1,12 @@
 .most-popular-case-studies-section {
     padding-bottom: 60px;
     padding-top: 94px;
-    @include max-mq ($lg) {
+    @include max-mq ($lt) {
         padding-bottom: 50px;
+        padding-top: 65px;
+    }
+    @include max-mq ($lg) {
+        // padding-bottom: 50px;
         padding-top: 60px;
     }
     @include max-mq ($mb) {
@@ -20,6 +24,9 @@
         p, li, span, strong, b {
             font-size: $font-size-large;
             line-height: 1.4;
+            @include max-mq ($lt) {
+                font-size: $font-size-large - 0.15;
+            }
             @include max-mq ($md) {
                 font-size: $font-size-large - 0.25;
             }
@@ -112,6 +119,9 @@
         display: block;
         height: 364px;
         overflow: hidden;
+        @include max-mq($lt) {
+            height: 284px;
+        }
         @include max-mq ($lg) {
             height: 234px;
         }

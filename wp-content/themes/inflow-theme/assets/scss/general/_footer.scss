@@ -211,7 +211,8 @@
         margin-left: auto;
         margin-right: auto;
         max-width: 680px;
-        padding-bottom: 10px;
+        // padding-bottom: 40px;
+        padding-bottom: 34px;
         padding-left: 25px;
         padding-right: 25px;
         @include max-mq ($ip - 20) {
@@ -244,8 +245,11 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
+            margin-bottom: 17px;
         }
+        
     }
+    
     .newsletter-label-input-options-wrapper {
         margin-left: auto;
         margin-right: auto;
@@ -253,13 +257,45 @@
         @include min-mq ($sm) {
             padding-right: 13px;
         }
+        .hidden-field {
+            label {
+                font-size: 0;
+                &.checkbox-label {
+                    cursor: default;
+                    input + span {
+                        opacity: 0;
+                        height: 2px;
+                        width: 2px;
+                        &:after {
+                            height: 2px;
+                            width: 2px;
+                        }
+                    }
+                }
+            }
+        }
         label {
             font-family: $tertiary-font;
-            letter-spacing: 1px;
+            letter-spacing: 2.2px;
             font-weight: $font-weight-m;
+            @include min-mq ($sm) {
+                letter-spacing: 3.2px;
+            }
+            @include max-mq ($mb) {
+                letter-spacing: 1px;
+            }
             p {
                 letter-spacing: 3px;
             }
         }
     }
+}
+
+.mc4wp-response {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 800px;
+    padding-left: 15px;
+    padding-right: 15px;
+    text-align: center;
 }

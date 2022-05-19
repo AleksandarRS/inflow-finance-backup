@@ -48,7 +48,7 @@ $add_description_f = get_sub_field('add_description_f');
                                 </div>
                             <?php endif; ?>
                             <?php  if ( $add_large_icon_image ) : ?>
-                                <div class="features-item col-md-4 wow fadeIn" data-wow-delay="0.25s" data-wow-duration="1s">
+                                <div class="features-item features-item-large-section-image mobile-hidden col-md-4 wow fadeIn" data-wow-delay="0.25s" data-wow-duration="1s">
                                     <div class="features-item-inner">
                                         <div class="features-image-wrap">
                                             <img src="<?php echo esc_url($add_large_icon_image['url']); ?>" alt="<?php echo esc_attr($add_large_icon_image['alt']); ?>">

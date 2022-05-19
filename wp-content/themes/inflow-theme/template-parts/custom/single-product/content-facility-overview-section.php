@@ -21,7 +21,7 @@
                         </div>
                     </div>
                     <div class="facility-overview-tables-wrapper col-md-12">
-                        <div class="facility-overview-tables-inner">
+                        <div class="facility-overview-tables-inner<?php if( have_rows('first_box_details_list') ): ?><?php while ( have_rows('first_box_details_list') ) : the_row(); ?><?php  if ( get_sub_field('details_item_third_column') ) : ?> third-facility-added<?php endif; ?><?php endwhile; ?><?php endif; ?>">
 
                             <?php if( have_rows('first_box_details_list') ): ?>
                                 <div class="facility-overview-table-wrap facility-overview-first-table-wrap">
@@ -30,6 +30,9 @@
                                             <div class="facility-overview-table-item">
                                                 <div class="facility-overview-table-cell wow fadeInLeft" data-wow-delay="0.4s" data-wow-duration="1s"><?php the_sub_field('details_item_first_column'); ?></div>
                                                 <div class="facility-overview-table-cell wow fadeInRight" data-wow-delay="0.4s" data-wow-duration="1s"><?php the_sub_field('details_item_second_column'); ?></div>
+                                                <?php  if ( get_sub_field('details_item_third_column') ) : ?>
+                                                    <div class="facility-overview-table-cell wow fadeInRight" data-wow-delay="0.4s" data-wow-duration="1s"><?php the_sub_field('details_item_third_column'); ?></div>
+                                                <?php endif; ?>
                                             </div>
                                         <?php endwhile; ?>
                                     </div>

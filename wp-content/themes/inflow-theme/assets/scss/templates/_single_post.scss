@@ -92,13 +92,17 @@
 }
 
 .single-post-categories {
-    padding-top: 145px;
+    padding-top: 195px;
     @include min-mq (999px) {
         visibility: hidden;
     }
-    @include min-mq ($lg) {
+    @include min-mq ($lt + 10) {
         padding-top: 215px;
     }
+    @include max-mq ($lg) {
+        padding-top: 145px;
+    }
+    
     .term-name {
         margin-right: 14px;
         padding-right: 18px;
@@ -146,6 +150,15 @@
 }
 
 .related-posts-section {
+    .main-header {
+        @include max-mq($lt) {
+            max-width: $container-width-middle + 40;
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+    }
     .entry-header {
         display: flex;
         align-items: center;
@@ -159,6 +172,9 @@
         font-size: $font-size-h3 + 0.5;
         font-weight: $font-weight-m;
         margin: 1em 0 0.8em;
+        @include max-mq ($lt) {
+            font-size: $font-size-h3 + 0.35;
+        }
         @include max-mq ($sm - 50) {
             flex: 0 0 100%;
             max-width: 100%;

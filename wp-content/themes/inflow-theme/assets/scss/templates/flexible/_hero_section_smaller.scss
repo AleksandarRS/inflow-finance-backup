@@ -7,7 +7,6 @@
             background-color: $tertiary-color;
         }
         .hero-smaller-text-description-content {
-            // min-height: 300px;
             align-items: center;
             display: flex;
             justify-content: center;
@@ -16,9 +15,9 @@
             padding-bottom: 65px;
             padding-top: 65px;
             width: 100%;
-            @include max-mq ($lg) {
-                padding-bottom: 40px;
-                padding-top: 40px;
+            @include max-mq ($lt) {
+                padding-bottom: 35px;
+                padding-top: 35px;
             }
             @include max-mq ($sm) {
                 padding-bottom: 25px;
@@ -26,6 +25,9 @@
             }
             .button-wrapper {
                 padding-bottom: 30px;
+                @include max-mq ($lt) {
+                    padding-bottom: 15px;
+                }
             }
             &.archive-hero {
                 height: 60.4vh;
@@ -33,9 +35,14 @@
                 min-height: 350px;
                 padding-bottom: 25px;
                 padding-top: 15px;
-                @include max-mq ($ls) {
-                    height: 54vh;
+                @include max-mq ($lt) {
+                    height: 50vh;
+                    padding-top: 30px;
+                    padding-top: 30px;
                 }
+                // @include max-mq ($ls) {
+                //     height: 54vh;
+                // }
                 @include max-mq ($md) {
                     height: auto;
                     max-height: 430px;
@@ -60,7 +67,10 @@
         .main-hero-title {
             margin-bottom: 0.45em;
             margin-top: 0.45em;
-            letter-spacing: -0.2px;     
+            letter-spacing: -0.2px;
+            @include max-mq ($lt) {
+                margin-top: 0.15em;
+            }
         }
     }
 }

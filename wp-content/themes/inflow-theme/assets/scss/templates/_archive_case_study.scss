@@ -1,7 +1,10 @@
 .hero-section.hero-posts {
     padding-top: 135px;
-    @include min-mq ($lg) {
+    @include min-mq ($lt + 10) {
         padding-top: 161px;
+    }
+    @include max-mq ($lg) {
+        padding-top: 135px;
     }
 }
 .archive-case-studies-hero-section-wrapper {

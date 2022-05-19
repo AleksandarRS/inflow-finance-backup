@@ -14,6 +14,11 @@
 		padding: 15px 51px;
     	letter-spacing: 1px;
 	}
+	@include max-mq ($lt) {
+		font-size: $button-font-size - 0.1;
+		padding-left: 35px;
+		padding-right: 35px;
+	}
 	@include max-mq ($lg) {
 		padding-left: 25px;
 		padding-right: 25px;

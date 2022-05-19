@@ -1,9 +1,13 @@
 .contact-details-section {
     padding-bottom: 110px;
     padding-top: 150px;
+    @include max-mq ($lt) {
+        padding-top: 135px;
+        padding-bottom: 105px;
+    }
     @include max-mq ($lg) {
         padding-bottom: 75px;
-        padding-top: 135px;
+        // padding-top: 135px;
     }
     @include max-mq ($md) {
         padding-top: 50px;
@@ -24,7 +28,7 @@
         max-width: $container-width-middle + 9;
         margin-left: auto;
         margin-right: auto;
-        @include min-mq ($lg) {
+        @include min-mq ($lt + 10) {
             padding: 70px 125px;
         }
         @include max-mq ($md) {
@@ -40,8 +44,8 @@
             font-size: $font-size-h2;
             letter-spacing: 0;
             margin-bottom: 0.9em;
-            @include max-mq ($ls) {
-                font-size: $font-size-h2 - 0.25;
+            @include max-mq ($lt) {
+                font-size: $font-size-h2 - 0.35;
             }
             @include max-mq ($lg) {
                 font-size: $font-size-h2 - 0.45;
@@ -69,6 +73,9 @@
             p, li, span, strong, b {
                 font-size: $font-size-large;
                 line-height: 1.6;
+                @include max-mq ($lt) {
+                    font-size: $font-size-large - 0.15;
+                }
                 @include max-mq ($md) {
                     font-size: $font-size-large - 0.25;
                 }

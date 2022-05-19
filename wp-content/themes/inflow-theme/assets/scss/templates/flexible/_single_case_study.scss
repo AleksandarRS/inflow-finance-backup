@@ -60,6 +60,9 @@
     @include min-mq ($mac) {
         padding-left: 80px;
     }
+    @include max-mq ($lt) {
+        padding-bottom: 15px;
+    }
     @include max-mq ($sm) {
         padding-left: 0;
         padding-bottom: 0;
@@ -70,11 +73,11 @@
         margin-bottom: 0.25em;
         margin-top: -5px;
         letter-spacing: 0;
-        @include max-mq ($ls) {
-            font-size: $font-size-h2 - 0.55;
+        @include max-mq ($lt) {
+            font-size: $font-size-h2 - 0.75;
         }
         @include max-mq ($lg) {
-            font-size: $font-size-h2 - 0.65;
+            font-size: $font-size-h2 - 0.85;
         }
         @include max-mq ($md) {
             line-height: 1.1;
@@ -102,15 +105,16 @@
             @include min-mq ($ls) {
                 letter-spacing: 1.4px;
             }
-            @include max-mq ($mb_p) {
+            @include max-mq ($lt) {
                 font-size: $font-size-base - 0.1;
             }
         }
         .post-prediction-item-number {
             font-size: $font-size-h3 + 0.5;
-            @include max-mq ($mb_p) {
+            @include max-mq ($lt) {
                 font-size: $font-size-h3 + 0.25;
             }
+            
         }
     }
     .post-prediction-item {
@@ -125,6 +129,9 @@
     }
     .hero-prediction-button-wrap {
         padding-top: 34px;
+        @include max-mq ($lt) {
+            padding-top: 25px;
+        }
         @include max-mq ($mb_p) {
             padding-top: 15px;
         }
@@ -143,6 +150,9 @@
         position: relative;
         text-decoration: none;
         vertical-align: middle;
+        @include max-mq ($lt) {
+            font-size: $button-font-size + 0.125;
+        }
         &:last-of-type {
             margin-right: 0;
             padding-right: 0;
@@ -173,6 +183,9 @@
         margin: 0;
         font-size: $button-font-size + 0.1;
         font-weight: $font-weight-m;
+        @include max-mq ($lt) {
+            font-size: $button-font-size + 0.025;
+        }
     }
 }
 

@@ -3,6 +3,10 @@
     padding-bottom: 90px;
     padding-top: 90px;
     // visibility: hidden;
+    @include max-mq ($lt) {
+        padding-bottom: 70px;
+        padding-top: 70px;
+    }
     @include min-mq (999px) {
         visibility: hidden;
     }

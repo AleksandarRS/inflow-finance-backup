@@ -1,5 +1,5 @@
-
-.hfeed.site {
+.hfeed.site,
+.frm_style_formidable-style.with_frm_style .form-field {
   input[type='text'],
   input[type='email'],
   input[type='url'],
@@ -21,11 +21,16 @@
     border-radius: 30px;
     font-size: $font-size-base;
     line-height: 1em;
-    padding: 10px 15px;
+    padding: 10px 20px;
     vertical-align: middle;
     height: auto;
+    &:focus {
+      box-shadow: none;
+      border-color: $primary-color;
+    }
   }
   textarea {
+    padding-top: 20px;
     height: 272px;
   }
 }

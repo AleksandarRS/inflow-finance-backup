@@ -4,10 +4,10 @@
     @include min-mq (999px) {
         visibility: hidden;
     }
-    @include max-mq ($ls) {
-        padding-top: 90px;
+    @include max-mq ($lt) {
+        padding-top: 85px;
     }
-    @include max-mq ($md) {
+    @include max-mq ($ls) {
         padding-top: 80px;
     }
     @include max-mq ($mb_p) {
@@ -24,11 +24,11 @@
         letter-spacing: -0.8px;
         margin-bottom: 0.75em;
         margin-top: 0.2em;
-        @include max-mq ($ls) {
-            font-size: $font-size-h2 - 0.55;
+        @include max-mq ($lt) {
+            font-size: $font-size-h2 - 0.65;
         }
         @include max-mq ($lg) {
-            font-size: $font-size-h2 - 0.65;
+            font-size: $font-size-h2 - 0.7;
         }
         @include max-mq ($mb_p) {
             font-size: $font-size-h2 - 0.75;

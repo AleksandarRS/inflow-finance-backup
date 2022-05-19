@@ -11,6 +11,10 @@
     padding-bottom: 91px;
     padding-top: 91px;
     position: relative;
+    @include max-mq ($lt) {
+        padding-bottom: 75px;
+        padding-top: 75px;
+    }
     @include max-mq ($lg) {
         padding-bottom: 65px;
         padding-top: 65px;
@@ -26,6 +30,9 @@
     .most-popular-products-section-wrapper-inner {
         > div {
             max-width: $container-width-middle + 40;
+            @include max-mq ($lt) {
+                max-width: 100%;
+            }
         }
         .button-wrapper {
             padding-bottom: 24px;
@@ -42,6 +49,9 @@
         p, li, span, strong, b {
             font-size: $font-size-large;
             line-height: 1.6;
+            @include max-mq ($lt) {
+                font-size: $font-size-large - 0.15;
+            }
             @include max-mq ($md) {
                 font-size: $font-size-large - 0.25;
             }
@@ -99,7 +109,7 @@
         background-color: $white;
         color: $primary-color-100;
         border-radius: 20px;
-        box-shadow: 0px 15px 30px rgba($color: $black, $alpha: 0.1);
+        box-shadow: 0px 5px 35px rgba($color: $black, $alpha: 0.1);
         display: block;
         height: 100%;
         padding: 36px 20px 174px;
@@ -107,7 +117,7 @@
         text-decoration: none;
         @include transition-all;
         &:hover {
-            box-shadow: 0px 15px 30px rgba($color: $black, $alpha: 0.25);
+            box-shadow: 0px 5px 35px rgba($color: $black, $alpha: 0.25);
             .link {
                 color: $primary-color;
             }

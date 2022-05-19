@@ -37,13 +37,21 @@
 .frm_checkbox {
 	// color: $black;
 	display: block;
-	font-size: $font-size-small;
+	font-size: $font-size-base;
+	font-weight: $font-weight-m;
 	letter-spacing: 0;
 	line-height: 1.2em;
 	margin-bottom: 7px;
 	margin-top: 7px;
-	padding-left: 25px;
+	padding-left: 41px;
 	position: relative;
+	@include max-mq ($mb) {
+		font-size: $font-size-base - 0.1;
+		padding-left: 35px;
+	}
+	&:hover {
+		cursor: pointer;
+	}
 	label {
 		display: block;
 	}
@@ -53,16 +61,17 @@
 		visibility: hidden;
 		+ span {
 			align-items: center;
-			border: 1px solid $white;
+			border: 2px solid $white;
+			border-radius: 3px;
 			display: inline-block;
-			height: 15px;
+			height: 20px;
 			justify-content: center;
-			left: 0;
+			left: 4px;
 			line-height: 1.3em;
 			position: absolute;
 			text-align: center;
 			top: 3px;
-			width: 15px;
+			width: 20px;
 			&:after {
 				content: "";
 				font-family: "font-icons";
@@ -72,13 +81,18 @@
 				text-decoration: none;
 				text-transform: none;
 				color: $secondary-color;
-				font-size: $font-size-base;
+				font-size: $font-size-base - 0.3;
 				display: inline-block;
 				vertical-align: middle;
 				line-height: 1;
 				position: relative;
-				top: -7px;
-				left: 1px;
+				top: -6px;
+				left: 2px;
+				@include max-mq ($mb) {
+					font-size: $font-size-base - 0.2;
+					top: -5px;
+					left: 1px;
+				}
 			}
 		}
 		&:checked {
