@@ -1,6 +1,6 @@
 .not-found-content-area {
     padding-top: 135px;
-    @include min-mq (999px) {
+    @include min-mq ($wow_hiddne) {
         visibility: hidden;
     }
     @include min-mq ($lg) {

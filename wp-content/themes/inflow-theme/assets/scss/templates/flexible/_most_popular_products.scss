@@ -1,7 +1,7 @@
 .site-main .most-popular-products-section {
     // visibility: hidden;
     overflow: visible;
-    @include min-mq (999px) {
+    @include min-mq ($wow_hiddne) {
         visibility: hidden;
     }
 
@@ -11,13 +11,17 @@
     padding-bottom: 91px;
     padding-top: 91px;
     position: relative;
-    @include max-mq ($lt) {
+    @include max-mq ($mac + 50) {
         padding-bottom: 75px;
         padding-top: 75px;
     }
     @include max-mq ($lg) {
         padding-bottom: 65px;
         padding-top: 65px;
+    }
+    @include max-mq ($ipad) {
+        padding-bottom: 50px;
+        padding-top: 50px;
     }
     @include max-mq ($mb_p) {
         padding-bottom: 45px;
@@ -30,9 +34,15 @@
     .most-popular-products-section-wrapper-inner {
         > div {
             max-width: $container-width-middle + 40;
-            @include max-mq ($lt) {
-                max-width: 100%;
+            @include max-mq ($mac + 50) {
+                max-width: $container-width-middle - 20;
             }
+            @include max-mq ($lt) {
+                max-width: $container-width-middle - 80;
+            }
+            // @include max-mq ($lt) {
+            //     max-width: 100%;
+            // }
         }
         .button-wrapper {
             padding-bottom: 24px;
@@ -49,7 +59,7 @@
         p, li, span, strong, b {
             font-size: $font-size-large;
             line-height: 1.6;
-            @include max-mq ($lt) {
+            @include max-mq ($mac + 10) {
                 font-size: $font-size-large - 0.15;
             }
             @include max-mq ($md) {
@@ -92,6 +102,7 @@
         @include max-mq ($md) {
             flex: 0 0 50%;
             max-width: 50%;
+            padding-bottom: 30px;
         }
         @include max-mq ($sm) {
             flex: 0 0 100%;
@@ -100,8 +111,12 @@
         .post-product-excerpt {
             font-size: $font-size-base;
             line-height: 1.7;
+            margin-top: 0.5em;
             p, li, span, strong, b {
                 font-size: $font-size-base - 0.1;
+                @include max-mq ($mac + 50) {
+                    line-height: 1.4;
+                }
             }
         }
     }
@@ -112,10 +127,13 @@
         box-shadow: 0px 5px 35px rgba($color: $black, $alpha: 0.1);
         display: block;
         height: 100%;
-        padding: 36px 20px 174px;
+        padding: 36px 20px 90px;
         position: relative;
         text-decoration: none;
         @include transition-all;
+        @include max-mq ($mac + 50) {
+            padding: 22px 17px 90px;
+        }
         &:hover {
             box-shadow: 0px 5px 35px rgba($color: $black, $alpha: 0.25);
             .link {
@@ -126,29 +144,38 @@
     .post-featured-img-wrap {
         align-items: center;
         display: flex;
-        height: 119px;
+        // height: 119px;
+        height: 91px;
         justify-content: center;
-        margin-bottom: 35px;
+        margin-bottom: 10px;
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 87px;
+        overflow: hidden;
         padding-bottom: 0;
         text-align: center;
-        overflow: hidden;
     }
     .entry-header {
         align-items: center;
         display: flex;
         justify-content: center;
-        margin-bottom: 25px;
-        min-height: 72px;
+        margin-bottom: 14px;
+        // min-height: 72px;
         width: 100%;
         @include max-mq ($mb_p) {
-            margin-bottom: 15px;
+            // margin-bottom: 15px;
             min-height: 0;
         }
     }
     .post-heading-excerpt-wraper {
         text-align: center;
+        .post-title {
+            max-width: 350px;
+            margin-left: auto;
+            margin-right: auto;
+        }
         .entry-title {
-            font-size: $font-size-h3;
+            font-size: $font-size-h3 - 0.15;
             font-weight: $font-weight-sb;
             line-height: 1.2;
             margin-bottom: 0;
@@ -156,10 +183,14 @@
             @include max-mq ($lg) {
                 font-size: $font-size-h3 - 0.125;
             }
+            @include max-mq ($ip) {
+                font-size: $font-size-h3 - 0.2;
+            }
         }
     }
     .post-prediction-items-button-wrapper {
-        bottom: 31px;
+        // bottom: 31px;
+        bottom: 19px;
         left: 0;
         margin-left: auto;
         margin-right: auto;
@@ -169,8 +200,14 @@
         position: absolute;
         right: 0;
         width: 100%;
+        @include max-mq ($ipad) {
+            bottom: 30px;
+        }
         @include max-mq ($mb_p) {
             max-width: 424px;
+        }
+        .post-type-archive & {
+            bottom: 31px;
         }
     }
     .post-prediction-items {
@@ -201,7 +238,7 @@
         
     }
     .post-prediction-item-number {
-        font-size: $font-size-h3;
+        font-size: $font-size-h3 - 0.0125;
         font-weight: $font-weight-sb;
     }
     .post-product-read-more {
@@ -219,9 +256,12 @@
     position: relative;
     z-index: 2;
     a {
-        color: $primary-color;
-        &:hover {
-            color: $secondary-color;
-        }
+        text-decoration: none;
     }
+    // a {
+    //     color: $primary-color;
+    //     &:hover {
+    //         color: $secondary-color;
+    //     }
+    // }
 }

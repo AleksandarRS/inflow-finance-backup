@@ -114,6 +114,71 @@ let _this = module.exports = {
 			_this.$dom.anchorLink.click(function() {
 				$(this).addClass('active-anchor-link').siblings().removeClass('active-anchor-link');
 			});
+
+			//Detect element .contact-global-details to window and animation items
+			var $animationElements = $('.first-part-of-product');
+			var $window = $(window);
+			$window.on('scroll resize load', checkIfInView);
+			function checkIfInView() {
+				var windowHeight = $window.height();
+				var windowTopPosition = $window.scrollTop() - 150;
+				var windowBottomPosition = (windowTopPosition + windowHeight);
+
+				$.each($animationElements, function() {
+					//var $element = $(this);
+					var $element = $(this);
+					var $firstAnchorItem = $('.anchor-product-item-first');
+					var $secondAnchorItem = $('.anchor-product-item-second');
+					// var $activatedAnchorItem = $('.active-anchor-link');
+					var elementHeight = $element.outerHeight();
+					var elementTopPosition = $element.offset().top;
+					var elementBottomPosition = (elementTopPosition + elementHeight);
+
+					//check to see if this current container is within viewport
+					if ((elementBottomPosition >= windowTopPosition) &&
+						(elementTopPosition <= windowBottomPosition)) {
+						$element.addClass('in-view');
+						$firstAnchorItem.addClass('item-in-view');
+						$secondAnchorItem.removeClass('item-in-view');
+						$secondAnchorItem.removeClass('active-anchor-link');
+					} else {
+						$element.removeClass('in-view');
+						// $firstAnchorItem.removeClass('item-in-view');
+					}
+				});
+			}
+			//Detect element .contact-global-details to window and animation items
+			var $animationElementsSecond = $('.second-part-of-product');
+			var $window = $(window);
+			$window.on('scroll resize load', checkIfInViewSecond);
+			function checkIfInViewSecond() {
+				var windowHeightSecond = $window.height();
+				var windowTopPositionSecond = $window.scrollTop() - 550;
+				var windowBottomPositionSecond = (windowTopPositionSecond + windowHeightSecond);
+
+				$.each($animationElementsSecond, function() {
+					//var $element = $(this);
+					var $elementSecond = $(this);
+					var $firstAnchorItem = $('.anchor-product-item-first');
+					var $secondAnchorItem = $('.anchor-product-item-second');
+					// var $activatedAnchorItem = $('.active-anchor-link');
+					var elementHeightSecond = $elementSecond.outerHeight();
+					var elementTopPositionSecond = $elementSecond.offset().top;
+					var elementBottomPositionSecond = (elementTopPositionSecond + elementHeightSecond);
+
+					//check to see if this current container is within viewport
+					if ((elementBottomPositionSecond >= windowTopPositionSecond) &&
+						(elementTopPositionSecond <= windowBottomPositionSecond)) {
+						$elementSecond.addClass('in-view');
+						$secondAnchorItem.addClass('item-in-view');
+						$firstAnchorItem.removeClass('item-in-view');
+						$firstAnchorItem.removeClass('active-anchor-link');
+					} else {
+						$elementSecond.removeClass('in-view');
+						// $secondAnchorItem.removeClass('item-in-view');
+					}
+				});
+			}
 		}
 		// _this.$dom.scrollToTop.click(function(event) {
 		// 	event.preventDefault();

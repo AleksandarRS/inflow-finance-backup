@@ -3,20 +3,27 @@
 --------------------------------------------------------------*/
 
 h1 {
-	font-size: $font-size-h1;
-	font-weight: $font-weight-b;
+	// font-size: $font-size-h1;
+	font-size: clamp(40px,4.5vw,90px);
+	font-weight: $font-weight-m;
 	font-family: $secondary-font;
 	line-height: 1;
 	letter-spacing: 2px;
-	@include min-mq ($lg) {
-		letter-spacing: 4px;
+	@include max-mq ($fhd + 150) {
+		font-size: clamp(40px,4.5vw,70px);
 	}
 	@include max-mq ($mac_l) {
-		font-size: $font-size-h1 - 0.45;
+		font-size: clamp(40px,4.5vw,60px);
 	}
-	@include max-mq ($lt) {
-		font-size: $font-size-h1 - 0.8;
-	}
+	// @include min-mq ($lg) {
+	// 	letter-spacing: 4px;
+	// }
+	// @include max-mq ($mac_l) {
+	// 	font-size: $font-size-h1 - 0.45;
+	// }
+	// @include max-mq ($lt) {
+	// 	font-size: $font-size-h1 - 0.8;
+	// }
 	@include max-mq ($lg) {
 		font-size: $font-size-h1 - 0.8;
 	}
@@ -27,8 +34,13 @@ h1 {
 		font-size: $font-size-h1 - 1.5;
 	}
 	@include max-mq ($ip) {
-		// font-size: $font-size-h1 - 1.7;
 		font-size: $font-size-h1 - 1.5;
+	}
+	@include max-mq ($xs) {
+		font-size: $font-size-h1 - 1.7;
+	}
+	@include max-mq ($xs - 10) {
+		font-size: $font-size-h1 - 1.8;
 	}
 }
 h2 {
@@ -50,6 +62,12 @@ h2 {
 	}
 	@include max-mq ($ip) {
 		font-size: $font-size-h2 - 1.45;
+	}
+	@include max-mq ($xs) {
+		font-size: $font-size-h2 - 1.55;
+	}
+	@include max-mq ($xs - 10) {
+		font-size: $font-size-h2 - 1.6;
 	}
 }
 h3 {

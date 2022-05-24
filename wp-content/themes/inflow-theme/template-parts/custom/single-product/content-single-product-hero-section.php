@@ -24,7 +24,7 @@
 
     
 ?>
-<section id="first-product-hero" class="hero-section hero-section-single-product<?php  if ( $add_hash_for_second ) : ?> second-hero-activated<?php endif; ?> wow fadeIn" data-wow-delay="0.2s" data-wow-duration="1s">
+<section id="first-product-hero" class="first-part-of-product hero-section hero-section-single-product<?php  if ( $add_hash_for_second ) : ?> second-hero-activated<?php endif; ?> wow fadeIn" data-wow-delay="0.2s" data-wow-duration="1s">
     <div class="hero-section-wrapper relative"<?php if ( $add_hero_background_color ) : ?> style="background-color:<?php echo $add_hero_background_color; ?>"<?php endif; ?>>
         <div class="hero-section-background-image"<?php  if ( $hero_background_image ) : ?> style="background-image: url(<?php echo esc_url($hero_background_image['url']); ?>);" role="img" aria-label="<?php echo esc_attr($hero_background_image['alt']); ?>"<?php endif; ?>></div>
         <div class="container">

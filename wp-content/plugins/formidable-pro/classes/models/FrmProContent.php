@@ -730,6 +730,8 @@ class FrmProContent {
 					}
 				}
 			}
+		} elseif ( $field && 'file' === $field->type && is_numeric( $replace_with ) ) {
+			$replace_with = FrmFieldsHelper::get_display_value( $replace_with, $field, $atts );
 		} else {
 			// Compare properly with &.
 			if ( is_callable( 'FrmAppHelper::decode_specialchars' ) ) {

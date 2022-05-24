@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the Formidable Forms Pro plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Formidable Forms Pro 5.2.05\n"
+"Project-Id-Version: Formidable Forms Pro 5.2.07\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/formidable-pro\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-04-21T13:00:44+00:00\n"
+"POT-Creation-Date: 2022-05-10T17:31:13+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: formidable-pro\n"
@@ -31,34 +31,34 @@ msgstr ""
 msgid "Strategy11"
 msgstr ""
 
-#: classes/controllers/FrmProAddressesController.php:130
+#: classes/controllers/FrmProAddressesController.php:158
 #: classes/models/fields/FrmProFieldAddress.php:117
 msgid "Line 1"
 msgstr ""
 
-#: classes/controllers/FrmProAddressesController.php:131
+#: classes/controllers/FrmProAddressesController.php:159
 #: classes/models/fields/FrmProFieldAddress.php:118
 msgid "Line 2"
 msgstr ""
 
-#: classes/controllers/FrmProAddressesController.php:132
-#: classes/controllers/FrmProAddressesController.php:158
+#: classes/controllers/FrmProAddressesController.php:160
+#: classes/controllers/FrmProAddressesController.php:186
 #: classes/models/fields/FrmProFieldAddress.php:108
 #: classes/models/fields/FrmProFieldAddress.php:119
 msgid "Country"
 msgstr ""
 
-#: classes/controllers/FrmProAddressesController.php:155
+#: classes/controllers/FrmProAddressesController.php:183
 #: classes/models/fields/FrmProFieldAddress.php:105
 msgid "City"
 msgstr ""
 
-#: classes/controllers/FrmProAddressesController.php:156
+#: classes/controllers/FrmProAddressesController.php:184
 #: classes/models/fields/FrmProFieldAddress.php:106
 msgid "State/Province"
 msgstr ""
 
-#: classes/controllers/FrmProAddressesController.php:157
+#: classes/controllers/FrmProAddressesController.php:185
 #: classes/models/fields/FrmProFieldAddress.php:107
 msgid "Zip/Postal"
 msgstr ""
@@ -447,7 +447,7 @@ msgid "User Role"
 msgstr ""
 
 #: classes/controllers/FrmProFormsController.php:372
-#: classes/helpers/FrmProFieldsHelper.php:3034
+#: classes/helpers/FrmProFieldsHelper.php:3038
 #: classes/views/displays/where_row.php:24
 #: classes/views/xml/map_csv_fields.php:115
 msgid "Post ID"
@@ -497,13 +497,13 @@ msgid "Replace 'whatever' with the parameter name. To get the url of the current
 msgstr ""
 
 #: classes/controllers/FrmProFormsController.php:546
-#: classes/helpers/FrmProFormsHelper.php:529
+#: classes/helpers/FrmProFormsHelper.php:548
 #: classes/models/fields/FrmProFieldBreak.php:71
 msgid "Previous"
 msgstr ""
 
 #: classes/controllers/FrmProFormsController.php:565
-#: classes/helpers/FrmProFormsHelper.php:530
+#: classes/helpers/FrmProFormsHelper.php:549
 #: classes/views/frmpro-forms/add_form_button_options.php:31
 msgid "Save Draft"
 msgstr ""
@@ -901,7 +901,7 @@ msgstr ""
 
 #: classes/controllers/FrmProFormsController.php:1026
 #: classes/helpers/FrmProEntriesListHelper.php:121
-#: classes/helpers/FrmProFieldsHelper.php:3032
+#: classes/helpers/FrmProFieldsHelper.php:3036
 #: classes/views/displays/order_row.php:11
 #: classes/views/displays/where_row.php:18
 #: classes/views/xml/map_csv_fields.php:134
@@ -1293,7 +1293,7 @@ msgid "All Fields"
 msgstr ""
 
 #: classes/helpers/FrmProEntriesListHelper.php:120
-#: classes/helpers/FrmProFieldsHelper.php:3036
+#: classes/helpers/FrmProFieldsHelper.php:3040
 #: classes/views/displays/order_row.php:17
 #: classes/views/displays/where_row.php:12
 #: classes/views/displays/_calendar_options.php:11
@@ -1305,118 +1305,118 @@ msgstr ""
 msgid "View all posts filed under %s"
 msgstr ""
 
-#: classes/helpers/FrmProFieldsHelper.php:932
+#: classes/helpers/FrmProFieldsHelper.php:936
 msgid "The entered values do not match"
 msgstr ""
 
-#: classes/helpers/FrmProFieldsHelper.php:1499
+#: classes/helpers/FrmProFieldsHelper.php:1503
 msgid "No Categories"
 msgstr ""
 
-#: classes/helpers/FrmProFieldsHelper.php:2475
+#: classes/helpers/FrmProFieldsHelper.php:2479
 msgid "Confirm"
 msgstr ""
 
-#: classes/helpers/FrmProFieldsHelper.php:2720
+#: classes/helpers/FrmProFieldsHelper.php:2724
 msgid "Edit Uploaded File"
 msgstr ""
 
-#: classes/helpers/FrmProFieldsHelper.php:3030
+#: classes/helpers/FrmProFieldsHelper.php:3034
 msgid "Select a value to insert into the box below"
 msgstr ""
 
-#: classes/helpers/FrmProFieldsHelper.php:3033
+#: classes/helpers/FrmProFieldsHelper.php:3037
 #: classes/views/displays/order_row.php:14
 #: classes/views/xml/map_csv_fields.php:137
 #: classes/views/xml/map_csv_fields.php:138
 msgid "Entry Key"
 msgstr ""
 
-#: classes/helpers/FrmProFieldsHelper.php:3035
+#: classes/helpers/FrmProFieldsHelper.php:3039
 msgid "User IP"
 msgstr ""
 
-#: classes/helpers/FrmProFieldsHelper.php:3037
+#: classes/helpers/FrmProFieldsHelper.php:3041
 #: classes/views/displays/order_row.php:20
 #: classes/views/displays/_calendar_options.php:14
 #: classes/views/displays/_calendar_options.php:31
 msgid "Entry update date"
 msgstr ""
 
-#: classes/helpers/FrmProFieldsHelper.php:3039
+#: classes/helpers/FrmProFieldsHelper.php:3043
 msgid "Form Fields"
 msgstr ""
 
-#: classes/helpers/FrmProFieldsHelper.php:3055
-#: classes/helpers/FrmProFieldsHelper.php:3081
+#: classes/helpers/FrmProFieldsHelper.php:3059
+#: classes/helpers/FrmProFieldsHelper.php:3085
 #: classes/views/displays/mb_advanced.php:115
 #: classes/views/frmpro-entries/table.php:10
 #: classes/views/frmpro-entries/table.php:89
 msgid "ID"
 msgstr ""
 
-#: classes/helpers/FrmProFieldsHelper.php:3056
-#: classes/helpers/FrmProFieldsHelper.php:3082
+#: classes/helpers/FrmProFieldsHelper.php:3060
+#: classes/helpers/FrmProFieldsHelper.php:3086
 #: classes/views/displays/mb_advanced.php:118
 msgid "Key"
 msgstr ""
 
-#: classes/helpers/FrmProFieldsHelper.php:3059
+#: classes/helpers/FrmProFieldsHelper.php:3063
 msgid "Thumbnail"
 msgstr ""
 
-#: classes/helpers/FrmProFieldsHelper.php:3062
+#: classes/helpers/FrmProFieldsHelper.php:3066
 #: classes/models/FrmProImages.php:65
 msgid "Medium"
 msgstr ""
 
-#: classes/helpers/FrmProFieldsHelper.php:3065
+#: classes/helpers/FrmProFieldsHelper.php:3069
 #: classes/models/FrmProImages.php:66
 msgid "Large"
 msgstr ""
 
-#: classes/helpers/FrmProFieldsHelper.php:3068
+#: classes/helpers/FrmProFieldsHelper.php:3072
 msgid "Full Size"
 msgstr ""
 
-#: classes/helpers/FrmProFieldsHelper.php:3094
+#: classes/helpers/FrmProFieldsHelper.php:3098
 msgid "Helpers"
 msgstr ""
 
-#: classes/helpers/FrmProFieldsHelper.php:3095
+#: classes/helpers/FrmProFieldsHelper.php:3099
 msgid "Admin link to edit the entry"
 msgstr ""
 
-#: classes/helpers/FrmProFieldsHelper.php:3098
+#: classes/helpers/FrmProFieldsHelper.php:3102
 msgid "Link to view single page if showing dynamic entries"
 msgstr ""
 
-#: classes/helpers/FrmProFieldsHelper.php:3106
+#: classes/helpers/FrmProFieldsHelper.php:3110
 msgid "Add a rotating 'even' or 'odd' class"
 msgstr ""
 
-#: classes/helpers/FrmProFieldsHelper.php:3110
+#: classes/helpers/FrmProFieldsHelper.php:3114
 msgid "Default Email Message"
 msgstr ""
 
-#: classes/helpers/FrmProFieldsHelper.php:3113
+#: classes/helpers/FrmProFieldsHelper.php:3117
 msgid "Site URL"
 msgstr ""
 
-#: classes/helpers/FrmProFieldsHelper.php:3114
+#: classes/helpers/FrmProFieldsHelper.php:3118
 msgid "Site Name"
 msgstr ""
 
-#: classes/helpers/FrmProFormsHelper.php:519
-#: classes/helpers/FrmProFormsHelper.php:887
+#: classes/helpers/FrmProFormsHelper.php:538
+#: classes/helpers/FrmProFormsHelper.php:906
 msgid "Your draft has been saved."
 msgstr ""
 
-#: classes/helpers/FrmProFormsHelper.php:541
+#: classes/helpers/FrmProFormsHelper.php:560
 msgid "This form is currently closed for submissions."
 msgstr ""
 
-#: classes/models/fields/FrmProFieldAddress.php:363
+#: classes/models/fields/FrmProFieldAddress.php:366
 msgid "This value is invalid"
 msgstr ""
 

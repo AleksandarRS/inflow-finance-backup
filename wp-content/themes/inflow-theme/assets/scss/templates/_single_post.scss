@@ -6,7 +6,7 @@
             margin-top: 0.35em;
             margin-bottom: 0.35em;
             line-height: 1.4;
-            @include min-mq (999px) {
+            @include min-mq ($wow_hiddne) {
                 visibility: hidden;
             }
             @include max-mq ($ls) {
@@ -43,7 +43,7 @@
         border-radius: 20px;
         display: block;
         height: 500px;
-        @include min-mq (999px) {
+        @include min-mq ($wow_hiddne) {
             visibility: hidden;
         }
         @include max-mq ($md) {
@@ -59,7 +59,7 @@
         line-height: 1.35;
     }
     .blog-page-post-date {
-        @include min-mq (999px) {
+        @include min-mq ($wow_hiddne) {
             visibility: hidden;
         }
         .post-date-value {
@@ -93,7 +93,7 @@
 
 .single-post-categories {
     padding-top: 195px;
-    @include min-mq (999px) {
+    @include min-mq ($wow_hiddne) {
         visibility: hidden;
     }
     @include min-mq ($lt + 10) {

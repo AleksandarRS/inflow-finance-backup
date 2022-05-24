@@ -102,11 +102,11 @@
 							<?php endif; ?>
 						</div>
 					</div>
-					<div class="post-product-read-more read-more-link-wrap link-wrap">
+					<!-- <div class="post-product-read-more read-more-link-wrap link-wrap">
 						<span class="link link-arrow link-secondary">
-							<?php _e('View product','inflow'); ?> <i class="icon icon-arrow-right-large"></i>
+							<?php // _e('View product','inflow'); ?> <i class="icon icon-arrow-right-large"></i>
 						</span>
-					</div>
+					</div> -->
 				</div>
 			</div> <!-- /.post-heading-excerpt-button-wraper -->
 		</a>
@@ -186,11 +186,11 @@
 							<?php endif; ?>
 						</div>
 					</div>
-					<div class="post-product-read-more read-more-link-wrap link-wrap">
+					<!-- <div class="post-product-read-more read-more-link-wrap link-wrap">
 						<span class="link link-arrow link-secondary">
-							<?php _e('View product','inflow'); ?> <i class="icon icon-arrow-right-large"></i>
+							<?php // _e('View product','inflow'); ?> <i class="icon icon-arrow-right-large"></i>
 						</span>
-					</div>
+					</div> -->
 				</div>
 			</div> <!-- /.post-heading-excerpt-button-wraper -->
 		</a>
@@ -265,11 +265,11 @@
 							<?php endif; ?>
 						</div>
 					</div>
-					<div class="post-product-read-more read-more-link-wrap link-wrap">
+					<!-- <div class="post-product-read-more read-more-link-wrap link-wrap">
 						<span class="link link-arrow link-secondary">
-							<?php _e('View product','inflow'); ?> <i class="icon icon-arrow-right-large"></i>
+							<?php // _e('View product','inflow'); ?> <i class="icon icon-arrow-right-large"></i>
 						</span>
-					</div>
+					</div> -->
 				</div>
 			</div> <!-- /.post-heading-excerpt-button-wraper -->
 		</a>

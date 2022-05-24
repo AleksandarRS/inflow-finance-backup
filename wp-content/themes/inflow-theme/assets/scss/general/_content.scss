@@ -22,14 +22,35 @@
     @extend %left-calc-wide;
 }
 
+.container {
+    max-width: $container-width;
+    @include max-mq ($mac) {
+        max-width: $container-width - 70;
+    }
+}
 
 
 .container-wide {
     max-width: $container-width-wide;
+    @include min-mq ($fhd + 150) {
+        max-width: $container-width-wide + 350;
+    }
+    @include max-mq ($mac + 50) {
+        max-width: $container-width-wide - 390;
+    }
+    @include max-mq ($lt) {
+        max-width: $container-width-wide - 470;
+    }
 }
 
 .container-middle-wide {
     max-width: $container-width-middle;
+    @include max-mq ($mac + 50) {
+        max-width: $container-width-middle - 20;
+    }
+    @include max-mq ($lt) {
+        max-width: $container-width-middle - 50;
+    }
 }
 
 .container-narrow-wide {
@@ -38,6 +59,12 @@
 
 .container-middle-wide-large {
     max-width: $container-width-middle-large;
+    @include max-mq ($mac_l) {
+        max-width: $container-width-middle-large - 220;
+    }
+    @include max-mq ($lt) {
+        max-width: $container-width-middle-large - 280;
+    }
 }
 
 .container-middle-wide-large,
@@ -76,7 +103,7 @@
 .content-area {
     width: 100%;
     .text-content-section {
-        @include min-mq (999px) {
+        @include min-mq ($wow_hiddne) {
             visibility: hidden;
         }
         ul {
@@ -134,7 +161,7 @@
                 right: auto;
                 width: 25px;
                 @include max-mq ($ip) {
-                    top: 9px;
+                    top: 10px;
                     font-size: $font-size-base - 0.18;
                 }
             }

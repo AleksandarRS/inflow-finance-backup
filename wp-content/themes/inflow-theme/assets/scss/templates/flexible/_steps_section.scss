@@ -1,10 +1,14 @@
 .steps-section-wrapper-inner {
     padding-bottom: 70px;
     padding-top: 61px;
-    @include max-mq ($mb) {
-        padding-bottom: 35px;
+    @include max-mq ($mac + 50) {
+        padding-bottom: 30px;
         padding-top: 55px;
     }
+    // @include max-mq ($mb) {
+    //     padding-bottom: 35px;
+    //     padding-top: 55px;
+    // }
     .step-animation-wrapper {
         max-width: 540px;
         margin-left: auto;

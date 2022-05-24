@@ -1,0 +1,78 @@
+.tab-nav {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    padding-bottom: 43px;
+    padding-top: 5px;
+    text-align: center;
+    @include max-mq ($mac) {
+        padding-bottom: 30px;
+    }
+    .tabs-nav-list {
+        background-color: $gray-350;
+        border-radius: 40px;
+    }
+    li {
+        display: inline-block;
+        vertical-align: middle;
+        padding: 0;
+        .content-area & {
+            padding: 0;
+        }
+        a {
+            border-radius: 40px;
+            display: inline-block;
+            letter-spacing: 4px;
+            padding: 18px 39px;
+            vertical-align: middle;
+            transition: all 0.5s;
+            @include max-mq ($mb + 100) {
+                letter-spacing: 1.5px;
+                padding: 16px 28px;
+            }
+            @include max-mq ($mb) {
+                letter-spacing: 0;
+                padding: 14px 15px;
+            }
+            @include max-mq ($ip - 20) {
+                padding: 13px 12px;
+                font-size: $font-size-base - 0.1;
+            }
+            @include max-mq ($xs) {
+                padding: 13px 11px;
+                font-size: $font-size-base - 0.2;
+            }
+            &:hover {
+                background-color: $secondary-color;
+            }
+        }
+        &.active-tab {
+            a {
+                background-color: $secondary-color;
+            }
+        }
+        &:after {
+            content: none;
+            display: none;
+            .content-area & {
+                content: none;
+                display: none;
+            }
+        }
+    }
+    a {
+        color: $primary-color;
+        text-decoration: none;
+        // text-transform: uppercase;
+        font-weight: $font-weight-m;
+
+    }
+}
+
+.tab-content {
+    min-height: 350px;
+}
+
+.tabs {
+    width: 100%;
+}

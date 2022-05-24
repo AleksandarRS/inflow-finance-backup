@@ -1,5 +1,5 @@
 // Container widths
-$container-width-wide: 1800px;
+$container-width-wide: 1650px;
 $container-width-middle: 1290px;
 $container-width-middle-large: 1490px;
 $container-width: 1170px;
@@ -14,8 +14,14 @@ $tertiary-color:	#ECF5F9;
 $white:				#ffffff;
 $black:				#000000;
 $gray:				#aeaeae;
+
+$gray-50:				#FAFCFD;
+$gray-70:				#F2F2F2;
 $gray-100:				#F8F8F8;
 $gray-300:				#CCCCCC;
+$gray-350:				#E9E9EA;
+$gray-400:				#C4C4C4;
+
 
 // Fonts
 $primary-font: 'agenda';
@@ -49,13 +55,15 @@ $font-size-h6: 1.25em;
 
 // Breakpoints
 $fhd: 1920px;
-$mac_l: 1660px;
+$mac_l: 1680px;
 $mac: 1440px;
 $lt: 1386px;
 $ls: 1280px;
 $lg: 1199px;
+$ipad: 1030px;
 $md: 991px;
 $tab: 800px;
+$wow_hiddne: 767px;
 $sm: 767px;
 $mb_p: 640px;
 $mb: 480px;

@@ -116,6 +116,11 @@ class FrmProEntryFormatter extends FrmEntryFormatter {
 	 * @param string $content
 	 */
 	protected function add_section_to_content( $field_value, &$content ) {
+		// Add item meta to $_POST to make `FrmProEntryMeta::is_field_conditionally_hidden()` work.
+		if ( ! isset( $_POST['item_meta'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
+			$_POST['item_meta'] = $field_value->get_entry()->metas;
+		}
+
 		if ( $this->is_extra_field_included( $field_value ) ) {
 			$content .= $this->section_placeholder();
 			parent::add_field_value_to_content( $field_value, $content );

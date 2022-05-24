@@ -1,6 +1,6 @@
 .posts-card-list-items {
     padding-top: 94px;
-    @include max-mq ($lt) {
+    @include max-mq ($mac + 50) {
         padding-top: 74px;
     }
     @include max-mq ($ls) {
@@ -17,10 +17,20 @@
         margin-left: auto;
         margin-right: auto;
     }
+    @include max-mq($mb + 100) {
+        margin-left: -15px;
+        margin-right: -15px;
+    }
     &.archive-posts-cards-items {
         // visibility: hidden;
-        @include min-mq (999px) {
+        @include min-mq ($wow_hiddne) {
             visibility: hidden;
+        }
+        .post-type-archive & {
+            @include min-max-mq($lg, $ls + 55) {
+                padding-left: 2vw;
+                padding-right: 2vw;
+            }
         }
         .posts-cards-list-item {
             flex: 0 0 100%;
@@ -68,6 +78,9 @@
                     margin: 12px auto 0;
                     max-width: 140px;
                 }
+                @include max-mq ($mb) {
+                    max-width: 120px;
+                }
             }
         }
         .post-heading-excerpt-wraper {
@@ -79,6 +92,9 @@
             padding-left: 25px;
             @include min-mq ($lt + 10)  {
                 padding-left: 56px;
+            }
+            @include max-mq ($mac)  {
+                padding-left: 15px;
             }
             @include max-mq ($mb_p + 20)  {
                 flex-wrap: wrap;
@@ -100,6 +116,9 @@
             max-width: calc(100% - 300px);
             padding-left: 40px;
             padding-top: 5px;
+            @include max-mq ($mac) {
+                padding-left: 32px;
+            }
             @include min-mq ($lt + 10)  {
                 padding-left: 64px;
             }
@@ -117,6 +136,7 @@
                 line-height: 1.5;
                 @include max-mq ($lt) {
                     font-size: $font-size-base + 0.075;
+                    line-height: 1.4;
                 }
             }
         }
@@ -161,6 +181,7 @@
             @include max-mq ($lt) {
                 font-size: $font-size-h3 - 0.075;
             }
+            
         }
 
     }

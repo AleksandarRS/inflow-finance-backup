@@ -1,10 +1,10 @@
 .blog-hero-section {
     padding-top: 193px;
     // visibility: hidden;
-    @include min-mq (999px) {
+    @include min-mq ($wow_hiddne) {
         visibility: hidden;
     }
-    @include max-mq ($lt) {
+    @include max-mq ($mac + 50) {
         padding-top: 173px;
     }
     @include max-mq ($ls) {
@@ -28,7 +28,7 @@
         p, li, span, strong, b {
             font-size: $font-size-large;
             line-height: 1.6;
-            @include max-mq ($lt) {
+            @include max-mq ($mac + 10) {
                 font-size: $font-size-large - 0.15;
             }
             @include max-mq ($md) {
@@ -52,7 +52,7 @@
     p, li, span, strong, b {
         font-size: $font-size-large;
         line-height: 1.6;
-        @include max-mq ($lt) {
+        @include max-mq ($mac + 10) {
             font-size: $font-size-large - 0.15;
         }
         @include max-mq ($md) {
@@ -67,7 +67,7 @@
 .blog-page-latest-posts-content-wrapper {
     padding-bottom: 35px;
     // visibility: hidden;
-    @include min-mq (999px) {
+    @include min-mq ($wow_hiddne) {
         visibility: hidden;
     }
 }
@@ -85,7 +85,7 @@
     .featured-posts-content-inner {
         display: flex;
         // visibility: hidden;
-        @include min-mq (999px) {
+        @include min-mq ($wow_hiddne) {
             visibility: hidden;
         }
         @include max-mq ($sm) {

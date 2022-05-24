@@ -10,18 +10,18 @@
 	text-align: center;
 	text-decoration: none;
 	vertical-align: middle;
-	@include min-mq ($lg) {
+	@include min-mq ($mac + 50) {
 		padding: 15px 51px;
     	letter-spacing: 1px;
 	}
-	@include max-mq ($lt) {
+	@include max-mq ($mac + 10) {
 		font-size: $button-font-size - 0.1;
 		padding-left: 35px;
 		padding-right: 35px;
 	}
 	@include max-mq ($lg) {
-		padding-left: 25px;
-		padding-right: 25px;
+		padding-left: 20px;
+		padding-right: 20px;
 		font-size: $button-font-size - 0.125;
 	}
 	@include max-mq ($ip - 20) {
@@ -30,7 +30,7 @@
 		font-size: $button-font-size - 0.2;
 	}
 	@include max-mq ($xs + 5) {
-		font-size: $button-font-size - 0.225;
+		font-size: $button-font-size - 0.35;
 	}
 	.single-product-hero & {
 		padding-left: 10px;

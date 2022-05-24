@@ -1,10 +1,10 @@
 .faq-section {
     padding-top: 110px;
     padding-bottom: 25px;
-    @include min-mq (999px) {
+    @include min-mq ($wow_hiddne) {
         visibility: hidden;
     }
-    @include max-mq ($lt) {
+    @include max-mq ($mac + 50) {
         padding-top: 85px;
     }
     @include max-mq ($ls) {

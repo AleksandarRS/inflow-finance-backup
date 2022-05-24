@@ -5,15 +5,29 @@
         padding-top: 135px;
         padding-bottom: 105px;
     }
-    @include max-mq ($lg) {
+    @include max-mq ($md) {
         padding-bottom: 75px;
         // padding-top: 135px;
     }
     @include max-mq ($md) {
         padding-top: 50px;
     }
+    .single-case-studies &,
     .post-type-archive-case-studies & {
-        padding-top: 120px;
+        padding-top: 180px;
+        @include max-mq ($lt + 10) {
+            padding-top: 230px;
+        }
+        @include max-mq ($lg) {
+            padding-top: 250px;
+            padding-bottom: 110px;
+        }
+        @include max-mq ($md) {
+            padding-top: 35px;
+            padding-bottom: 75px;
+        }
+        
+
     }
     .contact-details-content {
         @include min-max-mq($mb, $lt) {
@@ -41,7 +55,7 @@
             padding: 15px 20px;
         }
         h1, h2 {
-            font-size: $font-size-h2;
+            font-size: $font-size-h2 - 0.25;
             letter-spacing: 0;
             margin-bottom: 0.9em;
             @include max-mq ($lt) {
@@ -73,7 +87,7 @@
             p, li, span, strong, b {
                 font-size: $font-size-large;
                 line-height: 1.6;
-                @include max-mq ($lt) {
+                @include max-mq ($mac + 10) {
                     font-size: $font-size-large - 0.15;
                 }
                 @include max-mq ($md) {
@@ -87,11 +101,29 @@
         
     }
     .contact-details-after-form {
-        padding-top: 30px;
+        padding-top: 20px;
         font-size: $font-size-large - 0.2;
-        @include max-mq ($ip) {
-            padding-top: 10px;
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 400px;
+        @include max-mq ($mb + 100) {
             font-size: $font-size-large - 0.35;
+        }
+        @include max-mq ($mb) {
+            padding-top: 0;
+            font-size: $font-size-large - 0.45;
+        }
+        @include max-mq ($ip - 10) {
+            padding-top: 0;
+            font-size: $font-size-large - 0.5;
+        }
+        @include max-mq ($xs + 10) {
+            padding-top: 0;
+            font-size: $font-size-large - 0.55;
+        }
+        
+        > p {
+            margin-bottom: 0.5em;
         }
         p {
             text-transform: uppercase;
@@ -100,10 +132,28 @@
                 display: inline-block;
                 text-transform: none;
                 text-decoration: none;
-                margin: 4px 0;
+                // margin: 4px 0;
+                margin: 0;
                 &:hover {
                     color: $secondary-color;
                 }
+            }
+            strong,
+            img {
+                display: inline-block;
+                vertical-align: middle;
+            }
+            img {
+                @include max-mq ($xs) {
+                    display: none;
+                }
+            }
+        }
+        .alignleft {
+            margin-right: 0.75em;
+            @include max-mq ($xs + 30) {
+                margin-right: 0.3em;
+                // font-size: $font-size-large - 0.55;
             }
         }
         strong {
@@ -152,7 +202,7 @@
             }
         }
     }
-    a[href*="mailto"] {
-        text-decoration: underline !important;
-    }
+    // a[href*="mailto"] {
+    //     text-decoration: underline !important;
+    // }
 }

@@ -39,13 +39,13 @@ $second_product_menu_item = get_field('second_product_menu_item');
 $add_hash_for_second = get_field('add_hash_for_second');
 ?>
 <?php  if ( $first_product_menu_item || $second_product_menu_item ) : ?>
-    <div class="anchor-product-main-navigation wow fadeInUp" data-wow-delay="0.4s" data-wow-duration="1s">
+    <div class="anchor-product-main-navigation"> <!-- /. wow fadeInUp" data-wow-delay="0.4s" data-wow-duration="1s" -->
         <div class="container">
             <div id="anchor-menu-items" class="anchor-menu-navigation align-center">
                 <nav>
                     <ul class="anchor-product-list">
-                        <li><a class="product-anchor-link smoothscroll" href="#first-product-hero"><span><?php echo $first_product_menu_item; ?></span></a></li>
-                        <li><a class="product-anchor-link smoothscroll" href="#<?php echo $add_hash_for_second; ?>"><span><?php echo $second_product_menu_item; ?></span></a></li>
+                        <li class="anchor-product-item anchor-product-item-first"><a class="product-anchor-link smoothscroll" href="#first-product-hero"><span><?php echo $first_product_menu_item; ?></span></a></li>
+                        <li class="anchor-product-item anchor-product-item-second"><a class="product-anchor-link smoothscroll" href="#<?php echo $add_hash_for_second; ?>"><span><?php echo $second_product_menu_item; ?></span></a></li>
                     </ul>
                 </nav>
             </div>

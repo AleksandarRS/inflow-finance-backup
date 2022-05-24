@@ -220,7 +220,10 @@ function frmProFormJS() {
 				jQuery( this.element ).closest( 'form' ).removeClass( 'frm_ajax_submit' );
 			},
 			init: function() {
-				var hidden = field.parent().find( '.dz-hidden-input' );
+				var hidden, mockFileIndex, mockFileData, mockFile;
+
+				hidden = field.parent().find( '.dz-hidden-input' );
+
 				if ( typeof hidden.attr( 'id' ) === 'undefined' ) {
 					hidden.attr( 'id', uploadFields[ i ].label );
 				}
@@ -332,21 +335,23 @@ function frmProFormJS() {
 				});
 
 				if ( typeof uploadFields[ i ].mockFiles !== 'undefined' ) {
-					for ( var f = 0; f < uploadFields[ i ].mockFiles.length; f++ ) {
-						var mockFile = {
-							name: uploadFields[ i ].mockFiles[ f ].name,
-							size: uploadFields[ i ].mockFiles[ f ].size,
-							url: uploadFields[ i ].mockFiles[ f ].file_url,
-							mediaID: uploadFields[ i ].mockFiles[ f ].id,
-							accessible: uploadFields[ i ].mockFiles[ f ].accessible,
-							ext: uploadFields[ i ].mockFiles[ f ].ext,
-							type: uploadFields[ i ].mockFiles[ f ].type
+					for ( mockFileIndex = 0; mockFileIndex < uploadFields[ i ].mockFiles.length; mockFileIndex++ ) {
+						mockFileData = uploadFields[ i ].mockFiles[ mockFileIndex ];
+						mockFile = {
+							name: mockFileData.name,
+							size: mockFileData.size,
+							url: mockFileData.file_url,
+							mediaID: mockFileData.id,
+							accessible: mockFileData.accessible,
+							ext: mockFileData.ext,
+							type: mockFileData.type
 						};
 
 						this.emit( 'addedfile', mockFile );
 						if ( mockFile.accessible && 'string' === typeof mockFile.type && 0 === mockFile.type.indexOf( 'image/' ) ) {
-							this.emit( 'thumbnail', mockFile, mockFile.url );
+							this.emit( 'thumbnail', mockFile, mockFileData.url );
 						}
+
 						this.emit( 'complete', mockFile );
 						this.files.push( mockFile );
 					}
@@ -380,6 +385,7 @@ function frmProFormJS() {
 		'<div class="dz-column">\n' +
 		'<div class="dz-details">\n' +
 		'<div class="dz-filename"><span data-dz-name></span></div>\n' +
+		' ' + // add white space between file name and file size.
 		'<div class="dz-size"><span data-dz-size></span></div>\n' +
 		'<a class="dz-remove frm_icon_font frm_cancel1_icon" href="javascript:undefined;" data-dz-remove title="' + field.remove + '"></a>' +
 		'</div>\n' +

@@ -8,7 +8,7 @@
 	$section_list_items_kf = get_field('section_list_items_kf');
     
 ?>
-<section class="key-features key-features-single-product wow fadeIn" data-wow-delay="0.2s" data-wow-duration="1s">
+<section class="first-part-of-product key-features key-features-single-product wow fadeIn" data-wow-delay="0.2s" data-wow-duration="1s">
     <div class="key-features-wrapper relative"<?php if ( $section_background_color_kf ) : ?> style="background-color:<?php echo $section_background_color_kf; ?>"<?php endif; ?>>
         
             <div class="section-background-image"<?php  if ( $section_background_image_kf ) : ?> style="background-image: url(<?php echo esc_url($section_background_image_kf['url']); ?>);" role="img" aria-label="<?php echo esc_attr($section_background_image_kf['alt']); ?>"<?php endif; ?>></div>

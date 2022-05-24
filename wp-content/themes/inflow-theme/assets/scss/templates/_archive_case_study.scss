@@ -29,17 +29,23 @@
 
 .archive-case-study-page-latest-items-wrapper {
     .case-study-post-cards-items {
+        @include max-mq ($ipad) {
+            justify-content: center;
+        }
         .posts-cards-case-study-item {
             padding-bottom: 15px;
             margin-bottom: 22px;
-            @include max-mq ($md) {
+            @include max-mq ($ls) {
+                margin-bottom: 10px;
+            }
+            @include max-mq ($ipad) {
                 flex: 0 0 50%;
                 max-width: 50%;
             }
             @include max-mq ($sm) {
                 flex: 0 0 100%;
                 max-width: 100%;
-                margin-bottom: 0;
+                // margin-bottom: 0;
             }
         }
         .post-product-excerpt {

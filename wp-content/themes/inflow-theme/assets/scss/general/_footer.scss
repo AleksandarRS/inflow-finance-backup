@@ -13,6 +13,12 @@
         @include min-mq ($lg) {
             padding-top: 111px;
         }
+        @include max-mq ($mb + 100) {
+            padding-top: 100px;
+        }
+        @include max-mq ($ip) {
+            padding-top: 80px;
+        }
     }
     .footer-widgets-wrapper {
         align-items: center;
@@ -219,18 +225,31 @@
             padding-left: 16px;
             padding-right: 16px;
         }
+        .main-header {
+            text-align: center;
+            @include max-mq ($ip ) {
+                text-align: left;
+            }
+        }
         h1, h2, h3, h4, h5, h6 {
             background-color: $primary-color;
             letter-spacing: 1.2px;
             margin-bottom: 1.2em;
             margin-top: -20px;
-            max-width: 520px;
+            // max-width: 520px;
             padding-left: 10px;
             padding-right: 10px;
             padding-top: 0;
             width: 100%;
+            @include max-mq ($mb + 100) {
+                margin-top: -40px;
+            }
+            @include max-mq ($ip ) {
+                margin-top: -35px;
+            }
             @include max-mq ($ip - 20) {
                 letter-spacing: 0.5px;
+                margin-top: -25px;
             }
         }
         label {

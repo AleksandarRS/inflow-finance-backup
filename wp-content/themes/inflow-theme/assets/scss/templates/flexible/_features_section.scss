@@ -3,9 +3,9 @@
     .features-section-wrapper-inner {
         padding-bottom: 120px;
         padding-top: 95px;
-        @include max-mq ($lt) {
-            padding-bottom: 75px;
-            padding-top: 75px;
+        @include max-mq ($mac + 50) {
+            padding-bottom: 55px;
+            padding-top: 55px;
         }
         @include max-mq ($lg) {
             padding: 65px 15px 80px;
@@ -25,7 +25,7 @@
         p, li, span, strong, b {
             font-size: $font-size-large;
             line-height: 1.6;
-            @include max-mq ($lt) {
+            @include max-mq ($mac + 10) {
                 font-size: $font-size-large - 0.15;
             }
             @include max-mq ($md) {

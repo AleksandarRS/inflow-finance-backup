@@ -43,7 +43,7 @@
                                     <div class="image-text-main-image-wrapper col-md-4">
                                         <div class="image-text-main-image-list-inner">
                                             <div class="image-text-main-image-wrap">
-                                                <img class="wow fadeInLeft" data-wow-delay="0.4s" data-wow-duration="1s" src="<?php echo esc_url($add_section_image_s['url']); ?>" alt="<?php echo esc_attr($add_section_image_s['alt']); ?>">
+                                                <img class="wow fadeInRight" data-wow-delay="0.4s" data-wow-duration="1s" src="<?php echo esc_url($add_section_image_s['url']); ?>" alt="<?php echo esc_attr($add_section_image_s['alt']); ?>">
                                             </div>
                                         </div>
                                     </div>
@@ -51,7 +51,7 @@
                                 <?php  if ( $text_content_s ) : ?>
                                     <div class="image-text-text-description-content col-md-8">
                                         <div class="image-text-header-text-description-wrap">
-                                            <div class="entry-content section-description-inner section-description-large wow fadeInRight" data-wow-delay="0.4s" data-wow-duration="1s">
+                                            <div class="entry-content section-description-inner section-description-large wow fadeInLeft" data-wow-delay="0.4s" data-wow-duration="1s">
                                                 <?php echo $text_content_s; ?>
                                             </div>
                                         </div>

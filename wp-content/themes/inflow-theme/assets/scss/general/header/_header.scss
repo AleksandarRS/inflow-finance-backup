@@ -8,19 +8,19 @@
     // visibility: hidden;
     width: 100%;
     z-index: 999;
-    @include min-mq (999px) {
-        visibility: hidden;
-    }
+    // @include min-mq ($wow_hiddne) {
+    //     visibility: hidden;
+    // }
     @include transition-all;
     @include max-mq ($lt - 25) {
         padding-right: 30px;
         padding-left: 30px;
     }
     @include max-mq ($lg) {
-        padding: 30px 30px 30px;
+        padding: 30px 15px 30px;
     }
     @include max-mq ($mb) {
-        padding: 20px 15px 20px;
+        padding: 20px 0 20px;
     }
     .logged-in & {
         top: 32px;
@@ -36,22 +36,28 @@
 .site-branding-main-logo {
     a {
         display: block;
-        max-width: 350px;
+        max-width: 300px;
         width: 100%;
         @include transition-all;
-        @include max-mq ($sm) {
-            max-width: 300px;
+        @include max-mq ($mac + 50) {
+            max-width: 280px;
         }
-        @include max-mq ($mb) {
+        // @include max-mq ($sm) {
+        //     max-width: 300px;
+        // }
+        @include max-mq ($mb + 100) {
             max-width: 240px;
         }
         .fixed-site-header & {
             max-width: 290px;
             width: 100%;
-            @include max-mq ($sm) {
-                max-width: 270px;
+            @include max-mq ($mac + 50) {
+                max-width: 250px;
             }
-            @include max-mq ($mb) {
+            // @include max-mq ($sm) {
+            //     max-width: 270px;
+            // }
+            @include max-mq ($mb + 100) {
                 max-width: 200px;
             }
         }

@@ -368,14 +368,33 @@ echo $custom_options;
 			$rule['parent_form_id'] = $atts['parent_form_id'];
 		}
 
-		if ( ! empty( $field['is_currency'] ) ) {
-			$rule['is_currency'] = true;
-			if ( ! empty( $field['custom_currency'] ) ) {
-				$rule['custom_currency'] = self::prepare_custom_currency( $field );
-			}
-		}
+		self::add_is_currency_calc_rule_for_field( $rule, $field );
 
 		return $rule;
+	}
+
+	/**
+	 * Adds `is_currency` rule for field if applicable.
+	 *
+	 * @since 5.2.06
+	 *
+	 * @param array $rule Calculation rule.
+	 * @param array $field Field array.
+	 */
+	private static function add_is_currency_calc_rule_for_field( &$rule, $field ) {
+		if ( empty( $field['is_currency'] ) ) {
+			return;
+		}
+
+		// If field is invisible and converted to <input type="hidden">, treat it as a number field instead of price.
+		if ( ! FrmProFieldsHelper::is_field_visible_to_user( $field ) ) {
+			return;
+		}
+
+		$rule['is_currency'] = true;
+		if ( ! empty( $field['custom_currency'] ) ) {
+			$rule['custom_currency'] = self::prepare_custom_currency( $field );
+		}
 	}
 
 	/**

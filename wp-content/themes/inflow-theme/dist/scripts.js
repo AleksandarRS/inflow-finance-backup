@@ -161,17 +161,19 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 			}
 
 		};
-	}, { "../site/global": 6 }], 2: [function (require, module, exports) {
+	}, { "../site/global": 7 }], 2: [function (require, module, exports) {
 		'use strict';
 
 		$ = require('jquery');
 
 		var wow = require('./site/wow');
 		var Navigation = require('./core/navigation');
+		var equalheight = require('./site/equalheight');
 		var svgconvert = require('./site/svgconvert');
 		var addremoveclass = require('./site/addremoveclass');
 		// const lottie = require('./site/lottie');
 		var jsonconvert = require('./site/jsonconvert');
+		var tabs = require('./site/tabs');
 		var accordion = require('./site/accordion');
 		var stickysocial = require('./site/stickysocial');
 		var smoothscroll = require('./site/smoothscroll');
@@ -190,6 +192,11 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 			Navigation.init();
 
 			/**
+    * Initialize equalheight module
+    */
+			equalheight.init();
+
+			/**
     * Initialize svgconvert module
     */
 			svgconvert.init();
@@ -198,6 +205,11 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
    * Initialize jsonconvert module
    */
 			jsonconvert.init();
+
+			/**
+    * Initialize tabs module
+    */
+			tabs.init();
 
 			/**
     * Initialize accordion module
@@ -224,7 +236,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     */
 			example.init();
 		});
-	}, { "./core/navigation": 1, "./site/accordion": 3, "./site/addremoveclass": 4, "./site/example": 5, "./site/jsonconvert": 7, "./site/smoothscroll": 8, "./site/stickysocial": 9, "./site/svgconvert": 10, "./site/wow": 11, "jquery": 12 }], 3: [function (require, module, exports) {
+	}, { "./core/navigation": 1, "./site/accordion": 3, "./site/addremoveclass": 4, "./site/equalheight": 5, "./site/example": 6, "./site/jsonconvert": 8, "./site/smoothscroll": 9, "./site/stickysocial": 10, "./site/svgconvert": 11, "./site/tabs": 12, "./site/wow": 13, "jquery": 14 }], 3: [function (require, module, exports) {
 		"use strict";
 
 		// const Global = require('./global');
@@ -294,6 +306,64 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
    -------------------------------------------------------------------------------*/
 			init: function init() {
 				if (_this) {
+					var checkIfInView = function checkIfInView() {
+						var windowHeight = $window.height();
+						var windowTopPosition = $window.scrollTop() - 150;
+						var windowBottomPosition = windowTopPosition + windowHeight;
+
+						$.each($animationElements, function () {
+							//var $element = $(this);
+							var $element = $(this);
+							var $firstAnchorItem = $('.anchor-product-item-first');
+							var $secondAnchorItem = $('.anchor-product-item-second');
+							// var $activatedAnchorItem = $('.active-anchor-link');
+							var elementHeight = $element.outerHeight();
+							var elementTopPosition = $element.offset().top;
+							var elementBottomPosition = elementTopPosition + elementHeight;
+
+							//check to see if this current container is within viewport
+							if (elementBottomPosition >= windowTopPosition && elementTopPosition <= windowBottomPosition) {
+								$element.addClass('in-view');
+								$firstAnchorItem.addClass('item-in-view');
+								$secondAnchorItem.removeClass('item-in-view');
+								$secondAnchorItem.removeClass('active-anchor-link');
+							} else {
+								$element.removeClass('in-view');
+								// $firstAnchorItem.removeClass('item-in-view');
+							}
+						});
+					};
+					//Detect element .contact-global-details to window and animation items
+
+
+					var checkIfInViewSecond = function checkIfInViewSecond() {
+						var windowHeightSecond = $window.height();
+						var windowTopPositionSecond = $window.scrollTop() - 550;
+						var windowBottomPositionSecond = windowTopPositionSecond + windowHeightSecond;
+
+						$.each($animationElementsSecond, function () {
+							//var $element = $(this);
+							var $elementSecond = $(this);
+							var $firstAnchorItem = $('.anchor-product-item-first');
+							var $secondAnchorItem = $('.anchor-product-item-second');
+							// var $activatedAnchorItem = $('.active-anchor-link');
+							var elementHeightSecond = $elementSecond.outerHeight();
+							var elementTopPositionSecond = $elementSecond.offset().top;
+							var elementBottomPositionSecond = elementTopPositionSecond + elementHeightSecond;
+
+							//check to see if this current container is within viewport
+							if (elementBottomPositionSecond >= windowTopPositionSecond && elementTopPositionSecond <= windowBottomPositionSecond) {
+								$elementSecond.addClass('in-view');
+								$secondAnchorItem.addClass('item-in-view');
+								$firstAnchorItem.removeClass('item-in-view');
+								$firstAnchorItem.removeClass('active-anchor-link');
+							} else {
+								$elementSecond.removeClass('in-view');
+								// $secondAnchorItem.removeClass('item-in-view');
+							}
+						});
+					};
+
 					// $(window).on('scroll load', function () {
 
 					// });
@@ -377,6 +447,14 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 					_this.$dom.anchorLink.click(function () {
 						$(this).addClass('active-anchor-link').siblings().removeClass('active-anchor-link');
 					});
+
+					//Detect element .contact-global-details to window and animation items
+					var $animationElements = $('.first-part-of-product');
+					var $window = $(window);
+					$window.on('scroll resize load', checkIfInView);
+					var $animationElementsSecond = $('.second-part-of-product');
+					var $window = $(window);
+					$window.on('scroll resize load', checkIfInViewSecond);
 				}
 				// _this.$dom.scrollToTop.click(function(event) {
 				// 	event.preventDefault();
@@ -394,6 +472,122 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 		};
 	}, {}], 5: [function (require, module, exports) {
+		"use strict";
+
+		/**  
+   * 1. Copy equalheight.js from __js_snippets to assets/js/site
+   * 2. Add const equalheight = require('./site/equalheight');
+   * 3. Initialize equalheight => equalheight.init();
+   * 4. Add [ data-equal='{somename}' ] on each element that you want to have same height
+   * 
+  */
+
+		var Global = require('./global');
+
+		var _this = void 0;
+
+		module.exports = {
+
+			/*-------------------------------------------------------------------------------
+   	# Cache dom and strings
+   -------------------------------------------------------------------------------*/
+			$dom: {
+				equalElements: $("[data-equal], [class*='data-equal-']")
+			},
+
+			defaults: {
+				heights: {
+					'full': {}
+				}
+			},
+
+			vars: {
+				heights: {}
+			},
+
+			/*-------------------------------------------------------------------------------
+   	# Initialize
+   -------------------------------------------------------------------------------*/
+			init: function init() {
+
+				_this = this;
+				_this.bind();
+			},
+
+			reset: function reset() {
+
+				_this.vars.heights = _this.defaults.heights;
+				_this.$dom.equalElements.css('height', 'auto');
+			},
+
+			calculate: function calculate() {
+
+				_this.$dom.equalElements.each(function () {
+
+					var dataType = $(this).is("[class*='data-equal-']") ? 'class' : 'data';
+					var refElement = void 0,
+					    size = void 0;
+
+					if (dataType === 'data') {
+						refElement = $(this).attr('data-equal');
+						size = $(this).attr('data-equal-width');
+					} else {
+
+						var classes = this.className.split(/\s+/);
+
+						for (var i = 0; i < classes.length; i++) {
+							if (classes[i].indexOf('data-equal-') > -1) {
+								refElement = classes[i].replace('data-equal-', '');
+							}
+							if (classes[i].indexOf('data-equal-width-') > -1) {
+								size = classes[i].replace('data-equal-width-', '');
+							}
+						}
+					}
+
+					if (size === undefined) size = 'full';
+
+					if (_this.vars.heights[size] === undefined) {
+						_this.vars.heights[size] = {};
+					}
+
+					if (_this.vars.heights[size][refElement] === undefined) {
+						_this.vars.heights[size][refElement] = 0;
+					}
+
+					if ($(this).outerHeight() > _this.vars.heights[size][refElement]) {
+						_this.vars.heights[size][refElement] = $(this).outerHeight();
+					}
+				});
+			},
+
+			render: function render() {
+
+				for (var breakpoint in _this.vars.heights) {
+
+					var elementDataValue = _this.vars.heights[breakpoint];
+
+					for (var element in elementDataValue) {
+
+						if (Global.device.width > parseInt(breakpoint) || breakpoint === 'full') {
+							$("[data-equal='" + element + "'], [class*='data-equal-" + element + "']").css('height', elementDataValue[element]);
+						}
+					}
+				}
+			},
+
+			bind: function bind() {
+				Global.$dom.window.on('load', _this.recalculate);
+				Global.$dom.window.on('resize', Global.functions.throttle(_this.recalculate, 100));
+			},
+
+			recalculate: function recalculate() {
+				_this.reset();
+				_this.calculate();
+				_this.render();
+			}
+		};
+	}, { "./global": 7 }], 6: [function (require, module, exports) {
 		"use strict";
 
 		// const Global = require('./global');
@@ -419,7 +613,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 			}
 
 		};
-	}, {}], 6: [function (require, module, exports) {
+	}, {}], 7: [function (require, module, exports) {
 		// "use strict";
 		var Global = module.exports = {
 
@@ -570,7 +764,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 		};
 
 		Global.privateFunctions.init();
-	}, {}], 7: [function (require, module, exports) {
+	}, {}], 8: [function (require, module, exports) {
 		"use strict";
 
 		// const Global = require('./global');
@@ -596,8 +790,8 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 					var animationHero = bodymovin.loadAnimation({
 						container: document.getElementById('lottie-hero'), // Required
-						// path: '/inflow/wp-content/themes/inflow-theme/assets/json/inflow-header-animation-final.json', // Required - local path
-						path: '/wp-content/themes/inflow-theme/assets/json/inflow-header-animation-final.json', // Required - server path
+						path: '/inflow/wp-content/themes/inflow-theme/assets/json/inflow-hero-animation.json', // Required - local path
+						// path: '/wp-content/themes/inflow-theme/assets/json/inflow-hero-animation.json', // Required - server path
 						renderer: 'svg', // Required
 						loop: true, // Optional
 						autoplay: true // Optional
@@ -605,8 +799,8 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 					});
 					var animationStep = bodymovin.loadAnimation({
 						container: document.getElementById('entry-step-animation'), // Required
-						// path: '/inflow/wp-content/themes/inflow-theme/assets/json/gear-animation.json', // Required - local path
-						path: '/wp-content/themes/inflow-theme/assets/json/gear-animation.json', // Required - server path
+						path: '/inflow/wp-content/themes/inflow-theme/assets/json/gear-animation.json', // Required - local path
+						// path: '/wp-content/themes/inflow-theme/assets/json/gear-animation.json', // Required - server path
 						renderer: 'svg', // Required
 						loop: true, // Optional
 						autoplay: true // Optional
@@ -616,7 +810,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 			}
 
 		};
-	}, {}], 8: [function (require, module, exports) {
+	}, {}], 9: [function (require, module, exports) {
 		"use strict";
 
 		// const Global = require('./global');
@@ -673,7 +867,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 			}
 
 		};
-	}, {}], 9: [function (require, module, exports) {
+	}, {}], 10: [function (require, module, exports) {
 		"use strict";
 
 		// const Global = require('./global');
@@ -727,7 +921,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 			}
 
 		};
-	}, {}], 10: [function (require, module, exports) {
+	}, {}], 11: [function (require, module, exports) {
 		"use strict";
 
 		// const Global = require('./global');
@@ -772,7 +966,74 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 			}
 
 		};
-	}, {}], 11: [function (require, module, exports) {
+	}, {}], 12: [function (require, module, exports) {
+		"use strict";
+
+		var _this = module.exports = {
+
+			/*-------------------------------------------------------------------------------
+   	# Cache dom and strings
+   -------------------------------------------------------------------------------*/
+			$dom: {
+				tabsNav: $('.tabs .tab-nav a'),
+				tabsContent: $('.tabs .tab-content > div')
+			},
+
+			vars: {},
+
+			/*-------------------------------------------------------------------------------
+   	# Initialize
+   -------------------------------------------------------------------------------*/
+			init: function init() {
+				_this.prepare();
+				_this.bind();
+			},
+
+			bind: function bind() {
+				_this.$dom.tabsNav.on('click', _this.toggle);
+			},
+
+			prepare: function prepare() {
+				_this.$dom.tabsContent.not(':first').hide();
+			},
+
+			toggle: function toggle(e) {
+				e.preventDefault();
+
+				var elementSelector = $(this).attr('href');
+
+				_this.$dom.tabsNav.css('pointer-events', 'none'); // prevent click on tab nav until fade is finished
+
+				// Add active-tab class on tab nav
+				_this.$dom.tabsNav.parent().removeClass('active-tab');
+				$(this).parent().addClass('active-tab');
+
+				var $element = _this.$dom.tabsContent.siblings(elementSelector);
+
+				if ($element.length > 0) {
+
+					// Hide Tabs
+					_this.$dom.tabsContent.fadeOut(200);
+					_this.$dom.tabsContent.removeClass('active-tab');
+
+					setTimeout(function () {
+						// Show active-tab Tab
+						$element.fadeIn(300);
+						$element.addClass('active-tab');
+
+						// Enable if slick slider is in tabs
+						// $('.slick-slider').slick('setPosition', 0); 
+						WOW().init();
+					}, 200);
+
+					setTimeout(function () {
+						_this.$dom.tabsNav.css('pointer-events', 'all'); // enable click on tab nav
+					}, 500);
+				}
+			}
+
+		};
+	}, {}], 13: [function (require, module, exports) {
 		"use strict";
 
 		// const Global = require('./global');
@@ -797,14 +1058,14 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 				// if( _this ){	
 				// }
-				if ($(window).width() > 998) {
+				if ($(window).width() > 766) {
 					new WOW().init();
 				}
 				// new WOW().init();
 			}
 
 		};
-	}, {}], 12: [function (require, module, exports) {
+	}, {}], 14: [function (require, module, exports) {
 		/*!
    * jQuery JavaScript Library v3.4.1
    * https://jquery.com/

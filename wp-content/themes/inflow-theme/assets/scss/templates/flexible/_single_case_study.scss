@@ -20,7 +20,7 @@
     @include max-mq ($lg) {
         padding-top: 30px;
     }
-    @include max-mq ($tab) {
+    @include max-mq ($md) {
         padding-top: 10px;
     }
     @include max-mq ($sm) {
@@ -31,14 +31,31 @@
     }
 }
 
+.hero-smaller-row {
+
+}
+
 .single-case-study-featured-image {
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
     border-radius: 20px;
-    @include max-mq ($sm) {
+    @include max-mq ($md) {
         height: 300px;
         margin-bottom: 30px;
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+    @include max-mq ($mb) {
+        height: 240px;
+    }
+}
+.hero-smaller-text-description-content {
+    &.single-product-hero {
+        @include max-mq ($md) {
+            flex: 0 0 100%;
+            max-width: 100%;
+        }
     }
 }
 
@@ -50,17 +67,32 @@
 //     }
 // }
 
+.hero-section.hero-posts.hero-section-single-product {
+    &.hero-section-single-case-study {
+        @include max-mq ($mac) {
+            padding-top: 120px;
+        }
+        @include max-mq ($md) {
+            padding-bottom: 50px;
+            padding-top: 105px;
+        }
+    }
+}
+
 
 .hero-single-case-study-text-description-content-inner {
     padding-bottom: 32px;
     padding-left: 30px;
+    @include max-mq ($md) {
+        padding-left: 0;
+    }
     @include min-mq ($lt) {
         padding-left: 60px;
     }
     @include min-mq ($mac) {
         padding-left: 80px;
     }
-    @include max-mq ($lt) {
+    @include max-mq ($mac + 50) {
         padding-bottom: 15px;
     }
     @include max-mq ($sm) {
@@ -73,29 +105,50 @@
         margin-bottom: 0.25em;
         margin-top: -5px;
         letter-spacing: 0;
-        @include max-mq ($lt) {
-            font-size: $font-size-h2 - 0.75;
+        @include max-mq ($ls) {
+            font-size: $font-size-h2 - 0.25;
         }
         @include max-mq ($lg) {
-            font-size: $font-size-h2 - 0.85;
-        }
-        @include max-mq ($md) {
-            line-height: 1.1;
+            font-size: $font-size-h2 - 0.45;
         }
         @include max-mq ($mb_p) {
-            font-size: $font-size-h2 - 0.75;
-        }
-        @include max-mq ($mb) {
             font-size: $font-size-h2 - 0.85;
         }
+        @include max-mq ($mb) {
+            font-size: $font-size-h2 - 1.35;
+        }
         @include max-mq ($ip) {
-            font-size: $font-size-h2 - 0.95;
+            font-size: $font-size-h2 - 1.45;
+        }
+        @include max-mq ($xs) {
+            font-size: $font-size-h2 - 1.55;
+        }
+        @include max-mq ($xs - 10) {
+            font-size: $font-size-h2 - 1.6;
         }
     }
     .post-prediction-items {
         max-width: 580px;
+        @include max-mq ($lg) {
+            flex-wrap: wrap;
+        }
         .post-prediction-item {
             flex: 0 0 auto;
+            @include min-max-mq ($md, $lg) {
+                flex: 0 0 100%;
+                max-width: 100%;
+                padding-left: 0;
+                border-bottom: 1px solid $gray-300;
+                border-right: none;
+            }
+            @include max-mq ($mb_p) {
+                flex: 0 0 100%;
+                max-width: 100%;
+                padding-left: 15px;
+                border-bottom: 1px solid $gray-300;
+                border-right: none;
+            }
+            
         }
     }
     .posts-cards-items {
@@ -111,8 +164,14 @@
         }
         .post-prediction-item-number {
             font-size: $font-size-h3 + 0.5;
-            @include max-mq ($lt) {
+            @include max-mq ($mac_l) {
                 font-size: $font-size-h3 + 0.25;
+            }
+            @include max-mq ($mac + 100) {
+                font-size: $font-size-h3;
+            }
+            @include max-mq ($mb) {
+                font-size: $font-size-h3 - 0.125;
             }
             
         }
@@ -122,6 +181,9 @@
         padding-right: 15px;
         &:first-child {
             padding-left: 0;
+            @include max-mq ($mb_p) {
+                padding-left: 15px;
+            }
         }
         &:last-child {
             padding-right: 10px;
@@ -129,11 +191,14 @@
     }
     .hero-prediction-button-wrap {
         padding-top: 34px;
-        @include max-mq ($lt) {
+        @include max-mq ($mac + 50) {
             padding-top: 25px;
         }
+        @include min-max-mq($md, $lg) {
+            padding-top: 5px;
+        }
         @include max-mq ($mb_p) {
-            padding-top: 15px;
+            padding-top: 5px;
         }
     }
 }
@@ -194,7 +259,7 @@
     padding-top: 50px;
     padding-bottom: 90px;
     // visibility: hidden;
-    @include min-mq (999px) {
+    @include min-mq ($wow_hiddne) {
         visibility: hidden;
     }
     @include max-mq ($md) {
@@ -213,6 +278,13 @@
             flex: 0 0 100%;
             max-width: 100%;
             text-align: center;
+        }
+        .text-image-main-image-list-inner {
+            @include max-mq ($sm) {
+                max-width: 290px;
+                margin-left: auto;
+                margin-right: auto;
+            }
         }
     }
     .text-image-text-description-content {
@@ -248,12 +320,20 @@
     .section-button-wrapper {
         padding-bottom: 30px;
         padding-top: 20px;
+        
     }
 }
 
 .image-text-main-image-wrapper {
     @include max-mq ($sm) {
         text-align: center;
+    }
+    .image-text-main-image-list-inner {
+        @include max-mq ($sm) {
+            max-width: 260px;
+            margin-left: auto;
+            margin-right: auto;
+        }
     }
 }
 

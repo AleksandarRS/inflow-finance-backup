@@ -3,11 +3,18 @@
     padding-bottom: 90px;
     padding-top: 90px;
     // visibility: hidden;
-    @include max-mq ($lt) {
+    @include max-mq ($mac + 50) {
         padding-bottom: 70px;
         padding-top: 70px;
     }
-    @include min-mq (999px) {
+    @include max-mq ($md) {
+        padding-bottom: 55px;
+        padding-top: 55px;
+    }
+    @include max-mq ($ip) {
+        padding-top: 35px;
+    }
+    @include min-mq ($wow_hiddne) {
         visibility: hidden;
     }
 }

@@ -24,7 +24,7 @@ let _this = module.exports = {
         
 		// if( _this ){	
         // }
-        if ( $(window).width() > 998 ) {
+        if ( $(window).width() > 766 ) {
             new WOW().init();
         }
         // new WOW().init();

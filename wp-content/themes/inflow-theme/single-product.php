@@ -29,12 +29,9 @@ get_header(); ?>
 			<?php get_template_part('template-parts/custom/single-product/content', 'key-features'); ?>
 		</div>
 
-		<div class="single-product-text-image-wrapper">
+		<div class="single-product-image-text-wrapper single-product-text-image-wrapper">
 			<?php get_template_part('template-parts/custom/single-product/content', 'text-image-section'); ?>
-		</div>
-
-		<div class="single-product-image-text-wrapper">
-			<?php get_template_part('template-parts/custom/single-product/content', 'image-text-section'); ?>
+			<?php //get_template_part('template-parts/custom/single-product/content', 'image-text-section'); ?>
 		</div>
 
 		<div class="single-product-facility-wrapper">

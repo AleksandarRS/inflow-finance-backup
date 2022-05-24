@@ -320,15 +320,19 @@ class FrmProFieldsHelper {
 
 	/**
 	 * @since 2.0.8
+	 *
+	 * @param array $args
+	 * @return int
 	 */
 	private static function do_auto_id_shortcode( $args ) {
 		$last_entry = FrmProEntryMetaHelper::get_max( $args['field'] );
-		$start = isset( $args['shortcode_atts']['start'] ) ? absint( $args['shortcode_atts']['start'] ) : false;
+		$start      = isset( $args['shortcode_atts']['start'] ) ? absint( $args['shortcode_atts']['start'] ) : false;
 
-		if ( ! $last_entry && $start !== false ) {
-			$new_value = $start;
+		if ( ! $last_entry ) {
+			$new_value = false === $start ? 1 : $start;
 		} else {
-			$new_value = max( $start, absint( $last_entry ) + 1 );
+			$step      = isset( $args['shortcode_atts']['step'] ) ? absint( $args['shortcode_atts']['step'] ) : 1;
+			$new_value = max( $start, absint( $last_entry ) + $step );
 		}
 
 		return $new_value;

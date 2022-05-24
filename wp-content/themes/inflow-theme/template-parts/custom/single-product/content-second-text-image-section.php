@@ -4,7 +4,7 @@
     
 ?>
 <?php  if ( $add_image || $add_text_content ) : ?>
-    <section class="text-image text-image-single-product wow fadeIn" data-wow-delay="0.2s" data-wow-duration="1s">        
+    <section class="second-part-of-product text-image text-image-single-product wow fadeIn" data-wow-delay="0.2s" data-wow-duration="1s">        
         <div class="container">
             <div class="row text-image-row">
                 <?php  if ( $add_image ) : ?>

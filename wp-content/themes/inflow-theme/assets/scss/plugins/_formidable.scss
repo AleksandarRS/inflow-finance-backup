@@ -32,6 +32,15 @@
 		}
 	}
 }
+.checkbox-label {
+	display: block;
+	position: relative;
+	input[type="checkbox"] {
+		position: absolute;
+		left: 6px;
+    	top: 11px;
+	}
+}
 .checkbox-label,
 .frm_radio, 
 .frm_checkbox {
@@ -58,7 +67,7 @@
 	input {
 		opacity: 0;
 		position: absolute;
-		visibility: hidden;
+		// visibility: hidden;
 		+ span {
 			align-items: center;
 			border: 2px solid $white;

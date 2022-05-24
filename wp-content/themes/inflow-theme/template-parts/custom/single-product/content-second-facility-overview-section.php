@@ -4,7 +4,7 @@
 
 	$short_section_description_fo = get_field('short_section_description_fo_c');
 ?>
-<section class="facility-overview facility-overview-single-product wow fadeIn" data-wow-delay="0.2s" data-wow-duration="1s">
+<section class="second-part-of-product facility-overview facility-overview-single-product wow fadeIn" data-wow-delay="0.2s" data-wow-duration="1s">
     <?php if ( (have_rows('first_box_details_list_c')) || (have_rows('second_box_details_list_s_c')) || $short_section_description_fo ): ?>
         <div class="facility-overview-wrapper relative"<?php if ( $section_background_color_fo ) : ?> style="background-color:<?php echo $section_background_color_fo; ?>"<?php endif; ?>>
             <div class="section-background-image"<?php  if ( $section_background_image_fo ) : ?> style="background-image: url(<?php echo esc_url($section_background_image_fo['url']); ?>);" role="img" aria-label="<?php echo esc_attr($section_background_image_fo['alt']); ?>"<?php endif; ?>></div>
