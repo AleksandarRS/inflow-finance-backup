@@ -9,6 +9,7 @@ $section_short_description = get_sub_field('section_short_description');
 $section_background_image = get_sub_field('section_background_image');
 
 $section_main_image = get_sub_field('section_main_image');
+$section_mobile_image = get_sub_field('section_mobile_image');
 ?>
 <section class="hero-section hero-section-large wow fadeIn" data-wow-delay="0.2s" data-wow-duration="1s">
     <div class="hero-section-wrapper relative">
@@ -17,10 +18,20 @@ $section_main_image = get_sub_field('section_main_image');
         <?php endif; ?>
             <div class="hero-image-content wow fadeInUp" data-wow-delay="0.4s" data-wow-duration="1s">
                 <?php  if ( $section_main_image ) : ?>
+                    <?php  if ( $section_mobile_image ) : ?>
+                        <div class="mobile-hero-image">
+                            <img src="<?php echo esc_url($section_mobile_image['url']); ?>" alt="<?php echo esc_attr($section_mobile_image['alt']); ?>">
+                        </div>
+                    <?php endif; ?>
                     <div id="lottie-hero-static" class="hero-image-wrap">
                         <img src="<?php echo esc_url($section_main_image['url']); ?>" alt="<?php echo esc_attr($section_main_image['alt']); ?>">
                     </div>
                 <?php else: ?>
+                    <?php  if ( $section_mobile_image ) : ?>
+                        <div class="mobile-hero-image">
+                            <img src="<?php echo esc_url($section_mobile_image['url']); ?>" alt="<?php echo esc_attr($section_mobile_image['alt']); ?>">
+                        </div>
+                    <?php endif; ?>
                     <div id="lottie-hero" class="hero-image-wrap"></div>
                 <?php endif; ?>
             </div>

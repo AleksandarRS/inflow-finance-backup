@@ -286,3 +286,19 @@
         opacity: 0;
     }
 }
+
+#lottie-hero {
+    @include max-mq ($mb - 1px) {
+        display: none;
+    }
+}
+.mobile-hero-image {
+    @include min-mq ($mb) {
+        display: none;
+    }
+    img,
+    svg {
+        width: 100%;
+        display: block;
+    }
+}

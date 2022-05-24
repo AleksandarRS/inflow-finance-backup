@@ -8557,6 +8557,24 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   }
 }
 
+@media (max-width: 479px) {
+  #lottie-hero {
+    display: none;
+  }
+}
+
+@media (min-width: 480px) {
+  .mobile-hero-image {
+    display: none;
+  }
+}
+
+.mobile-hero-image img,
+.mobile-hero-image svg {
+  width: 100%;
+  display: block;
+}
+
 .hero-section.hero-section-smaller .hero-section-background-image {
   background-image: url("../assets/images/inflow-finance-default-header-hero-background.svg");
 }
