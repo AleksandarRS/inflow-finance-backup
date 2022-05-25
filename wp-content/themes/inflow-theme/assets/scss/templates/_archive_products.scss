@@ -23,7 +23,7 @@
     }
     &.archive-posts-cards-items {
         // visibility: hidden;
-        @include min-mq ($wow_hiddne) {
+        @include min-mq ($wow_hidden) {
             visibility: hidden;
         }
         .post-type-archive & {

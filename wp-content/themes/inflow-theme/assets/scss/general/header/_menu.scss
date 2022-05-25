@@ -172,6 +172,9 @@
 							content: none;
 						}
 					}
+					&:hover{
+						color: $primary-color;
+					}
 					&.current-menu-ancestor,
 					&.current-menu-item {
 						> a {
@@ -226,13 +229,6 @@
 								}
 							}
 						}
-						
-					}
-
-					
-
-					&:hover{
-						color: $primary-color;
 					}
 	
 					a {
@@ -307,10 +303,18 @@
 						padding-left: 0;
 						padding-right: 0;
 					}
+					&.current-menu-item {
+						a {
+							color: $secondary-color;
+							&:hover {
+								color: $primary-color;
+							}
+						}
+					}
 					a {
 						padding: 13px 20px;
 						text-transform: none;
-						font-size: $font-size-small;
+						font-size: $font-size-small - 0.0125;
 						letter-spacing: 0.5px;
 						line-height: 1.3;
 						@include max-mq($lg - 1) {
@@ -319,6 +323,10 @@
 							padding: 10px 10px;
 							vertical-align: middle;
 							width: 100%;
+						}
+						&:after,
+						&:before {
+							display: none !important;
 						}
 					}
 	

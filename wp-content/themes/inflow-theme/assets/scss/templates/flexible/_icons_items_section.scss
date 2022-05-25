@@ -14,7 +14,7 @@
     @include max-mq ($ip) {
         padding-top: 35px;
     }
-    @include min-mq ($wow_hiddne) {
+    @include min-mq ($wow_hidden) {
         visibility: hidden;
     }
 }

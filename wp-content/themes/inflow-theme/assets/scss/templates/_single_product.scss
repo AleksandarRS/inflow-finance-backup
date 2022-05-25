@@ -174,7 +174,7 @@
 
 .key-features-single-product {
     // visibility: hidden;
-    @include min-mq ($wow_hiddne) {
+    @include min-mq ($wow_hidden) {
         visibility: hidden;
     }
     .key-features-row {
@@ -984,7 +984,7 @@
     right: 0;
     position: static;
     // visibility: hidden;
-    // @include min-mq ($wow_hiddne) {
+    // @include min-mq ($wow_hidden) {
     //     visibility: hidden;
     // }
     @include max-mq ($sm - 10) {
@@ -1073,7 +1073,7 @@
 
 .bespoke-section.bespoke-single-product {
     // visibility: hidden;
-    @include min-mq ($wow_hiddne) {
+    @include min-mq ($wow_hidden) {
         visibility: hidden;
     }
 }

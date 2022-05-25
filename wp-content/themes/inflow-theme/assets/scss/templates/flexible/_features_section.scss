@@ -56,6 +56,9 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        @include max-mq ($sm) {
+            margin-top: 10px;
+        }
     }
     .features-item-heading-text-decription {
         h1, h2, h3, h4, h5, h6 {

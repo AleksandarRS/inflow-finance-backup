@@ -2,7 +2,7 @@
     position: relative;
     padding-top: 130px;
     // visibility: hidden;
-    @include min-mq ($wow_hiddne) {
+    @include min-mq ($wow_hidden) {
         visibility: hidden;
     }
     @include max-mq ($lg) {

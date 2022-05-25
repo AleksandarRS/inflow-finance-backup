@@ -1,7 +1,7 @@
 .blog-hero-section {
     padding-top: 193px;
     // visibility: hidden;
-    @include min-mq ($wow_hiddne) {
+    @include min-mq ($wow_hidden) {
         visibility: hidden;
     }
     @include max-mq ($mac + 50) {
@@ -67,7 +67,7 @@
 .blog-page-latest-posts-content-wrapper {
     padding-bottom: 35px;
     // visibility: hidden;
-    @include min-mq ($wow_hiddne) {
+    @include min-mq ($wow_hidden) {
         visibility: hidden;
     }
 }
@@ -85,7 +85,7 @@
     .featured-posts-content-inner {
         display: flex;
         // visibility: hidden;
-        @include min-mq ($wow_hiddne) {
+        @include min-mq ($wow_hidden) {
             visibility: hidden;
         }
         @include max-mq ($sm) {

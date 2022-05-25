@@ -103,7 +103,7 @@
 .content-area {
     width: 100%;
     .text-content-section {
-        @include min-mq ($wow_hiddne) {
+        @include min-mq ($wow_hidden) {
             visibility: hidden;
         }
         ul {

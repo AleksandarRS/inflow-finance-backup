@@ -1,0 +1,43 @@
+.large-text-section {
+    @include min-mq ($wow_hidden) {
+        visibility: hidden;
+    }
+}
+.large-text-section-wrapper-inner {
+    padding-bottom: 64px;
+    padding-top: 64px;
+    @include max-mq ($md) {
+        padding-bottom: 50px;
+        padding-top: 50px;
+    }
+    @include max-mq ($mb) {
+        padding-bottom: 30px;
+        padding-top: 30px;
+    }
+    .large-text-section-description {
+        max-width: 100%;
+        p {
+            font-size: clamp(28px,4.5vw,40px);
+            line-height: 1.37;
+        }
+    }
+    .large-text-section-content-column {
+        padding-top: 11px;
+        @include max-mq ($md) {
+            padding-top: 0;
+        }
+    }
+    .large-text-section-content-column-right {
+        @include min-mq ($lt) {
+            padding-left: 39px;
+        }
+    }
+    .button-wrapper {
+        padding-bottom: 34px;
+        padding-top: 56px;
+        @include max-mq ($md) {
+            // padding-bottom: 14px;
+            padding-top: 25px;
+        }
+    }
+}
