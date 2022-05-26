@@ -1,24 +1,47 @@
-.large-text-section {
+.site-main .large-text-section {
+    overflow: visible;
     @include min-mq ($wow_hidden) {
         visibility: hidden;
     }
+    + .icons-items-section {
+        position: relative;
+
+    }
 }
 .large-text-section-wrapper-inner {
-    padding-bottom: 64px;
-    padding-top: 64px;
-    @include max-mq ($md) {
-        padding-bottom: 50px;
-        padding-top: 50px;
+    .large-text-row {
+        padding-bottom: 64px;
+        padding-top: 69px;
+        position: relative;
+        @include max-mq ($md) {
+            padding-bottom: 50px;
+            padding-top: 50px;
+            
+        }
+        @include max-mq ($mb) {
+            padding-bottom: 30px;
+            padding-top: 30px;
+        }
     }
-    @include max-mq ($mb) {
-        padding-bottom: 30px;
-        padding-top: 30px;
+    .large-text-container-narrow-wide {
+        @include max-mq ($md) {
+            max-width: 760px;
+        }
+        @include max-mq ($tab - 5) {
+            max-width: 650px;
+        }
+    }
+    .large-text-section-container {
+        max-width: $container-width + 100px;
     }
     .large-text-section-description {
         max-width: 100%;
         p {
             font-size: clamp(28px,4.5vw,40px);
             line-height: 1.37;
+            @include max-mq ($md) {
+                font-size: clamp(27px,4.5vw,35px);
+            }
         }
     }
     .large-text-section-content-column {
@@ -34,10 +57,77 @@
     }
     .button-wrapper {
         padding-bottom: 34px;
-        padding-top: 56px;
+        padding-top: 34px;
         @include max-mq ($md) {
-            // padding-bottom: 14px;
             padding-top: 25px;
         }
+        @include max-mq ($mb) {
+            padding-left: 0;
+            padding-right: 0;
+        }
+        @include max-mq ($ip - 20) {
+            padding-top: 15px;
+        }
+    }
+    .street-light-image-animation {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        @include max-mq ($fhd) {
+            bottom: -50px;
+        }
+        @include max-mq ($lg) {
+            left: -50px;
+        }
+        @include max-mq ($lg - 100px) {
+            bottom: -60px;
+            left: -80px;
+        }
+        @include max-mq ($ipad) {
+            left: -100px;
+        }
+        @include max-mq ($md) {
+            bottom: -100px;
+            // left: -110px;
+        }
+        @include max-mq ($md) {
+            bottom: -100px;
+            left: -110px;
+        }
+        @include max-mq ($sm) {
+            display: none;
+        }
+        svg {
+            display: block;
+            @include max-mq ($sm) {
+                display: none;
+            }
+        }
+    }
+}
+
+#animated-light,
+.large-text-section-description p {
+    animation: on-off 20s ease-out 3s infinite;
+    @include max-mq ($sm) {
+        animation: none;
+    }
+}
+@keyframes on-off {
+    0% {
+        color: $secondary-color;
+        fill: #FFF0D1;
+    }
+    50% {
+        color: $secondary-color;
+        fill: #FFF0D1;
+    }
+    55% {
+        color: $primary-color;
+        fill: transparent;
+    }
+    100% {
+        color: $primary-color;
+        fill: transparent;
     }
 }

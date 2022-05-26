@@ -246,20 +246,30 @@
                 max-width: 100%;
             }
         }
+        .key-features-main-image-wrap {
+            text-align: center;
+            padding-right: 15px;
+            @include min-mq ($ls) {
+                padding-right: 25px;
+            }
+            @include min-mq ($mac) {
+                padding-right: 50px;
+            }
+            @include max-mq ($sm) {
+                padding-right: 0;
+                
+            }
+            @include max-mq ($mb) {
+                margin-left: auto;
+                margin-right: auto;
+                max-width: 200px;
+            }
+            @include max-mq ($ip) {
+                max-width: 175px;
+            }
+        }
     }
-    .key-features-main-image-wrap {
-        text-align: center;
-        padding-right: 15px;
-        @include min-mq ($ls) {
-            padding-right: 25px;
-        }
-        @include min-mq ($mac) {
-            padding-right: 50px;
-        }
-        @include max-mq ($sm) {
-            padding-right: 0;
-        }
-    }
+    
     .key-features-main-list {
         padding-bottom: 12px;
         .key-features-main-list-item {
@@ -377,6 +387,9 @@
             max-width: 340px;
             margin-left: auto;
             margin-right: auto;
+        }
+        @include max-mq ($mb) {
+            max-width: 200px;
         }
     }
     .section-description-inner {
@@ -524,6 +537,16 @@
     }
 }
 
+.key-list-footnote-item {
+    padding-top: 10px;
+    @include max-mq ($sm) {
+        padding-bottom: 15px;
+    }
+    p {
+        font-size: $font-size-base - 0.1;
+        margin-bottom: 0;
+    }
+}
 
 .facility-overview-wrapper {
     background-color: $gray-100;
@@ -905,7 +928,7 @@
                 // }
             }
             &:last-child {
-                font-weight: $font-weight-m;
+                // font-weight: $font-weight-m;
                 max-width: 220px;
                 padding-left: 5px;
                 text-align: right;

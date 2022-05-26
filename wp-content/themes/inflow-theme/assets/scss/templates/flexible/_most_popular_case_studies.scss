@@ -119,6 +119,8 @@
             }
         }
         .post-heading-excerpt-wraper {
+            padding-left: 10px;
+            padding-right: 10px;
             &.next-section-here {
                 padding-bottom: 130px;
                 // @include max-mq ($md) {

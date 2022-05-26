@@ -3888,16 +3888,16 @@ h6 {
     -webkit-box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
     border-radius: 20px;
-    left: -50px;
+    left: 0;
     margin: auto;
     opacity: 0;
     padding: 0;
     position: absolute;
     right: -50px;
-    text-align: center;
+    text-align: left;
     top: 99%;
     visibility: hidden;
-    width: 223px;
+    width: 243px;
     z-index: 10;
   }
 }
@@ -4094,6 +4094,12 @@ h6 {
 @media (min-width: 2070px) {
   .container-wide {
     max-width: 2000px;
+  }
+}
+
+@media (max-width: 1680px) {
+  .container-wide {
+    max-width: 1450px;
   }
 }
 
@@ -4336,13 +4342,13 @@ div.cli-tab-footer .wt-cli-privacy-accept-btn:hover {
   text-align: right;
 }
 
-@media (min-width: 1440px) {
+@media (min-width: 1680px) {
   .site-footer .site-info {
-    max-width: 10%;
+    max-width: 12%;
     -webkit-box-flex: 0;
-    -webkit-flex: 0 0 10%;
-        -ms-flex: 0 0 10%;
-            flex: 0 0 10%;
+    -webkit-flex: 0 0 12%;
+        -ms-flex: 0 0 12%;
+            flex: 0 0 12%;
   }
 }
 
@@ -4355,6 +4361,12 @@ div.cli-tab-footer .wt-cli-privacy-accept-btn:hover {
     max-width: 100%;
     padding-bottom: 10px;
     text-align: center;
+  }
+}
+
+@media (min-width: 1199px) and (max-width: 1229px) {
+  .site-footer .site-info > div {
+    padding-left: 0;
   }
 }
 
@@ -4378,13 +4390,13 @@ div.cli-tab-footer .wt-cli-privacy-accept-btn:hover {
           align-items: center;
 }
 
-@media (min-width: 1440px) {
+@media (min-width: 1680px) {
   .site-footer .footer-column-2 {
-    max-width: 90%;
+    max-width: 88%;
     -webkit-box-flex: 0;
-    -webkit-flex: 0 0 90%;
-        -ms-flex: 0 0 90%;
-            flex: 0 0 90%;
+    -webkit-flex: 0 0 88%;
+        -ms-flex: 0 0 88%;
+            flex: 0 0 88%;
   }
 }
 
@@ -4411,7 +4423,7 @@ div.cli-tab-footer .wt-cli-privacy-accept-btn:hover {
   }
 }
 
-@media (max-width: 1280px) {
+@media (max-width: 1680px) {
   .site-footer .footer-column-2 .widget_nav_menu {
     margin-left: 15px;
   }
@@ -4442,7 +4454,7 @@ div.cli-tab-footer .wt-cli-privacy-accept-btn:hover {
   letter-spacing: 2px;
 }
 
-@media (min-width: 1280px) {
+@media (min-width: 1680px) {
   .site-footer .footer-column-2 .widget_nav_menu li {
     letter-spacing: 4px;
   }
@@ -8019,6 +8031,23 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 .custom-form-elements-position .frm_forms {
   padding-top: 15px;
+  min-height: 485px;
+}
+
+@media (max-width: 600px) {
+  .custom-form-elements-position .frm_forms {
+    min-height: 20px;
+  }
+}
+
+.custom-form-elements-position .frm_forms .frm_message {
+  margin-top: 150px;
+}
+
+@media (max-width: 600px) {
+  .custom-form-elements-position .frm_forms .frm_message {
+    margin-top: 20px;
+  }
 }
 
 .custom-form-elements-position .frm_form_fields {
@@ -9135,7 +9164,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  height: 91px;
+  height: 80px;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
       -ms-flex-pack: center;
@@ -9143,7 +9172,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   margin-bottom: 10px;
   margin-left: auto;
   margin-right: auto;
-  max-width: 87px;
+  max-width: 77px;
   overflow: hidden;
   padding-bottom: 0;
   text-align: center;
@@ -9485,6 +9514,11 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 .posts-cards-items.case-study-post-cards-items .posts-cards-case-study-item .post-prediction-item:last-child .post-prediction-item-number p {
   text-transform: none;
+}
+
+.posts-cards-items.case-study-post-cards-items .posts-cards-case-study-item .post-heading-excerpt-wraper {
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .posts-cards-items.case-study-post-cards-items .posts-cards-case-study-item .post-heading-excerpt-wraper.next-section-here {
@@ -10401,6 +10435,12 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   }
 }
 
+@media (max-width: 480px) {
+  .image-text-main-image-wrapper .image-text-main-image-list-inner {
+    max-width: 170px;
+  }
+}
+
 .single-case-study-similar-work-wrapper {
   padding-bottom: 50px;
   padding-top: 69px;
@@ -10445,29 +10485,54 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   }
 }
 
+.site-main .large-text-section {
+  overflow: visible;
+}
+
 @media (min-width: 767px) {
-  .large-text-section {
+  .site-main .large-text-section {
     visibility: hidden;
   }
 }
 
-.large-text-section-wrapper-inner {
+.site-main .large-text-section + .icons-items-section {
+  position: relative;
+}
+
+.large-text-section-wrapper-inner .large-text-row {
   padding-bottom: 64px;
-  padding-top: 64px;
+  padding-top: 69px;
+  position: relative;
 }
 
 @media (max-width: 991px) {
-  .large-text-section-wrapper-inner {
+  .large-text-section-wrapper-inner .large-text-row {
     padding-bottom: 50px;
     padding-top: 50px;
   }
 }
 
 @media (max-width: 480px) {
-  .large-text-section-wrapper-inner {
+  .large-text-section-wrapper-inner .large-text-row {
     padding-bottom: 30px;
     padding-top: 30px;
   }
+}
+
+@media (max-width: 991px) {
+  .large-text-section-wrapper-inner .large-text-container-narrow-wide {
+    max-width: 760px;
+  }
+}
+
+@media (max-width: 795px) {
+  .large-text-section-wrapper-inner .large-text-container-narrow-wide {
+    max-width: 650px;
+  }
+}
+
+.large-text-section-wrapper-inner .large-text-section-container {
+  max-width: 1270px;
 }
 
 .large-text-section-wrapper-inner .large-text-section-description {
@@ -10477,6 +10542,12 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 .large-text-section-wrapper-inner .large-text-section-description p {
   font-size: clamp(28px, 4.5vw, 40px);
   line-height: 1.37;
+}
+
+@media (max-width: 991px) {
+  .large-text-section-wrapper-inner .large-text-section-description p {
+    font-size: clamp(27px, 4.5vw, 35px);
+  }
 }
 
 .large-text-section-wrapper-inner .large-text-section-content-column {
@@ -10497,12 +10568,137 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 .large-text-section-wrapper-inner .button-wrapper {
   padding-bottom: 34px;
-  padding-top: 56px;
+  padding-top: 34px;
 }
 
 @media (max-width: 991px) {
   .large-text-section-wrapper-inner .button-wrapper {
     padding-top: 25px;
+  }
+}
+
+@media (max-width: 480px) {
+  .large-text-section-wrapper-inner .button-wrapper {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+@media (max-width: 400px) {
+  .large-text-section-wrapper-inner .button-wrapper {
+    padding-top: 15px;
+  }
+}
+
+.large-text-section-wrapper-inner .street-light-image-animation {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+}
+
+@media (max-width: 1920px) {
+  .large-text-section-wrapper-inner .street-light-image-animation {
+    bottom: -50px;
+  }
+}
+
+@media (max-width: 1199px) {
+  .large-text-section-wrapper-inner .street-light-image-animation {
+    left: -50px;
+  }
+}
+
+@media (max-width: 1099px) {
+  .large-text-section-wrapper-inner .street-light-image-animation {
+    bottom: -60px;
+    left: -80px;
+  }
+}
+
+@media (max-width: 1030px) {
+  .large-text-section-wrapper-inner .street-light-image-animation {
+    left: -100px;
+  }
+}
+
+@media (max-width: 991px) {
+  .large-text-section-wrapper-inner .street-light-image-animation {
+    bottom: -100px;
+  }
+}
+
+@media (max-width: 991px) {
+  .large-text-section-wrapper-inner .street-light-image-animation {
+    bottom: -100px;
+    left: -110px;
+  }
+}
+
+@media (max-width: 767px) {
+  .large-text-section-wrapper-inner .street-light-image-animation {
+    display: none;
+  }
+}
+
+.large-text-section-wrapper-inner .street-light-image-animation svg {
+  display: block;
+}
+
+@media (max-width: 767px) {
+  .large-text-section-wrapper-inner .street-light-image-animation svg {
+    display: none;
+  }
+}
+
+#animated-light,
+.large-text-section-description p {
+  -webkit-animation: on-off 20s ease-out 3s infinite;
+          animation: on-off 20s ease-out 3s infinite;
+}
+
+@media (max-width: 767px) {
+  #animated-light,
+  .large-text-section-description p {
+    -webkit-animation: none;
+            animation: none;
+  }
+}
+
+@-webkit-keyframes on-off {
+  0% {
+    color: #FFB958;
+    fill: #FFF0D1;
+  }
+  50% {
+    color: #FFB958;
+    fill: #FFF0D1;
+  }
+  55% {
+    color: #262727;
+    fill: transparent;
+  }
+  100% {
+    color: #262727;
+    fill: transparent;
+  }
+}
+
+@keyframes on-off {
+  0% {
+    color: #FFB958;
+    fill: #FFF0D1;
+  }
+  50% {
+    color: #FFB958;
+    fill: #FFF0D1;
+  }
+  55% {
+    color: #262727;
+    fill: transparent;
+  }
+  100% {
+    color: #262727;
+    fill: transparent;
   }
 }
 
@@ -11888,26 +12084,40 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   }
 }
 
-.key-features-single-product .key-features-main-image-wrap {
+.key-features-single-product .key-features-main-image-list-inner .key-features-main-image-wrap {
   text-align: center;
   padding-right: 15px;
 }
 
 @media (min-width: 1280px) {
-  .key-features-single-product .key-features-main-image-wrap {
+  .key-features-single-product .key-features-main-image-list-inner .key-features-main-image-wrap {
     padding-right: 25px;
   }
 }
 
 @media (min-width: 1440px) {
-  .key-features-single-product .key-features-main-image-wrap {
+  .key-features-single-product .key-features-main-image-list-inner .key-features-main-image-wrap {
     padding-right: 50px;
   }
 }
 
 @media (max-width: 767px) {
-  .key-features-single-product .key-features-main-image-wrap {
+  .key-features-single-product .key-features-main-image-list-inner .key-features-main-image-wrap {
     padding-right: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .key-features-single-product .key-features-main-image-list-inner .key-features-main-image-wrap {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 200px;
+  }
+}
+
+@media (max-width: 420px) {
+  .key-features-single-product .key-features-main-image-list-inner .key-features-main-image-wrap {
+    max-width: 175px;
   }
 }
 
@@ -12073,6 +12283,13 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     max-width: 340px;
     margin-left: auto;
     margin-right: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .text-image-and-image-text-rows-wrapper .text-image-main-image-wrap,
+  .text-image-and-image-text-rows-wrapper .image-text-main-image-wrap {
+    max-width: 200px;
   }
 }
 
@@ -12272,6 +12489,21 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   .content-area .section-description-large li:after {
     font-size: 1.3em;
   }
+}
+
+.key-list-footnote-item {
+  padding-top: 10px;
+}
+
+@media (max-width: 767px) {
+  .key-list-footnote-item {
+    padding-bottom: 15px;
+  }
+}
+
+.key-list-footnote-item p {
+  font-size: 0.9em;
+  margin-bottom: 0;
 }
 
 .facility-overview-wrapper {
@@ -12702,7 +12934,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 }
 
 .facility-overview-wrapper .facility-overview-second-table-wrap .facility-overview-table-cell:last-child {
-  font-weight: 500;
   max-width: 220px;
   padding-left: 5px;
   text-align: right;

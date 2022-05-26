@@ -23,26 +23,24 @@
                                 <h1 class="main-hero-title main-title wow fadeInDown" data-wow-delay="0.4s" data-wow-duration="1s"><?php echo inflow_archive_title(); ?></h1>
                             <?php endif; ?>
                         </header>
-                        <?php  if ( $product_page_description || $product_page_cta_button_link ) : ?>
-                            <div class="entry-content-button-wrapper">
-                                <?php  if ( $product_page_description ) : ?>
-                                    <div class="entry-content main-hero-description align-center wow fadeIn" data-wow-delay="0.4s" data-wow-duration="1s">
-                                        <?php echo $product_page_description; ?>
-                                    </div>
-                                <?php endif; ?>
-                                <?php
-                                    // if( $product_page_cta_button_link ): 
-                                    //     $link_url = $product_page_cta_button_link['url'];
-                                    //     $link_title = $product_page_cta_button_link['title'];
-                                    //     $link_target = $product_page_cta_button_link['target'] ? $product_page_cta_button_link['target'] : '_self';
-                                    ?>
-                                    <div class="button-wrapper align-center">
-                                        <!-- <a class="button button-secondary" href="<?php // echo esc_url( $link_url ); ?>" target="<?php // echo esc_attr( $link_target ); ?>"><?php // echo esc_html( $link_title ); ?></a> -->
-                                        <a class="button button-secondary smoothscroll wow fadeInUp" data-wow-delay="0.4s" data-wow-duration="1s" href="#cta-contact"><?php _e('Start your next property project', 'inflow') ?></a>
-                                    </div>
-                                <?php endif; ?>
+                        <div class="entry-content-button-wrapper">
+                            <?php  if ( $product_page_description ) : ?>
+                                <div class="entry-content main-hero-description align-center wow fadeIn" data-wow-delay="0.4s" data-wow-duration="1s">
+                                    <?php echo $product_page_description; ?>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                        <?php
+                            // if( $product_page_cta_button_link ): 
+                            //     $link_url = $product_page_cta_button_link['url'];
+                            //     $link_title = $product_page_cta_button_link['title'];
+                            //     $link_target = $product_page_cta_button_link['target'] ? $product_page_cta_button_link['target'] : '_self';
+                            ?>
+                            <div class="button-wrapper align-center">
+                                <!-- <a class="button button-secondary" href="<?php // echo esc_url( $link_url ); ?>" target="<?php // echo esc_attr( $link_target ); ?>"><?php // echo esc_html( $link_title ); ?></a> -->
+                                <a class="button button-secondary smoothscroll wow fadeInUp" data-wow-delay="0.4s" data-wow-duration="1s" href="#cta-contact"><?php _e('Start your next property project', 'inflow') ?></a>
                             </div>
-                        <?php // endif; ?>
+                        <?php //endif; ?>
                         
                     </div>
                 </div>

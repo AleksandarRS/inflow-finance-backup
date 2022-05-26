@@ -1,6 +1,16 @@
 .custom-form-elements-position {
 	.frm_forms {
 		padding-top: 15px;
+		min-height: 485px;
+		@include max-mq (600px) {
+			min-height: 20px;
+		}
+		.frm_message {
+			margin-top: 150px;
+			@include max-mq (600px) {
+				margin-top: 20px;
+			}
+		}
 	}
 	.frm_form_fields  {
 		position: relative;

@@ -20,27 +20,25 @@ $section_short_description = get_sub_field('section_short_description');
                                 <h1 class="main-hero-title main-title wow fadeInDown" data-wow-delay="0.4s" data-wow-duration="1s"><?php the_title(); ?></h1>
                             <?php endif; ?>
                         </header>
-                        <?php  if ( $section_short_description ) : ?>
-                            <div class="entry-content-button-wrapper">
-                                <?php  if ( $section_short_description ) : ?>
-                                    <div class="entry-content main-hero-description align-center align-center wow fadeIn" data-wow-delay="0.4s" data-wow-duration="1s">
-                                        <?php echo $section_short_description; ?>
-                                    </div>
-                                <?php endif; ?>
-                                <?php if ( get_sub_field('button_option') !== true ) : ?>
-                                    <?php
-                                        // if( $link ): 
-                                        //     $link_url = $link['url'];
-                                        //     $link_title = $link['title'];
-                                        //     $link_target = $link['target'] ? $link['target'] : '_self';
-                                        ?>
-                                        <div class="button-wrapper align-center">
-                                            <a class="button button-secondary smoothscroll wow fadeInUp" data-wow-delay="0.4s" data-wow-duration="1s" href="#cta-contact"><?php _e('Start your next property project', 'inflow') ?></a>
-                                            <!-- <a class="button button-secondary" href="<?php // echo esc_url( $link_url ); ?>" target="<?php // echo esc_attr( $link_target ); ?>"><?php // echo esc_html( $link_title ); ?></a> -->
-                                        </div>
-                                <?php // endif; ?>
-                                <?php endif; ?>
-                            </div>
+                        <div class="entry-content-button-wrapper">
+                            <?php  if ( $section_short_description ) : ?>
+                                <div class="entry-content main-hero-description align-center align-center wow fadeIn" data-wow-delay="0.4s" data-wow-duration="1s">
+                                    <?php echo $section_short_description; ?>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                        <?php if ( get_sub_field('button_option') !== true ) : ?>
+                            <?php
+                                // if( $link ): 
+                                //     $link_url = $link['url'];
+                                //     $link_title = $link['title'];
+                                //     $link_target = $link['target'] ? $link['target'] : '_self';
+                                ?>
+                                <div class="button-wrapper align-center">
+                                    <a class="button button-secondary smoothscroll wow fadeInUp" data-wow-delay="0.4s" data-wow-duration="1s" href="#cta-contact"><?php _e('Start your next property project', 'inflow') ?></a>
+                                    <!-- <a class="button button-secondary" href="<?php // echo esc_url( $link_url ); ?>" target="<?php // echo esc_attr( $link_target ); ?>"><?php // echo esc_html( $link_title ); ?></a> -->
+                                </div>
+                        <?php // endif; ?>
                         <?php endif; ?>
                         
                     </div>

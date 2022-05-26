@@ -25,8 +25,8 @@ let _this = module.exports = {
 
 			var animationHero = bodymovin.loadAnimation({
 				container: document.getElementById('lottie-hero'), // Required
-				path: '/inflow/wp-content/themes/inflow-theme/assets/json/inflow-hero-animation.json', // Required - local path
-				// path: '/wp-content/themes/inflow-theme/assets/json/inflow-hero-animation.json', // Required - server path
+				// path: '/inflow/wp-content/themes/inflow-theme/assets/json/inflow-hero-animation.json', // Required - local path
+				path: '/wp-content/themes/inflow-theme/assets/json/inflow-hero-animation.json', // Required - server path
 				renderer: 'svg', // Required
 				loop: true, // Optional
 				autoplay: true, // Optional
@@ -34,8 +34,8 @@ let _this = module.exports = {
 			});
 			var animationStep = bodymovin.loadAnimation({
 				container: document.getElementById('entry-step-animation'), // Required
-				path: '/inflow/wp-content/themes/inflow-theme/assets/json/gear-animation.json', // Required - local path
-				// path: '/wp-content/themes/inflow-theme/assets/json/gear-animation.json', // Required - server path
+				// path: '/inflow/wp-content/themes/inflow-theme/assets/json/gear-animation.json', // Required - local path
+				path: '/wp-content/themes/inflow-theme/assets/json/gear-animation.json', // Required - server path
 				renderer: 'svg', // Required
 				loop: true, // Optional
 				autoplay: true, // Optional

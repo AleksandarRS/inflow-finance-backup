@@ -35,6 +35,9 @@
     @include min-mq ($fhd + 150) {
         max-width: $container-width-wide + 350;
     }
+    @include max-mq ($mac_l) {
+        max-width: $container-width-wide - 200;
+    }
     @include max-mq ($mac + 50) {
         max-width: $container-width-wide - 390;
     }

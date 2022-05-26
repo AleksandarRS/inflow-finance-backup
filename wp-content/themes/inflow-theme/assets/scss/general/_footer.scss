@@ -30,9 +30,9 @@
         letter-spacing: 1.3px;
         max-width: 13%;
         text-align: right;
-        @include min-mq ($mac) {
-            max-width: 10%;
-            flex: 0 0 10%;
+        @include min-mq ($mac_l) {
+            max-width: 12%;
+            flex: 0 0 12%;
         }
         @include max-mq ($lg) {
             flex: 0 0 100%;
@@ -40,6 +40,11 @@
             padding-bottom: 10px;
             // padding-top: 10px;
             text-align: center;
+        }
+        > div {
+            @include min-max-mq($lg, $lg + 30) {
+                padding-left: 0;
+            }
         }
     }
     .widget_nav_menu {
@@ -50,9 +55,9 @@
         flex: 0 0 87%;
         display: flex;
         align-items: center;
-        @include min-mq ($mac) {
-            max-width: 90%;
-            flex: 0 0 90%;
+        @include min-mq ($mac_l) {
+            max-width: 88%;
+            flex: 0 0 88%;
         }
         @include max-mq ($lg) {
             max-width: 100%;
@@ -66,7 +71,7 @@
             @include min-mq ($mac) {
                 margin-left: 75px;
             }
-            @include max-mq ($ls) {
+            @include max-mq ($mac_l) {
                 margin-left: 15px;
             }
             @include max-mq ($lg) {
@@ -85,7 +90,7 @@
             li {
                 margin-left: 33px;
                 letter-spacing: 2px;
-                @include min-mq ($ls) {
+                @include min-mq ($mac_l) {
                     letter-spacing: 4px;
                 }
                 @include max-mq ($mac) {
