@@ -162,11 +162,11 @@
                 
             }
             .animated-words-wrap {
+                position: relative;
                 .hidden-word {
                     opacity: 0;
                     visibility: hidden;
                 }
-                position: relative;
                 .animated-word {
                     position: absolute;
                     left: 0;
@@ -256,12 +256,12 @@
 }
 
 .animated-word-I {
-    animation: pulse 4s infinite;
+    animation: pulse 6.5s infinite;
     animation-delay: 0s;
 }
 .animated-word-II {
-    animation: pulse-second 4s infinite;
-    animation-delay: 2s;
+    animation: pulse-second 6.5s infinite;
+    animation-delay: 3.25s;
 }
   
 @keyframes pulse {

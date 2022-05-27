@@ -8549,17 +8549,17 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 }
 
 .animated-word-I {
-  -webkit-animation: pulse 4s infinite;
-          animation: pulse 4s infinite;
+  -webkit-animation: pulse 6.5s infinite;
+          animation: pulse 6.5s infinite;
   -webkit-animation-delay: 0s;
           animation-delay: 0s;
 }
 
 .animated-word-II {
-  -webkit-animation: pulse-second 4s infinite;
-          animation: pulse-second 4s infinite;
-  -webkit-animation-delay: 2s;
-          animation-delay: 2s;
+  -webkit-animation: pulse-second 6.5s infinite;
+          animation: pulse-second 6.5s infinite;
+  -webkit-animation-delay: 3.25s;
+          animation-delay: 3.25s;
 }
 
 @keyframes pulse {
@@ -11429,10 +11429,32 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   }
 }
 
+.post-type-archive .posts-cards-items.archive-posts-cards-items {
+  padding-bottom: 50px;
+}
+
 @media (min-width: 1199px) and (max-width: 1335px) {
   .post-type-archive .posts-cards-items.archive-posts-cards-items {
     padding-left: 2vw;
     padding-right: 2vw;
+  }
+}
+
+@media (max-width: 1450px) {
+  .post-type-archive .posts-cards-items.archive-posts-cards-items {
+    padding-bottom: 100px;
+  }
+}
+
+@media (max-width: 1396px) {
+  .post-type-archive .posts-cards-items.archive-posts-cards-items {
+    padding-bottom: 140px;
+  }
+}
+
+@media (max-width: 991px) {
+  .post-type-archive .posts-cards-items.archive-posts-cards-items {
+    padding-bottom: 0;
   }
 }
 
@@ -11586,13 +11608,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   padding-top: 5px;
 }
 
-@media (max-width: 1440px) {
-  .posts-cards-items .posts-cards-list-item .post-product-excerpt {
-    padding-left: 32px;
-  }
-}
-
-@media (min-width: 1396px) {
+@media (min-width: 1440px) {
   .posts-cards-items .posts-cards-list-item .post-product-excerpt {
     padding-left: 64px;
   }

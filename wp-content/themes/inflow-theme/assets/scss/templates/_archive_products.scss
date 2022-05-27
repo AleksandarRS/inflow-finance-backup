@@ -27,9 +27,19 @@
             visibility: hidden;
         }
         .post-type-archive & {
+            padding-bottom: 50px;
             @include min-max-mq($lg, $ls + 55) {
                 padding-left: 2vw;
                 padding-right: 2vw;
+            }
+            @include max-mq ($mac + 10) {
+                padding-bottom: 100px;
+            }
+            @include max-mq ($lt + 10) {
+                padding-bottom: 140px;
+            }
+            @include max-mq ($md) {
+                padding-bottom: 0;
             }
         }
         .posts-cards-list-item {
@@ -116,12 +126,12 @@
             max-width: calc(100% - 300px);
             padding-left: 40px;
             padding-top: 5px;
-            @include max-mq ($mac) {
-                padding-left: 32px;
-            }
-            @include min-mq ($lt + 10)  {
+            @include min-mq ($mac)  {
                 padding-left: 64px;
             }
+            // @include max-mq ($mac) {
+            //     padding-left: 32px;
+            // }
             @include max-mq ($lg) {
                 padding-left: 25px;
             }
