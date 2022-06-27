@@ -100,11 +100,19 @@
 
     }
 }
+.faq-section-item-answer {
+    a {
+        text-decoration: underline;
+        font-weight: $font-weight-m;
+    }
+}
 .accordion-content {
     display: none;
     padding: 0 0 15px 52px;
     letter-spacing: -0.05px;
     p {
-        margin: 0;
+        &:last-of-type {
+            margin: 0;
+        }
     }
 }

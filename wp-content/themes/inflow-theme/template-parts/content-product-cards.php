@@ -9,6 +9,9 @@
 
 
 <?php
+
+	$product_featured_icon = get_field('add_product_featured_icon');
+
 	$product_prediction_item_title_a = get_field('product_prediction_item_title_a');
 	$product_prediction_item_title_b = get_field('product_prediction_item_title_b');
 	$product_prediction_item_title_c = get_field('product_prediction_item_title_c');
@@ -35,9 +38,14 @@
 <?php  if ( $add_hash_for_second ) : ?>
 	<div class="posts-cards-item col-md-4 wow fadeIn" data-wow-delay="0.35s" data-wow-duration="1s">
 		<a href="<?php the_permalink(); ?>" class="posts-cards-item-link">
-			<?php if( get_the_post_thumbnail() ): ?>
+			<?php //if( get_the_post_thumbnail() ): ?>
+				<!-- <div class="post-featured-img-wrap">
+					<?php //the_post_thumbnail(); ?>
+				</div> -->
+			<?php //else: ?>
+			<?php  if ( $product_featured_icon ) : ?>
 				<div class="post-featured-img-wrap">
-					<?php the_post_thumbnail(); ?>
+					<img src="<?php echo esc_url($product_featured_icon['url']); ?>" alt="<?php echo esc_attr($product_featured_icon['alt']); ?>">
 				</div>
 			<?php else: ?>
 				<div class="post-featured-img-wrap">
@@ -119,8 +127,8 @@
 				</div>
 			<?php else: ?>
 				<div class="post-featured-img-wrap">
-					<?php if( get_the_post_thumbnail() ): ?>
-						<?php the_post_thumbnail(); ?>
+					<?php  if ( $product_featured_icon ) : ?>
+						<img src="<?php echo esc_url($product_featured_icon['url']); ?>" alt="<?php echo esc_attr($product_featured_icon['alt']); ?>">
 					<?php else: ?>
 						<img src="<?php echo get_template_directory_uri(); ?>/assets/images/default-image.jpg" alt="Product alternative default image of Inflow Finance">
 					<?php endif; ?>
@@ -198,9 +206,14 @@
 <?php else: ?>
 	<div class="posts-cards-item col-md-4 wow fadeIn" data-wow-delay="0.35s" data-wow-duration="1s">
 		<a href="<?php the_permalink(); ?>" class="posts-cards-item-link">
-			<?php if( get_the_post_thumbnail() ): ?>
+			<?php //if( get_the_post_thumbnail() ): ?>
+				<!-- <div class="post-featured-img-wrap">
+					<?php //the_post_thumbnail(); ?>
+				</div> -->
+			<?php //else: ?>
+			<?php  if ( $product_featured_icon ) : ?>
 				<div class="post-featured-img-wrap">
-					<?php the_post_thumbnail(); ?>
+					<img src="<?php echo esc_url($product_featured_icon['url']); ?>" alt="<?php echo esc_attr($product_featured_icon['alt']); ?>">
 				</div>
 			<?php else: ?>
 				<div class="post-featured-img-wrap">

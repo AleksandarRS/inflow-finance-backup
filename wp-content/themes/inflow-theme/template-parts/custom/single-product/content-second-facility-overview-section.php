@@ -42,7 +42,7 @@
                                         <?php while ( have_rows('second_box_details_list_s_c') ) : the_row(); ?>
                                             <div class="facility-overview-table-item">
                                                 <div class="facility-overview-table-cell wow fadeInLeft" data-wow-delay="0.4s" data-wow-duration="1s"><?php the_sub_field('details_item_first_column_s_c'); ?></div>
-                                                <div class="facility-overview-table-cell wow fadeInRight" data-wow-delay="0.4s" data-wow-duration="1s"><?php the_sub_field('details_item_second_column_s_c'); ?><span class="cell-note"><?php the_sub_field('details_item_note'); ?></span></div>
+                                                <div class="facility-overview-table-cell wow fadeInRight" data-wow-delay="0.4s" data-wow-duration="1s"><?php the_sub_field('details_item_second_column_s_c'); ?><span class="cell-note"><?php the_sub_field('details_item_note_c'); ?></span></div>
                                                 
                                             </div>
                                         <?php endwhile; ?>

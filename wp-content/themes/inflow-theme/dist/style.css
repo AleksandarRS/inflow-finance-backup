@@ -9789,13 +9789,18 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   font-weight: 500;
 }
 
+.faq-section-item-answer a {
+  text-decoration: underline;
+  font-weight: 500;
+}
+
 .accordion-content {
   display: none;
   padding: 0 0 15px 52px;
   letter-spacing: -0.05px;
 }
 
-.accordion-content p {
+.accordion-content p:last-of-type {
   margin: 0;
 }
 
@@ -13237,6 +13242,10 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   position: absolute;
   top: 6px;
   width: 30px;
+}
+
+.bespoke-section-wrapper .bespoke-column-content-inner a {
+  font-weight: 500;
 }
 
 @media (min-width: 1280px) {

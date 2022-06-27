@@ -1,0 +1,30 @@
+<div class="newsletter-wrapper">
+	<header class="entry-header main-header col-md-12">
+    	<h3>Subscribe to our newsletter:</h3>
+	</header>
+	<div class="newsletter-label-input-options-wrapper">
+  		<div class="newsletter-label">
+			<label><p>Email</p></label>
+		</div>
+		<div class="newsletter-form-wrap">
+    		<input type="email" name="EMAIL" placeholder="example@mail.com" required />
+  			<button type="submit" value="Sign up"><i class="icon icon-arrow-right-large"></i></button>
+		</div>
+  		<div>
+			<label class="checkbox-label">
+    			<input type="checkbox" name="CHECKBOX" required /><span></span> I agree with a <a href="http://localhost/inflow/privacy-policy/">Politikom privatnosti.</a>
+			</label>
+		</div>
+		<div>
+			<label class="checkbox-label">
+        		<input name="_mc4wp_lists[]" type="checkbox" value="e3a698d855"> <span></span> I would like to be on a newsletter list
+			</label>
+		</div>
+	</div>
+</div>
+
+
+
+Note:
+Kreirao sam i Gloomaps, cisto da imam listi template-a koje treba da napravim, ali lakse je za pracenje sta sam do sada uradio (stranice plave boje su do sada uradjene)
+https://www.gloomaps.com/HGGAiDkCnx

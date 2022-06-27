@@ -9,6 +9,9 @@
 
 
 <?php
+
+	$product_featured_icon = get_field('add_product_featured_icon');
+
 	$product_prediction_item_title_a = get_field('product_prediction_item_title_a');
 	$product_prediction_item_title_b = get_field('product_prediction_item_title_b');
 	$product_prediction_item_title_c = get_field('product_prediction_item_title_c');
@@ -36,9 +39,14 @@
 	<div class="posts-cards-item posts-cards-list-item col-md-12 wow fadeInUp" data-wow-delay="0.4s" data-wow-duration="1s">
 		<a href="<?php the_permalink(); ?>" class="posts-cards-item-link">
 			<div class="product-card-thumbnail-wrap">
-				<?php if( get_the_post_thumbnail() ): ?>
+				<?php // if( get_the_post_thumbnail() ): ?>
+					<!-- <div class="post-featured-img-wrap">
+						<?php // the_post_thumbnail(); ?>
+					</div> -->
+				<?php // else: ?>
+				<?php  if ( $product_featured_icon ) : ?>
 					<div class="post-featured-img-wrap">
-						<?php the_post_thumbnail(); ?>
+						<img src="<?php echo esc_url($product_featured_icon['url']); ?>" alt="<?php echo esc_attr($product_featured_icon['alt']); ?>">
 					</div>
 				<?php else: ?>
 					<div class="post-featured-img-wrap">
@@ -119,7 +127,6 @@
 	</div>
 	<div class="posts-cards-item posts-cards-list-item col-md-12 wow fadeInUp" data-wow-delay="0.4s" data-wow-duration="1s">
 		<a href="<?php the_permalink(); ?><?php  if ( $add_hash_for_second ) : ?>#<?php echo $add_hash_for_second; ?><?php endif; ?>" class="posts-cards-item-link">
-			
 			<div class="product-card-thumbnail-wrap">
 				<?php  if ( $second_product_featured_image ) : ?>
 					<div class="post-featured-img-wrap">
@@ -127,8 +134,8 @@
 					</div>
 				<?php else: ?>
 					<div class="post-featured-img-wrap">
-						<?php if( get_the_post_thumbnail() ): ?>
-							<?php the_post_thumbnail(); ?>
+						<?php  if ( $product_featured_icon ) : ?>
+							<img src="<?php echo esc_url($product_featured_icon['url']); ?>" alt="<?php echo esc_attr($product_featured_icon['alt']); ?>">
 						<?php else: ?>
 							<img src="<?php echo get_template_directory_uri(); ?>/assets/images/default-image.jpg" alt="Product alternative default image of Inflow Finance">
 						<?php endif; ?>
@@ -212,9 +219,14 @@
 	<div class="posts-cards-item posts-cards-list-item col-md-12 wow fadeInUp" data-wow-delay="0.4s" data-wow-duration="1s">
 		<a href="<?php the_permalink(); ?>" class="posts-cards-item-link">
 			<div class="product-card-thumbnail-wrap">
-				<?php if( get_the_post_thumbnail() ): ?>
+				<?php // if( get_the_post_thumbnail() ): ?>
+					<!-- <div class="post-featured-img-wrap">
+						<?php // the_post_thumbnail(); ?>
+					</div> -->
+				<?php // else: ?>
+				<?php  if ( $product_featured_icon ) : ?>
 					<div class="post-featured-img-wrap">
-						<?php the_post_thumbnail(); ?>
+						<img src="<?php echo esc_url($product_featured_icon['url']); ?>" alt="<?php echo esc_attr($product_featured_icon['alt']); ?>">
 					</div>
 				<?php else: ?>
 					<div class="post-featured-img-wrap">

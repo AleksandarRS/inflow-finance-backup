@@ -1,3 +1,6 @@
+<?php 
+$add_case_study_section_link = get_field('add_case_study_section_link', 'option');
+?>
 <?php  $featured_blog_posts = get_field('choose_similar_case_studies');
     if( $featured_blog_posts ): ?>
     <div class="container-middle-wide-large">
@@ -8,9 +11,15 @@
             <div class="related-posts-section col-md-12 wow fadeInDown" data-wow-delay="0.4s" data-wow-duration="1s">
                 <header class="entry-header main-header">
                     <h3 class="section-title"><?php _e('Explore more of our work', 'inflow') ?></h3>
-                    <div class="post-product-read-more read-more-link-wrap link-wrap">
-                        <a href="#" class="link link-arrow link-secondary"><?php _e('See all case studies', 'inflow'); ?> <i class="icon icon-arrow-right-large"></i></a>
-                    </div>
+                        <?php if( $add_case_study_section_link ): 
+                            $link_url = $add_case_study_section_link['url'];
+                            $link_title = $add_case_study_section_link['title'];
+                            $link_target = $add_case_study_section_link['target'] ? $add_case_study_section_link['target'] : '_self';
+                        ?>
+                        <div class="post-product-read-more read-more-link-wrap link-wrap">
+                            <a href="<?php echo esc_url( $link_url ); ?>" class="link link-arrow link-secondary"><?php _e('See all case studies', 'inflow'); ?> <i class="icon icon-arrow-right-large"></i></a>
+                        </div>
+                    <?php endif; ?>
                 </header>
             </div>
             <div class="posts-items-cards-wrapper post-product-items-cards-wrapper col-md-12">
